@@ -3,7 +3,7 @@ package com.amaze.filemanager.test;
 import com.amaze.filemanager.R;
 import com.amaze.filemanager.activities.MainActivity;
 
-//import android.support.test.espresso.contrib.DrawerActions;
+import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -40,7 +40,7 @@ public class FileAndFolderManipulationTests {
     @Test
     public void createNewFile(){
 
-//        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
         onView(withText(storageText)).perform(click());
     }
