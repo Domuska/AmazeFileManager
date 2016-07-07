@@ -63,12 +63,13 @@ public class QuickAccessFileTests extends BaseTestClass{
         onView(withText(fileName)).perform(click());
         onView(withText(fileName)).perform(click());
 
+        //go to quick access
         Utils.openDrawer();
-
         onData(hasToString(quickAccessText))
                 .inAdapterView(withId(com.amaze.filemanager.R.id.menu_drawer))
                 .perform(click());
 
+        //assert file name is visible here
         onView(withText(fileName)).check(matches(isDisplayed()));
 
 //        Intents.release();

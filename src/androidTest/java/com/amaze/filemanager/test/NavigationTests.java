@@ -23,10 +23,14 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withChild;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anything;
+import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasToString;
@@ -118,6 +122,29 @@ public class NavigationTests {
         onView(withText(listViewText)).perform(click());
         assertGeneralTestingFolderVisible();
 
+    }
+
+    //it is presumed that at this point there is .../Testing folder
+    @Test
+    public void testBookmarking(){
+
+        //scroll to general testing folder
+        onView(allOf(withId(R.id.listView), isDisplayed()))
+                .perform(RecyclerViewActions.scrollTo(
+                        hasDescendant(withText(generalTestFolderName))
+                ));
+
+//        onView(withChild(withText(generalTestFolderName)))
+
+//        onView(allOf(withParent(withChild(withText(generalTestFolderName))),
+//                withClassName(endsWith("ImageButton")))).perform(click());
+//        onView(allOf(withParent(withChild(withText(generalTestFolderName))),
+
+        // ruutua ei scrollata tarpeeksi alas - viewiä ei voi klikata. Tsekkaa miten ruutua skrollattas
+        // alaspäin
+        onView(allOf(hasSibling(withChild(withText(generalTestFolderName))),
+                    withClassName(endsWith("ImageButton"))))
+                .perform(click());
     }
 
     private void assertGeneralTestingFolderVisible() {
