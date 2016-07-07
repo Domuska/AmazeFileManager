@@ -38,7 +38,7 @@ public class BaseTestClass {
         amazeTestFolderName = TestDataSource.amazeTestFolderName;
         sdcardText = "sdcard";
 
-        navigateToTestFolder();
+        Utils.navigateToTestFolder(generalTestFolderName);
 
         Utils.createFolderWithName(amazeTestFolderName);
         onView(withText(amazeTestFolderName)).perform(click());
@@ -47,7 +47,7 @@ public class BaseTestClass {
     @After
     public void tearDownTestingFolder(){
 
-        navigateToTestFolder();
+        Utils.navigateToTestFolder(generalTestFolderName);
 
         //remove the testing folder
         onView(withText(amazeTestFolderName)).perform(longClick());
@@ -56,24 +56,5 @@ public class BaseTestClass {
     }
 
 
-    private void navigateToTestFolder() {
 
-//        onView(withText(storageText)).perform(click());
-
-        onView(withId(R.id.home)).perform(click());
-
-        //at some point home was set to be in the OS file structure, not in sdcard
-//        onView(allOf(withId(R.id.listView), isDisplayed()))
-//                .perform(RecyclerViewActions.actionOnItem(
-//                        hasDescendant(withText("sdcard")), click()
-//                ));
-
-
-        //have to use the isDisplayed because there's actually two lists in the app open at this point
-        onView(allOf(withId(com.amaze.filemanager.R.id.listView), isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText(generalTestFolderName)), click()
-                ));
-
-    }
 }

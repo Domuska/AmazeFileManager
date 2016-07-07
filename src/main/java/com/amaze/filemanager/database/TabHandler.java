@@ -60,6 +60,13 @@ public class TabHandler extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    /**
+     * temporary clearing method for emptying database
+     */
+    public static void clearDatabase(Context context){
+        context.deleteDatabase(DATABASE_NAME);
+    }
+
     public void addTab(Tab tab) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_TAB_NO, tab.getTab());

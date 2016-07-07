@@ -51,7 +51,7 @@ public class NavigationTests {
     public void testSwipingBetweenTwoFolders(){
 
         //make sure we're on the leftmost screen
-        swipeToLeftScreen();
+        Utils.swipeToLeftScreen();
 
         //navigate one view into the images
         Utils.openDrawer();
@@ -60,7 +60,7 @@ public class NavigationTests {
                 .perform(click());
 
         //swipe into the other list
-        swipeToRightScreen();
+        Utils.swipeToRightScreen();
 
 
         Utils.openDrawer();
@@ -82,22 +82,16 @@ public class NavigationTests {
 //        onData(anything()).inAdapterView(withId(R.id.menu_drawer))
 //                .atPosition(11).perform(click());
 
-        swipeToLeftScreen();
+        Utils.swipeToLeftScreen();
         onView(withId(R.id.fullpath)).check(matches(allOf(isDisplayed(), withText(videosText))));
-        swipeToRightScreen();
+        Utils.swipeToRightScreen();
         onView(withId(R.id.fullpath)).check(matches(allOf(isDisplayed(), withText(recentFilesText))));
 
 
     }
 
 
-    private void swipeToRightScreen(){
-        onView(allOf(withId(R.id.pager), isDisplayed()))
-                .perform(swipeLeft());
-    }
 
-    private void swipeToLeftScreen(){
-        onView(allOf(withId(R.id.pager), isDisplayed()))
-                .perform(swipeRight());
-    }
+
+
 }
