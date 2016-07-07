@@ -85,4 +85,9 @@ public class Utils {
                 ));
 
     }
+
+    public static void openOverflowMenu(){
+        openActionBarOverflowOrOptionsMenu(
+                InstrumentationRegistry.getInstrumentation().getTargetContext());
+    }
 }

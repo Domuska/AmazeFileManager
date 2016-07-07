@@ -55,31 +55,10 @@ public class SetHomeTest{
 
         Utils.navigateToTestFolder(generalTestFolderName);
 
-//        Utils.createFolderWithName(amazeTestFolderName);
-//        onView(withText(amazeTestFolderName)).perform(click());
     }
 
     @After
-    public void tearDownTestingFolder(){
-
-//        Utils.navigateToTestFolder(generalTestFolderName);
-        //open overflow menu and select history to navigate back to /storage/emulated/0
-//        openActionBarOverflowOrOptionsMenu(
-//                InstrumentationRegistry.getInstrumentation().getTargetContext());
-//        onView(withText(historyText)).perform(click());
-//        onView(withText("/storage/emulated/0")).perform(click());
-
-
-        //go to Testing folder in sdcard
-//        onView(allOf(withId(com.amaze.filemanager.R.id.listView), isDisplayed()))
-//                .perform(RecyclerViewActions.actionOnItem(
-//                        hasDescendant(withText(generalTestFolderName)), click()
-//                ));
-//
-//        //remove the amazeTesting folder
-//        onView(withText(amazeTestFolderName)).perform(longClick());
-//        onView(withId(com.amaze.filemanager.R.id.delete)).perform(click());
-//        onView(withId(com.amaze.filemanager.R.id.buttonDefaultPositive)).perform(click());
+    public void tearDown(){
 
         //clear preferences
         PreferenceManager.
@@ -90,14 +69,13 @@ public class SetHomeTest{
         TabHandler.clearDatabase(myActivityRule.getActivity().getApplicationContext());
     }
 
+    /**
+     * before this test we should be in .../Testing folder, which is set as home
+     */
     @Test
     public void testSetHome(){
 
-//        Utils.createFolderWithName(newFolderName);
-//        onView(withText(newFolderName)).perform(click());
-
-        openActionBarOverflowOrOptionsMenu(
-                InstrumentationRegistry.getInstrumentation().getTargetContext());
+        Utils.openOverflowMenu();
 
         //set this folder as home
         onView(withText(setAsHomeText)).perform(click());
@@ -112,6 +90,7 @@ public class SetHomeTest{
         //go back to home
         onView(withId(R.id.home)).perform(click());
 
+        //assert we're at the .../Testing folder
         onView(allOf(withId(R.id.fullpath), isDisplayed()))
                 .check(matches(withText(endsWith(generalTestFolderName))));
     }

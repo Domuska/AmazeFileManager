@@ -1,5 +1,6 @@
 package com.amaze.filemanager.test;
 
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.helpers.Util;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -18,6 +20,8 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -32,10 +36,12 @@ import static org.hamcrest.Matchers.hasToString;
 public class NavigationTests {
 
     private String storageText, recentFilesText, videosText;
+    private String gridViewText, listViewText;
 
     @Rule
     public ActivityTestRule<MainActivity> myActivityRule =
             new ActivityTestRule<MainActivity>(MainActivity.class);
+    private String generalTestFolderName;
 
     @Before
     public void initStrings(){
@@ -45,6 +51,12 @@ public class NavigationTests {
                 .getResources().getString(R.string.recent);
         videosText = myActivityRule.getActivity().getApplicationContext()
                 .getResources().getString(R.string.videos);
+        generalTestFolderName = TestDataSource.generalTestFolderName;
+
+        gridViewText =
+                myActivityRule.getActivity().getApplicationContext().getString(R.string.gridview);
+        listViewText =
+                myActivityRule.getActivity().getApplicationContext().getString(R.string.listview);
     }
 
     @Test
@@ -61,7 +73,6 @@ public class NavigationTests {
 
         //swipe into the other list
         Utils.swipeToRightScreen();
-
 
         Utils.openDrawer();
 
@@ -90,8 +101,34 @@ public class NavigationTests {
 
     }
 
+    @Test
+    public void testGridVIew(){
+        Utils.swipeToRightScreen();
 
+        //assert .../Testing is visible
+        assertGeneralTestingFolderVisible();
 
+        //switch to grid layout
+        Utils.openOverflowMenu();
+        onView(withText(gridViewText)).perform(click());
+        assertGeneralTestingFolderVisible();
+
+        //switch back to list layout
+        Utils.openOverflowMenu();
+        onView(withText(listViewText)).perform(click());
+        assertGeneralTestingFolderVisible();
+
+    }
+
+    private void assertGeneralTestingFolderVisible() {
+        onView(allOf(withId(R.id.listView), isDisplayed()))
+                .perform(RecyclerViewActions.scrollTo(
+                        hasDescendant(withText(generalTestFolderName))
+                ));
+
+        //not needed, if the above action scrolls down the text is there
+//        onView(withText(generalTestFolderName)).check(matches(isDisplayed()));
+    }
 
 
 }
