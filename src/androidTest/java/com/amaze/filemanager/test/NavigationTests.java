@@ -51,7 +51,7 @@ public class NavigationTests {
     public void testSwipingBetweenTwoFolders(){
 
         //make sure we're on the leftmost screen
-        swipeScreenRight();
+        swipeToLeftScreen();
 
         //navigate one view into the images
         Utils.openDrawer();
@@ -60,7 +60,7 @@ public class NavigationTests {
                 .perform(click());
 
         //swipe into the other list
-        swipeScreenLeft();
+        swipeToRightScreen();
 
 
         Utils.openDrawer();
@@ -70,9 +70,11 @@ public class NavigationTests {
                 .inAdapterView(withId(R.id.menu_drawer))
                 .perform(click());
 
+        //sadly does not work, might require some work
 //        onData(hasProperty("Title", equalTo(recentFilesText)))
 //                .inAdapterView(withId(R.id.menu_drawer))
 //                .perform(click());
+
         //löytää useampia resultteja, pitäs tarkentaa
 //        onData(allOf(is(instanceOf(EntryItem.class)))).perform(click());
 
@@ -80,21 +82,21 @@ public class NavigationTests {
 //        onData(anything()).inAdapterView(withId(R.id.menu_drawer))
 //                .atPosition(11).perform(click());
 
-        swipeScreenRight();
+        swipeToLeftScreen();
         onView(withId(R.id.fullpath)).check(matches(allOf(isDisplayed(), withText(videosText))));
-        swipeScreenLeft();
+        swipeToRightScreen();
         onView(withId(R.id.fullpath)).check(matches(allOf(isDisplayed(), withText(recentFilesText))));
 
 
     }
 
-    //0 for left, 1 for right
-    private void swipeScreenLeft(){
+
+    private void swipeToRightScreen(){
         onView(allOf(withId(R.id.pager), isDisplayed()))
                 .perform(swipeLeft());
     }
 
-    private void swipeScreenRight(){
+    private void swipeToLeftScreen(){
         onView(allOf(withId(R.id.pager), isDisplayed()))
                 .perform(swipeRight());
     }
