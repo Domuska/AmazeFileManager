@@ -1,35 +1,23 @@
 package com.amaze.filemanager.test;
 
-import android.widget.ImageView;
-
-import com.amaze.filemanager.database.TabHandler;
-
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.JUnitCore;
-
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import java.io.IOException;
+
 import java.net.URL;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
-import static junit.framework.Assert.assertTrue;
 
+// credit to http://qaautomated.blogspot.fi/2016/01/setting-up-appium-with-android-studio.html
+// for skeleton of this file and instructions on how to setup Appium with Android Studio
+public class BaseTestClass {
 
-public class testTest {
-
-    ImageView view;
-
-    AppiumDriver driver;
+//    AppiumDriver driver;
+    AndroidDriver driver;
 
     @Before
     public void setUp()throws  Exception
@@ -40,30 +28,17 @@ public class testTest {
         cap.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
         cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 5x 1");
         cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "4000");
-        cap.setCapability("platformVersion", "6.0.1");
+        cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "6.0.1");
         cap.setCapability("appPackage", "com.amaze.filemanager");
 //        cap.setCapability("appActivity", );
 //        cap.setCapability(MobileCapabilityType.APP, "c://apk//sample.apk");
-        cap.setCapability
-                ("app", "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
+        cap.setCapability(MobileCapabilityType.APP,
+                "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),cap);
-
-
-    }
-
-    @Test
-    public void testcase1() throws  Exception
-    {
-//        driver.findElement(By.id(""));
-        driver.findElement(By.xpath("//*[@text='Alarms']")).click();
-
-//        driver.findElementByID("Example").click();
-//        assertTrue(driver.findElementByID("Example").isDisplayed));
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
         driver.quit();
     }
 }
