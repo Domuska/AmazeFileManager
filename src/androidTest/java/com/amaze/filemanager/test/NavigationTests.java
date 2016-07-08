@@ -1,13 +1,18 @@
 package com.amaze.filemanager.test;
 
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.view.View;
 
 import com.amaze.filemanager.activities.MainActivity;
 import com.amaze.filemanager.R;
+import com.amaze.filemanager.ui.drawer.EntryItem;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,6 +36,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasToString;
@@ -41,11 +47,12 @@ public class NavigationTests {
 
     private String storageText, recentFilesText, videosText;
     private String gridViewText, listViewText;
+    private String generalTestFolderName;
 
     @Rule
     public ActivityTestRule<MainActivity> myActivityRule =
             new ActivityTestRule<MainActivity>(MainActivity.class);
-    private String generalTestFolderName;
+
 
     @Before
     public void initStrings(){
@@ -61,6 +68,8 @@ public class NavigationTests {
                 myActivityRule.getActivity().getApplicationContext().getString(R.string.gridview);
         listViewText =
                 myActivityRule.getActivity().getApplicationContext().getString(R.string.listview);
+
+
     }
 
     @Test
@@ -124,28 +133,7 @@ public class NavigationTests {
 
     }
 
-    //it is presumed that at this point there is .../Testing folder
-    @Test
-    public void testBookmarking(){
 
-        //scroll to general testing folder
-        onView(allOf(withId(R.id.listView), isDisplayed()))
-                .perform(RecyclerViewActions.scrollTo(
-                        hasDescendant(withText(generalTestFolderName))
-                ));
-
-//        onView(withChild(withText(generalTestFolderName)))
-
-//        onView(allOf(withParent(withChild(withText(generalTestFolderName))),
-//                withClassName(endsWith("ImageButton")))).perform(click());
-//        onView(allOf(withParent(withChild(withText(generalTestFolderName))),
-
-        // ruutua ei scrollata tarpeeksi alas - viewiä ei voi klikata. Tsekkaa miten ruutua skrollattas
-        // alaspäin
-        onView(allOf(hasSibling(withChild(withText(generalTestFolderName))),
-                    withClassName(endsWith("ImageButton"))))
-                .perform(click());
-    }
 
     private void assertGeneralTestingFolderVisible() {
         onView(allOf(withId(R.id.listView), isDisplayed()))
@@ -156,6 +144,7 @@ public class NavigationTests {
         //not needed, if the above action scrolls down the text is there
 //        onView(withText(generalTestFolderName)).check(matches(isDisplayed()));
     }
+
 
 
 }
