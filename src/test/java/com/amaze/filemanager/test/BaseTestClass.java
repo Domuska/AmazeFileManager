@@ -1,50 +1,40 @@
 package com.amaze.filemanager.test;
 
+import com.amaze.filemanager.test.Utilities.TestDataSource;
+import com.amaze.filemanager.test.Utilities.Utils;
+
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.WebElement;
 
-import java.net.URL;
+import io.appium.java_client.TouchAction;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
+public class BaseTestClass extends BaseAppiumTest{
 
-
-// credit to http://qaautomated.blogspot.fi/2016/01/setting-up-appium-with-android-studio.html
-// for skeleton of this file and instructions on how to setup Appium with Android Studio
-public class BaseTestClass {
-
-//    AppiumDriver driver;
-    AndroidDriver driver;
+    String amazeTestFolderName = TestDataSource.amazeTestFolderName;
 
     @Before
-    public void setUp()throws  Exception
-    {
-        //service.start();
-        //reader.readFile();
-        DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
-        cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 5x 1");
-        cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "4000");
-        cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "6.0.1");
-        cap.setCapability("appPackage", "com.amaze.filemanager");
-//        cap.setCapability("appActivity", );
-//        cap.setCapability(MobileCapabilityType.APP, "c://apk//sample.apk");
-        cap.setCapability(MobileCapabilityType.APP,
-                "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
+    public void setUplongbigassfuckingnamethatshouldtakeagestoreaddontdoit(){
+        //go to the testing folder in root of sdcard (hopefully)
+        Utils.navigateToTestingFolder(driver);
 
-        cap.setCapability(MobileCapabilityType.FULL_RESET, false);
-
-
-
-        driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
+        //create the testing folder
+        Utils.createFolderWithName(driver, amazeTestFolderName);
+        driver.findElementByName(amazeTestFolderName).click();
     }
 
     @After
-    public void tearDown() {
-        driver.quit();
+    public void tearDown(){
+
+        //move back from the folder we're in so we can push the home button
+        driver.navigate().back();
+        Utils.navigateToTestingFolder(driver);
+
+        //delete the testing folder
+        WebElement folder = driver.findElementByName(amazeTestFolderName);
+        TouchAction longPress = new TouchAction(driver);
+        longPress.longPress(folder, 2000).release().perform();
+        driver.findElementById("com.amaze.filemanager:id/delete").click();
+        driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
     }
 }

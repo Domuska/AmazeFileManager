@@ -1,6 +1,9 @@
 package com.amaze.filemanager.test.Utilities;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -10,6 +13,15 @@ public class Utils {
     private static String generalTestingFolder = "Testing";
 
     public static void navigateToTestingFolder(AndroidDriver driver){
+        //have to swipe up this pathBar since some times it is not visible
+        WebElement pathBar = driver.findElementById("com.amaze.filemanager:id/pathbar");
+        Dimension dimension = pathBar.getSize();
+        Point middlePoint = new Point(dimension.getWidth()/2, dimension.getHeight()/2);
+        Point targetPoint = new Point(middlePoint.getX(), middlePoint.getY() + dimension.getHeight());
+
+        driver.swipe(middlePoint.getX(), middlePoint.getY(),
+                targetPoint.getX(), targetPoint.getY(), 300);
+
         driver.findElement(By.id("com.amaze.filemanager:id/home")).click();
         clickInListWithName(driver, generalTestingFolder);
 
