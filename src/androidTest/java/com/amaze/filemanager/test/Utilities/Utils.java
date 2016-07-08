@@ -1,11 +1,20 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.Utilities;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 
 import com.amaze.filemanager.*;
 import com.amaze.filemanager.R;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -23,6 +32,8 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.endsWith;
 
 public class Utils {
+
+    private static String addToBookmark = "Add to Bookmark";
 
     public static void createFolderWithName(String name){
         openFabMenu();
@@ -64,7 +75,7 @@ public class Utils {
                 .perform(swipeRight());
     }
 
-    public static void navigateToTestFolder(String generalTestFolderName) {
+    public static void navigateToTestFolder(String testFolderName) {
 
 //        onView(withText(storageText)).perform(click());
 
@@ -81,13 +92,74 @@ public class Utils {
         //go to Testing folder in sdcard
         onView(allOf(withId(com.amaze.filemanager.R.id.listView), isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItem(
-                        hasDescendant(withText(generalTestFolderName)), click()
+                        hasDescendant(withText(testFolderName)), click()
                 ));
 
+    }
+
+    //for checking data is not in the listview adapter
+    //https://google.github.io/android-testing-support-library/docs/espresso/advanced/index.html
+    public static Matcher<View> withAdaptedData(final Matcher<Object> dataMatcher) {
+        return new TypeSafeMatcher<View>() {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with class name: ");
+                dataMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof AdapterView)) {
+                    return false;
+                }
+                @SuppressWarnings("rawtypes")
+                Adapter adapter = ((AdapterView) view).getAdapter();
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    if (dataMatcher.matches(adapter.getItem(i))) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
     }
 
     public static void openOverflowMenu(){
         openActionBarOverflowOrOptionsMenu(
                 InstrumentationRegistry.getInstrumentation().getTargetContext());
+    }
+
+    public static void addFileToBookMarks(String folderName) {
+        onView(allOf(withId(R.id.listView), isDisplayed()))
+                .perform(RecyclerViewActions.actionOnItem(
+                        hasDescendant(withText(folderName)),
+                        clickOverflowAction.clickOverflowButton(R.id.properties)
+                ));
+        onView(withText(addToBookmark)).perform(click());
+    }
+
+    //for clicking the overflow button in the main fragment rows
+    private static class clickOverflowAction{
+
+        public static ViewAction clickOverflowButton(final int id){
+            return new ViewAction() {
+                @Override
+                public Matcher<View> getConstraints() {
+                    return null;
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Click on overflow button";
+                }
+
+                @Override
+                public void perform(UiController uiController, View view) {
+                    View v = view.findViewById(id);
+                    v.performClick();
+                }
+            };
+        }
     }
 }

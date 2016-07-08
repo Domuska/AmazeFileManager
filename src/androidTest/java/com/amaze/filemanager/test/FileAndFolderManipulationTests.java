@@ -2,6 +2,8 @@ package com.amaze.filemanager.test;
 
 import com.amaze.filemanager.R;
 import com.amaze.filemanager.activities.MainActivity;
+import com.amaze.filemanager.test.Utilities.TestDataSource;
+import com.amaze.filemanager.test.Utilities.Utils;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;

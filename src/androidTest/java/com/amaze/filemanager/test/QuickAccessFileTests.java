@@ -2,13 +2,12 @@ package com.amaze.filemanager.test;
 
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
-import android.support.test.rule.ActivityTestRule;
 
-import com.amaze.filemanager.*;
 import com.amaze.filemanager.activities.MainActivity;
 import com.amaze.filemanager.R;
+import com.amaze.filemanager.test.Utilities.TestDataSource;
+import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.Before;
 import org.junit.Rule;
