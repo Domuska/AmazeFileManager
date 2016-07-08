@@ -2,6 +2,7 @@ package com.amaze.filemanager.test;
 
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
@@ -34,7 +35,12 @@ public class BaseTestClass {
 //        cap.setCapability(MobileCapabilityType.APP, "c://apk//sample.apk");
         cap.setCapability(MobileCapabilityType.APP,
                 "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
-        driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),cap);
+
+        cap.setCapability(MobileCapabilityType.FULL_RESET, false);
+
+
+
+        driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
     }
 
     @After

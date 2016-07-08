@@ -24,6 +24,7 @@ public class Utils {
                 "textContains(\"" + generalTestingFolder + "\").instance(0))").click();
     }
 
+    //dis dont work yet
     public static void clickAllowAccess(AndroidDriver driver){
         driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
     }
