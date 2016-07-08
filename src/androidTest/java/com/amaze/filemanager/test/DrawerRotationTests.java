@@ -5,10 +5,27 @@ import android.support.test.rule.ActivityTestRule;
 import com.amaze.filemanager.activities.MainActivity;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.R;
+import com.amaze.filemanager.test.Utilities.Utils;
+import com.amaze.filemanager.ui.drawer.EntryItem;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.slf4j.helpers.Util;
+
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.amaze.filemanager.test.Utilities.OrientationChangeAction.orientationLandscape;
+import static com.amaze.filemanager.test.Utilities.OrientationChangeAction.orientationPortrait;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasToString;
 
 public class DrawerRotationTests {
 
@@ -27,10 +44,28 @@ public class DrawerRotationTests {
     @Test
     public void testDrawerOpenRotateScreen(){
         //open drawer
+        Utils.openDrawer();
+
         //assert some elements are visible
-        //rotate screen
+        assertElementWithNameDisplayed(quickAccessText);
+        onView(withText(settingsText)).check(matches(isDisplayed()));
+
+        onView(isRoot()).perform(orientationLandscape());
+
         //assert same views are still visible
-        //rotate screen again
+        assertElementWithNameDisplayed(quickAccessText);
+        onView(withText(settingsText)).check(matches(isDisplayed()));
+
+        onView(isRoot()).perform(orientationPortrait());
+
         //assert views are still visible
+        assertElementWithNameDisplayed(quickAccessText);
+        onView(withText(settingsText)).check(matches(isDisplayed()));
+    }
+
+    private static void assertElementWithNameDisplayed(String settingsText) {
+        onData(allOf(hasToString(settingsText), is(instanceOf(EntryItem.class))))
+                .inAdapterView(withId(R.id.menu_drawer))
+                .check(matches(isDisplayed()));
     }
 }
