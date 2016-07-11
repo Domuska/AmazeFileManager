@@ -3,7 +3,6 @@ package com.amaze.filemanager.test;
 import android.support.test.rule.ActivityTestRule;
 
 import com.amaze.filemanager.activities.MainActivity;
-import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.R;
 import com.amaze.filemanager.test.Utilities.Utils;
 import com.amaze.filemanager.ui.drawer.EntryItem;
@@ -11,7 +10,6 @@ import com.amaze.filemanager.ui.drawer.EntryItem;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.slf4j.helpers.Util;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -47,25 +45,25 @@ public class DrawerRotationTests {
         Utils.openDrawer();
 
         //assert some elements are visible
-        assertElementWithNameDisplayed(quickAccessText);
-        onView(withText(settingsText)).check(matches(isDisplayed()));
+        assertElementsDisplayed();
 
+        //rotate screen
         onView(isRoot()).perform(orientationLandscape());
 
         //assert same views are still visible
-        assertElementWithNameDisplayed(quickAccessText);
-        onView(withText(settingsText)).check(matches(isDisplayed()));
+        assertElementsDisplayed();
 
+        //rotate screen
         onView(isRoot()).perform(orientationPortrait());
 
         //assert views are still visible
-        assertElementWithNameDisplayed(quickAccessText);
-        onView(withText(settingsText)).check(matches(isDisplayed()));
+        assertElementsDisplayed();
     }
 
-    private static void assertElementWithNameDisplayed(String settingsText) {
-        onData(allOf(hasToString(settingsText), is(instanceOf(EntryItem.class))))
+    private void assertElementsDisplayed() {
+        onData(allOf(hasToString(quickAccessText), is(instanceOf(EntryItem.class))))
                 .inAdapterView(withId(R.id.menu_drawer))
                 .check(matches(isDisplayed()));
+        onView(withText(settingsText)).check(matches(isDisplayed()));
     }
 }
