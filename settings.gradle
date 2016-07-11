@@ -1,2 +1,2 @@
-include ':libs:StickyHeadersRecyclerView', ':appium_lib', ':'
+include ':libs:StickyHeadersRecyclerView', ':'
 include ':'
