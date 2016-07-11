@@ -4,9 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.android.AndroidDriver;
 
@@ -20,7 +17,7 @@ public class Utils {
         swipeDownInPathBar(driver);
 
         driver.findElement(By.id("com.amaze.filemanager:id/home")).click();
-        clickInListWithName(driver, generalTestingFolder);
+        searchInVisibleListWithName(driver, generalTestingFolder);
 
     }
 
@@ -38,19 +35,16 @@ public class Utils {
 
     }
 
-    public static void clickInListWithName(AndroidDriver driver, String elementName){
+    public static WebElement searchInVisibleListWithName(AndroidDriver driver, String elementName){
 
         //apparently this spell is the way to do it, according to
         // https://github.com/appium/java-client/issues/421
-        driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)" +
-                ".instance(0)).scrollIntoView(new UiSelector()." +
-                "textContains(\"" + elementName + "\").instance(0))").click();
+        return driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)" +
+                ".instance(0)).scrollIntoView(new UiSelector()" +
+                ".textContains(\"" + elementName + "\").instance(0))");
+
     }
 
-    //dis dont work yet, point is to click the allow permissions button
-    public static void clickAllowAccess(AndroidDriver driver){
-        driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click();
-    }
 
     public static void createFileWithName(AndroidDriver driver, String fileName){
         openFabMenu(driver);
