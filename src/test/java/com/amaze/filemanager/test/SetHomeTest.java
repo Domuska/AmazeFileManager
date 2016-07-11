@@ -6,6 +6,7 @@ import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.helpers.Util;
 
@@ -21,7 +22,7 @@ public class SetHomeTest extends BaseAppiumTest{
 
     //todo handle the @before annotation problems
     @Before
-    public void setUpasfdasfdsadfsdfsadfsadfsfasfdasdfafasdfasdfasdfasdffasdfasdfsdf(){
+    public void setUp(){
         Utils.swipeToRightScreen(driver);
         Utils.navigateToTestingFolder(driver);
     }
@@ -37,6 +38,7 @@ public class SetHomeTest extends BaseAppiumTest{
     }
 
     @Test
+    @Ignore
     public void testSetHome(){
 
         //set this folder as home folder

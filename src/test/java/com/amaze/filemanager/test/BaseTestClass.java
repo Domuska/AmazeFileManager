@@ -14,7 +14,7 @@ public class BaseTestClass extends BaseAppiumTest{
     String amazeTestFolderName = TestDataSource.amazeTestFolderName;
 
     @Before
-    public void setUplongbigassfuckingnamethatshouldtakeagestoreaddontdoit(){
+    final public void setUpBaseTestClass(){
         //go to the testing folder in root of sdcard (hopefully)
         Utils.navigateToTestingFolder(driver);
 
@@ -24,9 +24,10 @@ public class BaseTestClass extends BaseAppiumTest{
     }
 
     @After
-    public void tearDown(){
+    final public void tearDownBaseTestClass(){
 
-        //move back from the folder we're in so we can push the home button
+        // move back from the folder we're in so we can push the home
+        // button or alternatively close nav drawer
         driver.navigate().back();
         Utils.navigateToTestingFolder(driver);
 

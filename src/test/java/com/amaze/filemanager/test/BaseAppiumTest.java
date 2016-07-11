@@ -26,7 +26,7 @@ public class BaseAppiumTest {
     AndroidDriver driver;
 
     @Before
-    public void setUp()throws  Exception
+    final public void setUpBaseAppiumTest()throws  Exception
     {
         //service.start();
         //reader.readFile();
@@ -49,7 +49,7 @@ public class BaseAppiumTest {
     }
 
     @After
-    public void tearDown() {
+    final public void tearDownBaseAppiumTest() {
         driver.quit();
     }
 }
