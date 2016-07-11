@@ -14,7 +14,6 @@ import static junit.framework.Assert.fail;
 public class BookMarkTests extends BaseAppiumTest{
 
     private String generalTestFoldername = TestDataSource.generalTestFolderName;
-    private String newTestFoldername = TestDataSource.newTestFolderName;
 
     @Test
     public void testBookMarking(){
