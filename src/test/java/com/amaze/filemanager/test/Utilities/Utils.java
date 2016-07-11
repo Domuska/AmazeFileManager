@@ -5,12 +5,16 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 
 public class Utils {
 
     private static String generalTestingFolder = "Testing";
     private static String overflowMenuDescription = "More options";
+    private static String addToBookmark = "Add to Bookmark";
 
     public static void navigateToTestingFolder(AndroidDriver driver){
 
@@ -102,6 +106,25 @@ public class Utils {
 
     public static void openOverflowMenu(AndroidDriver driver){
         driver.findElementByAccessibilityId(overflowMenuDescription).click();
+    }
+
+    public static void addFileToBookMarks(AndroidDriver driver, String folderName){
+        searchInVisibleListWithName(driver, folderName);
+//        TouchAction longPress = new TouchAction(driver);
+//        longPress.longPress(folderToBeBookmarked, 2000).release().perform();
+
+        List<WebElement> elements = driver.findElementsById("com.amaze.filemanager:id/second");
+//        driver.findElementById("com.amaze.filemanager:id/second");
+
+        for(int i = 0; i < elements.size(); i++){
+            if(elements.get(i).findElement(By.id("com.amaze.filemanager:id/firstline")).getText().equals(folderName)){
+                elements.get(i).findElement(By.id("com.amaze.filemanager:id/properties")).click();
+                break;
+            }
+        }
+
+        driver.findElementByName(addToBookmark).click();
+
     }
 
     private static void openFabMenu(AndroidDriver driver){
