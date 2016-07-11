@@ -20,10 +20,19 @@ public class EditBookmarksTests extends BaseAppiumTest{
     @After
     public void tearDown(){
 
+        //remove the bookmarked file
+        WebElement newBookMark = driver.findElementByName(newTestFolderName);
+        TouchAction longPress = new TouchAction(driver);
+        longPress.longPress(newBookMark, 2000).release().perform();
+
+        driver.findElementById("com.amaze.filemanager:id/buttonDefaultNegative").click();
     }
 
     @Test
     public void editBookmarkTest(){
+
+        Utils.swipeDownInPathBar(driver);
+        driver.findElementById("com.amaze.filemanager:id/home").click();
 
         Utils.addFileToBookMarks(driver, generalTestFoldername);
         Utils.openDrawer(driver);
