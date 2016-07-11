@@ -10,6 +10,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class Utils {
 
     private static String generalTestingFolder = "Testing";
+    private static String overflowMenuDescription = "More options";
 
     public static void navigateToTestingFolder(AndroidDriver driver){
 
@@ -17,7 +18,7 @@ public class Utils {
         swipeDownInPathBar(driver);
 
         driver.findElement(By.id("com.amaze.filemanager:id/home")).click();
-        searchInVisibleListWithName(driver, generalTestingFolder);
+        searchInVisibleListWithName(driver, generalTestingFolder).click();
 
     }
 
@@ -99,12 +100,14 @@ public class Utils {
         driver.findElementByAccessibilityId("Navigate up").click();
     }
 
+    public static void openOverflowMenu(AndroidDriver driver){
+        driver.findElementByAccessibilityId(overflowMenuDescription).click();
+    }
+
     private static void openFabMenu(AndroidDriver driver){
         driver.findElementById("com.amaze.filemanager:id/menu")
                 .findElement(By.className("android.widget.ImageButton"))
                 .click();
     }
-
-
 
 }

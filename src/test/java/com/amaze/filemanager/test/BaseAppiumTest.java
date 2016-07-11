@@ -1,5 +1,7 @@
 package com.amaze.filemanager.test;
 
+import com.amaze.filemanager.database.TabHandler;
+
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;

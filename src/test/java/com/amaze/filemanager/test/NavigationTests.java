@@ -16,7 +16,6 @@ public class NavigationTests extends BaseAppiumTest{
     private String recentFilesFolderName = "Recent Files";
 
     private String generalTestFolderName = TestDataSource.generalTestFolderName;
-    private String overflowMenuDescription = "More options";
     private String overflowGridText = "Grid View";
     private String overflowLIstText = "List View";
 
@@ -61,13 +60,13 @@ public class NavigationTests extends BaseAppiumTest{
 
         //switch to grid layout
         swipeUpInMainView();
-        driver.findElementByAccessibilityId(overflowMenuDescription).click();
+        Utils.openOverflowMenu(driver);
         driver.findElementByName(overflowGridText).click();
         Utils.searchInVisibleListWithName(driver, generalTestFolderName);
 
         //switch back to list layout
         swipeUpInMainView();
-        driver.findElementByAccessibilityId(overflowMenuDescription).click();
+        Utils.openOverflowMenu(driver);
         driver.findElementByName(overflowLIstText).click();
         Utils.searchInVisibleListWithName(driver, generalTestFolderName);
     }

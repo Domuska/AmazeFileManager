@@ -37,12 +37,15 @@ public class TabHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "explorer.db";
     private static final String TABLE_TAB = "tab";
 
+    private static Context myContext;
+
     public static final String COLUMN_TAB_NO = "tab_no";
     public static final String COLUMN_LABEL = "label";
     public static final String COLUMN_PATH = "path";
     public static final String COLUMN_HOME = "home";
     public TabHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        myContext = context;
     }
 
     @Override
@@ -58,6 +61,13 @@ public class TabHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TAB);
         onCreate(sqLiteDatabase);
+    }
+
+    /**
+     * temporary clearing method for emptying database
+     */
+    public static void clearDatabase(){
+        myContext.deleteDatabase(DATABASE_NAME);
     }
 
     public void addTab(Tab tab) {
