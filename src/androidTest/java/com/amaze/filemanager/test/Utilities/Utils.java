@@ -53,4 +53,9 @@ public class Utils {
     }
 
 
+    public static void swipeToLeftScreen(Solo solo){
+
+    }
+
+
 }
