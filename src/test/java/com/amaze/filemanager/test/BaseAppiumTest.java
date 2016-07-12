@@ -41,7 +41,8 @@ public class BaseAppiumTest {
         cap.setCapability(MobileCapabilityType.APP,
                 "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
 
-        //noReset so the app does not get reinstalled ever so we dont have to deal with permissions
+        // https://discuss.appium.io/t/android-m-and-permissions/5760/13
+        //noReset so the app does not get reinstalled ever so we don't have to deal with permissions
         cap.setCapability("noReset", true);
         cap.setCapability(MobileCapabilityType.FULL_RESET, false);
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
