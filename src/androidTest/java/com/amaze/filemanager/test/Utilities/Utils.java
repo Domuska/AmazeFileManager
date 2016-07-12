@@ -1,5 +1,9 @@
 package com.amaze.filemanager.test.Utilities;
 
+import android.app.Activity;
+import android.graphics.Point;
+import android.graphics.PointF;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -8,6 +12,8 @@ import android.widget.ImageView;
 
 import com.amaze.filemanager.R;
 import com.robotium.solo.Solo;
+
+import java.util.List;
 
 public class Utils {
 
@@ -55,6 +61,67 @@ public class Utils {
 
     public static void swipeToLeftScreen(Solo solo){
 
+        Display display = solo.getCurrentActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        float startX = size.x/3;
+        float startY = size.y/2;
+        Double point = size.x/1.5;
+        float endX = point.floatValue();
+        float endY = startY;
+        solo.drag(startX, endX, startY, endY, 3);
+
+//        PointF startPoint = new PointF(startX, startY);
+//        PointF endPoint = new PointF(endX, endY);
+//
+//        solo.swipe(startPoint, startPoint, endPoint, endPoint);
+
+    }
+
+    public static void swipeToRightScreen(Solo solo){
+        Display display = solo.getCurrentActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        Double point = size.x/1.5;
+        float startX = point.floatValue();
+        float startY = size.y/2;
+        float endX = size.x/3;
+        float endY = startY;
+
+        solo.drag(startX, endX, startY, endY, 3);
+
+    }
+
+    public static void openDrawer(Solo solo){
+        Point deviceSize = new Point();
+        solo.getCurrentActivity().getWindowManager().getDefaultDisplay().getSize(deviceSize);
+
+        int screenWidth = deviceSize.x;
+        int screenHeight = deviceSize.y;
+        int fromX = 0;
+        int toX = screenWidth / 2;
+        int fromY = screenHeight / 2;
+        int toY = fromY;
+
+        solo.drag(fromX, toX, fromY, toY, 4);
+    }
+
+    public static void openOverflowMenu(Solo solo){
+        /*not the best way to do this, but since commands like
+        solo.clickOnMenuItem();
+        or
+        solo.sendKey(Solo.MENU);
+        don't work, this seems to be the only option
+        */
+        List<View> views = solo.getViews();
+        for(View view : views){
+            if(view.getContentDescription() != null &&
+                    view.getContentDescription().toString().equals("More options")) {
+                solo.clickOnView(view);
+            }
+        }
     }
 
 

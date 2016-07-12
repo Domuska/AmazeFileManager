@@ -18,8 +18,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         copyText = getInstrumentation().getTargetContext().getString(R.string.copy);
     }
 
-
-
     public void testCreateNewFileAndDeleteIt(){
         Utils.createFileWithName(solo, fileName);
 
