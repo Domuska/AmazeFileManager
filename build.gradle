@@ -36,6 +36,9 @@ android {
         targetSdkVersion 23
         versionCode 41
         versionName "3.1.0"
+
+        //for GUI tests
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -120,6 +123,15 @@ dependencies {
     compile files('libs/ftplet-api-1.1.0-SNAPSHOT.jar')
 
     compile files('libs/ftpserver-core-1.1.0-SNAPSHOT.jar')
+
+    //robotium tests
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.5.4'
+    androidTestCompile "com.android.support:support-annotations:23.1.0"
+    androidTestCompile 'com.android.support.test:runner:0.4'
+    // Set this dependency to use JUnit 4 rules
+    androidTestCompile 'com.android.support.test:rules:0.4'
+    androidTestCompile 'com.android.support:support-annotations:23.2.1'
+
 }
 
 def Properties props = new Properties()
