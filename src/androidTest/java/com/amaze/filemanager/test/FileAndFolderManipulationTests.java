@@ -29,7 +29,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 @LargeTest
 public class FileAndFolderManipulationTests extends BaseTestClass{
 
-    private String fileName, folderName1, folderName2;
+    private String fileName, folderName1, folderName2, copyText;
 
 
     @Rule
@@ -41,6 +41,7 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         fileName = TestDataSource.textFileName;
         folderName1 = TestDataSource.folderNames[0];
         folderName2 = TestDataSource.folderNames[1];
+        copyText = myActivityRule.getActivity().getString(R.string.copy);
     }
 
     @Test
@@ -91,7 +92,7 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
         //copy the file
         onView(allOf(withId(R.id.properties), isDisplayed())).perform(click());
-        onView(withText("Cut")).perform(click());
+        onView(withText(copyText)).perform(click());
 
         Espresso.pressBack();
 
