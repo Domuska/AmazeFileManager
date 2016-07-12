@@ -3,17 +3,24 @@ package com.amaze.filemanager.test.Utilities;
 import android.app.Activity;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amaze.filemanager.R;
 import com.robotium.solo.Solo;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
 
 public class Utils {
 
@@ -124,5 +131,33 @@ public class Utils {
         }
     }
 
+    //todo FIX!
+    //http://recorder.robotium.com/javadoc/com/robotium/solo/Solo.html#scrollRecyclerViewToBottom(int)
+    public static void addFileToBookMarks(Solo solo, String name){
+//        solo.clickInRecyclerView()
+
+        List<View> views = solo.getViews();
+
+        for(View view : views){
+            if(view instanceof TextView && ((TextView) view).getText().equals(name)){
+                TextView textView = (TextView)view;
+                List<View> siblings = solo.getViews((View)textView.getParent());
+
+                for(View siblingView: siblings){
+                    if(siblingView instanceof ImageButton)
+                        solo.clickOnView(siblingView);
+                }
+            }
+        }
+
+//        solo.scrollRecyclerViewToBottom(1);
+//        TextView textView = solo.getText(name);
+
+//        RecyclerView recyclerView = (RecyclerView)solo.getView(R.id.listView);
+//        LinearLayoutManager manager = (LinearLayoutManager)recyclerView.getLayoutManager();
+//
+////        int textPosition = recyclerView.getChildAdapterPosition(textView);
+//        assertEquals(555, textPosition);
+    }
 
 }
