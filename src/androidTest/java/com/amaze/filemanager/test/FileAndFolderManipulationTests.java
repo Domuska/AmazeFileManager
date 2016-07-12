@@ -1,8 +1,5 @@
 package com.amaze.filemanager.test;
 
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-
 import com.amaze.filemanager.R;
 
 import com.amaze.filemanager.test.Utilities.TestDataSource;
@@ -14,11 +11,11 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
     private String fileName = TestDataSource.textFileName;
     private String folderName1 = TestDataSource.folderNames[0];
     private String folderName2 = TestDataSource.folderNames[1];
-    private String cutText;
+    private String copyText;
 
     public void setUp() throws Exception{
         super.setUp();
-        cutText = getInstrumentation().getTargetContext().getString(R.string.copy);
+        copyText = getInstrumentation().getTargetContext().getString(R.string.copy);
     }
 
 
@@ -78,7 +75,7 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
 //        }
 
 
-        solo.clickOnText(cutText);
+        solo.clickOnText(copyText);
 
         solo.goBack();
 
