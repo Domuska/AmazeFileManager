@@ -1,9 +1,15 @@
 package com.amaze.filemanager.test;
 
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.amaze.filemanager.R;
 
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
+
+import java.util.List;
 
 
 public class FileAndFolderManipulationTests extends BaseTestClass {
@@ -62,8 +68,26 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         solo.clickOnText(folderName1);
         Utils.createFileWithName(solo, fileName);
 
-        //cut the file
-        solo.clickOnView(solo.getView("com.amaze.filemanager:id/properties", 0));
+        //copy the file
+        List<View> list = solo.getViews(solo.getView(R.id.second));
+        for(View view : list){
+            System.out.println(view.toString());
+        }
+        fail("because");
+
+        List<View> views = solo.getViews(solo.getView(R.id.listView));
+
+        for(View view : views){
+            if(view instanceof RelativeLayout && view.getId() == R.id.second){
+                TextView rowText = (TextView)view.findViewById(R.id.firstline);
+                if(rowText.getText().toString().equals(fileName)) {
+                    solo.clickOnView(view.findViewById(R.id.properties));
+                }
+            }
+        }
+
+//        solo.clickOnView(solo.getView("com.amaze.filemanager:id/properties", 0));
+
 //        solo.clickInRecyclerView(0, 0, R.id.properties);
 //        RelativeLayout relativeLayout = (RelativeLayout)solo.getView(R.id.second, 0);
 //

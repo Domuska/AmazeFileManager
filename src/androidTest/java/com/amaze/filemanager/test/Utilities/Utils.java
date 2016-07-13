@@ -161,6 +161,7 @@ public class Utils {
     //was long enough. Could be made smarter but as a whole, bad idea.
     public static boolean isElementFoundInDrawer(Solo solo, String elementName) {
 
+
         boolean elementFound = false;
         int j = 0;
 
