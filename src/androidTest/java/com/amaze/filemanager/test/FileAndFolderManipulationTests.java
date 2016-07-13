@@ -69,22 +69,29 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         Utils.createFileWithName(solo, fileName);
 
         //copy the file
-        List<View> list = solo.getViews(solo.getView(R.id.second));
-        for(View view : list){
-            System.out.println(view.toString());
-        }
-        fail("because");
 
-        List<View> views = solo.getViews(solo.getView(R.id.listView));
-
+        List<View> views = solo.getViews();
         for(View view : views){
             if(view instanceof RelativeLayout && view.getId() == R.id.second){
-                TextView rowText = (TextView)view.findViewById(R.id.firstline);
-                if(rowText.getText().toString().equals(fileName)) {
+                //find the properties element inside the correct row and click it
+                TextView folderName = (TextView)view.findViewById(R.id.firstline);
+                if(folderName.getText().equals(fileName)) {
                     solo.clickOnView(view.findViewById(R.id.properties));
+                    solo.clickOnText(copyText);
                 }
             }
         }
+
+//        List<View> views = solo.getViews(solo.getView(R.id.listView));
+//
+//        for(View view : views){
+//            if(view instanceof RelativeLayout && view.getId() == R.id.second){
+//                TextView rowText = (TextView)view.findViewById(R.id.firstline);
+//                if(rowText.getText().toString().equals(fileName)) {
+//                    solo.clickOnView(view.findViewById(R.id.properties));
+//                }
+//            }
+//        }
 
 //        solo.clickOnView(solo.getView("com.amaze.filemanager:id/properties", 0));
 
@@ -97,7 +104,7 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
 //        }
 
 
-        solo.clickOnText(copyText);
+//        solo.clickOnText(copyText);
 
         solo.goBack();
 
