@@ -21,7 +21,7 @@ public class BookMarkTests extends BaseRobotiumTest{
 
         //assert the bookmark is visible
         Utils.openDrawer(solo);
-        boolean bookmarkFound = assertViewInList();
+        boolean bookmarkFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
 
         assertTrue("Folder/file " + generalTestingFolder + " was not found in bookmarks", bookmarkFound);
 
@@ -40,22 +40,22 @@ public class BookMarkTests extends BaseRobotiumTest{
         solo.clickOnView(solo.getView(R.id.buttonDefaultNegative));
 
         //assert bookmarked file/folder is no longer visible
-        bookmarkFound = assertViewInList();
+        bookmarkFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
         assertFalse("Folder/file " + generalTestingFolder + " should no longer be visible", bookmarkFound);
     }
 
     //this way to do searching is dirty-ish, but it seems there is no way to search
     //in a specific list with Robotium. This way also would not work if the nav drawer list
     //was long enough. Could be made smarter but as a whole, bad idea.
-    private boolean assertViewInList(){
-        boolean elementFound = false;
-        elementFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
-
-        //if element was not found, scroll down and try searching again
-        if(!elementFound) {
-            solo.scrollDownList(0);
-            elementFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
-        }
-        return elementFound;
-    }
+//    private boolean assertViewInList(){
+//        boolean elementFound = false;
+//        elementFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
+//
+//        //if element was not found, scroll down and try searching again
+////        if(!elementFound) {
+////            solo.scrollDownList(0);
+////            elementFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
+////        }
+//        return elementFound;
+//    }
 }

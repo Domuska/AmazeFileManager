@@ -157,15 +157,41 @@ public class Utils {
     }
 
     public static boolean isElementFoundInDrawer(Solo solo, String elementName) {
-        List<View> drawerElements = solo.getViews(solo.getView(R.id.menu_drawer));
 
-        for(View view : drawerElements){
-            if(view.getId() == R.id.firstline){
-                if(((TextView)view).getText().toString().equals(elementName))
-                    return true;
+
+        boolean elementFound = false;
+        int j = 0;
+
+        do{
+            List<View> drawerElements = solo.getViews(solo.getView(R.id.menu_drawer));
+            for(View view : drawerElements){
+                if(view.getId() == R.id.firstline){
+                    if(((TextView)view).getText().toString().equals(elementName))
+                        elementFound = true;
+                }
             }
-        }
-        return false;
+            solo.scrollDownList(0);
+            j++;
+        }while(!elementFound && j < 4);
+
+//        for(View view : drawerElements){
+//            if(view.getId() == R.id.firstline){
+//                if(((TextView)view).getText().toString().equals(elementName))
+//                    elementFound = true;
+//            }
+//        }
+
+//        if(!elementFound) {
+//            solo.scrollDownList(0);
+//            for(View view : drawerElements){
+//                if(view.getId() == R.id.firstline){
+//                    if(((TextView)view).getText().toString().equals(elementName))
+//                        elementFound = true;
+//                }
+//            }
+//        }
+
+        return elementFound;
     }
 
 }
