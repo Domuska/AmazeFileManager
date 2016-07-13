@@ -156,13 +156,16 @@ public class Utils {
         }
     }
 
+    //this way to do searching is dirty-ish, but it seems there is no way to search
+    //in a specific list with Robotium. This way also would not work if the nav drawer list
+    //was long enough. Could be made smarter but as a whole, bad idea.
     public static boolean isElementFoundInDrawer(Solo solo, String elementName) {
-
 
         boolean elementFound = false;
         int j = 0;
 
         do{
+            //search if visible Views have the text we're searching for
             List<View> drawerElements = solo.getViews(solo.getView(R.id.menu_drawer));
             for(View view : drawerElements){
                 if(view.getId() == R.id.firstline){
@@ -173,23 +176,6 @@ public class Utils {
             solo.scrollDownList(0);
             j++;
         }while(!elementFound && j < 4);
-
-//        for(View view : drawerElements){
-//            if(view.getId() == R.id.firstline){
-//                if(((TextView)view).getText().toString().equals(elementName))
-//                    elementFound = true;
-//            }
-//        }
-
-//        if(!elementFound) {
-//            solo.scrollDownList(0);
-//            for(View view : drawerElements){
-//                if(view.getId() == R.id.firstline){
-//                    if(((TextView)view).getText().toString().equals(elementName))
-//                        elementFound = true;
-//                }
-//            }
-//        }
 
         return elementFound;
     }
