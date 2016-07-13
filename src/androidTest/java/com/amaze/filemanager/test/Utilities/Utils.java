@@ -156,4 +156,16 @@ public class Utils {
         }
     }
 
+    public static boolean isElementFoundInDrawer(Solo solo, String elementName) {
+        List<View> drawerElements = solo.getViews(solo.getView(R.id.menu_drawer));
+
+        for(View view : drawerElements){
+            if(view.getId() == R.id.firstline){
+                if(((TextView)view).getText().toString().equals(elementName))
+                    return true;
+            }
+        }
+        return false;
+    }
+
 }
