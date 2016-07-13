@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amaze.filemanager.R;
@@ -21,10 +22,12 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class Utils {
 
     private static String generalTestFolderName = TestDataSource.generalTestFolderName;
+    private static String addToBookmark = "Add to Bookmark";
 
     public static void createFolderWithName(Solo solo, String folderName) {
         openFabMenu(solo);
@@ -131,33 +134,26 @@ public class Utils {
         }
     }
 
-    //todo FIX!
-    //http://recorder.robotium.com/javadoc/com/robotium/solo/Solo.html#scrollRecyclerViewToBottom(int)
-    public static void addFileToBookMarks(Solo solo, String name){
-//        solo.clickInRecyclerView()
 
+    //this method will fail silently if the correct folder is not found, which is not nice
+    public static void addFileToBookMarks(Solo solo, String name){
+
+
+        solo.searchText(generalTestFolderName, true);
+        solo.waitForText(generalTestFolderName);
         List<View> views = solo.getViews();
 
+        //go through all the views to get the correct row
         for(View view : views){
-            if(view instanceof TextView && ((TextView) view).getText().equals(name)){
-                TextView textView = (TextView)view;
-                List<View> siblings = solo.getViews((View)textView.getParent());
-
-                for(View siblingView: siblings){
-                    if(siblingView instanceof ImageButton)
-                        solo.clickOnView(siblingView);
+            if(view instanceof RelativeLayout && view.getId() == R.id.second){
+                //find the properties element inside the correct row and click it
+                TextView folderName = (TextView)view.findViewById(R.id.firstline);
+                if(folderName.getText().equals(name)) {
+                    solo.clickOnView(view.findViewById(R.id.properties));
+                    solo.clickOnText(addToBookmark);
                 }
             }
         }
-
-//        solo.scrollRecyclerViewToBottom(1);
-//        TextView textView = solo.getText(name);
-
-//        RecyclerView recyclerView = (RecyclerView)solo.getView(R.id.listView);
-//        LinearLayoutManager manager = (LinearLayoutManager)recyclerView.getLayoutManager();
-//
-////        int textPosition = recyclerView.getChildAdapterPosition(textView);
-//        assertEquals(555, textPosition);
     }
 
 }
