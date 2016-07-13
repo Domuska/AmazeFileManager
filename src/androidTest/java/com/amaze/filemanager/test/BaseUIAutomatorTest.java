@@ -1,4 +1,4 @@
-package com.amaze.filemanager.test.Utilities;
+package com.amaze.filemanager.test;
 
 import android.content.Context;
 import android.content.Intent;

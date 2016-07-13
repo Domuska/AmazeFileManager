@@ -4,7 +4,6 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
-import com.amaze.filemanager.test.Utilities.BaseUIAutomatorTest;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
@@ -23,11 +22,15 @@ public class BaseTestClass extends BaseUIAutomatorTest{
                 BaseUIAutomatorTest.GENERAL_TIMEOUT);
 
 //        device.findObject(By.text(amazeTestingFolder)).click();
-        device.findObject(new UiSelector().text(amazeTestingFolder)).clickAndWaitForNewWindow();
+        device.findObject(new UiSelector().text(amazeTestingFolder)).click();
     }
 
     @After
     public final void tearDownBaseTestClass() throws Exception{
+
+        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/pathbar")),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+
         Utils.swipeDownInPathBar(device);
         Utils.navigateToTestFolder(device);
         device.findObject(By.text(amazeTestingFolder)).longClick();

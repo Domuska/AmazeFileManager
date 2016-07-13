@@ -9,7 +9,7 @@ import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
-import com.afollestad.materialdialogs.GravityEnum;
+import com.amaze.filemanager.test.BaseUIAutomatorTest;
 
 public class Utils {
 
@@ -40,7 +40,7 @@ public class Utils {
         device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
     }
 
-    public static void createFolderWithName(UiDevice device, String folderName) {
+    public static void createFolderWithName(UiDevice device, String folderName) throws Exception{
         openFabMenu(device);
         device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/menu_item1")),
                 BaseUIAutomatorTest.GENERAL_TIMEOUT);
@@ -51,6 +51,8 @@ public class Utils {
 
         device.findObject(By.res("android:id/input")).setText(folderName);
         device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
+//        device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
+//                .clickAndWaitForNewWindow();
     }
 
     public static void swipeDownInPathBar(UiDevice device){
