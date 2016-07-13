@@ -13,6 +13,12 @@ public class EntryItem implements Item{
 		this.icon1=icon1;
 	}
 
+	//needed for the espresso test, it uses this to scroll the nav drawer list
+	@Override
+	public String toString(){
+		return title;
+	}
+
 	@Override
 	public boolean isSection() {
 		return false;
