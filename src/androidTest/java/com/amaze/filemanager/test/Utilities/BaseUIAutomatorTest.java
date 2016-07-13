@@ -19,7 +19,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class BaseUIAutomatorTest {
 
     protected UiDevice device;
-    protected final int GENERAL_TIMEOUT = 5000;
+    public static final int GENERAL_TIMEOUT = 5000;
     private final String AMAZE_PACKAGE = "com.amaze.filemanager";
 
     @Before

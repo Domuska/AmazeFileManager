@@ -9,6 +9,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.amaze.filemanager.activities.MainActivity;
 import com.amaze.filemanager.test.Utilities.BaseUIAutomatorTest;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
+import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +25,13 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
         Context contex = InstrumentationRegistry.getContext();
         fileName = TestDataSource.textFileName;
+        folderName1 = TestDataSource.folderNames[0];
     }
 
     @Test
     public void testCreateNewFileAndDeleteIt(){
-        //we do many things
+        Utils.createFileWithName(device, fileName);
+
     }
 
 
