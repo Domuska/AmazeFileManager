@@ -127,4 +127,9 @@ public class Utils {
 //        device.pressMenu();
         device.findObject(By.descContains(overflowContentDesc)).click();
     }
+
+    public static UiObject2 waitForText(UiDevice device, String text) {
+        return device.wait(Until.findObject(By.text(text)),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+    }
 }

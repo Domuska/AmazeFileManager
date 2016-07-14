@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.Direction;
+import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
@@ -34,6 +35,9 @@ public class NavigationTests extends BaseUIAutomatorTest{
         gridViewText = context.getString(R.string.gridview);
         listViewText = context.getString(R.string.listview);
         generalTestFolderName = TestDataSource.generalTestFolderName;
+
+        Utils.openDrawer(device);
+        device.findObject(By.text(storageText)).click();
     }
 
     @Test
@@ -53,8 +57,7 @@ public class NavigationTests extends BaseUIAutomatorTest{
                 videosText
         ).click();
 
-        device.wait(Until.hasObject(By.text(videosText)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+        Utils.waitForText(device, videosText);
 
         //swipe to other screen
         Utils.swipeToRightScreen(device);
@@ -71,8 +74,7 @@ public class NavigationTests extends BaseUIAutomatorTest{
                 recentFilesText
         ).click();
 
-        device.wait(Until.hasObject(By.text(recentFilesText)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+        Utils.waitForText(device, recentFilesText);
 
         //assert we can swipe between the two folders
         Utils.swipeToLeftScreen(device);
@@ -96,20 +98,17 @@ public class NavigationTests extends BaseUIAutomatorTest{
         //switch to grid layout
         swipeUpInMainView();
         Utils.openOverflowMenu(device);
-        device.wait(Until.hasObject(By.text(gridViewText)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
-
-        device.findObject(By.text(gridViewText)).click();
+        Utils.waitForText(device, gridViewText).click();
         assertGeneralTestingFolderVisible();
 
         //switch back to list layout
         swipeUpInMainView();
         Utils.openOverflowMenu(device);
-        device.wait(Until.hasObject(By.text(listViewText)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
-        device.findObject(By.text(listViewText)).click();
+        Utils.waitForText(device, listViewText).click();
         assertGeneralTestingFolderVisible();
     }
+
+
 
     private void swipeUpInMainView() throws Exception{
         UiScrollable navDrawer = new UiScrollable(
