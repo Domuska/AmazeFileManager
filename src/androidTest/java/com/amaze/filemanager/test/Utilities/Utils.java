@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiScrollable;
@@ -14,6 +15,8 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.amaze.filemanager.test.BaseUIAutomatorTest;
+
+import static junit.framework.Assert.assertEquals;
 
 public class Utils {
 
@@ -88,16 +91,32 @@ public class Utils {
     }
 
     public static void openDrawer(UiDevice device){
-        WindowManager manager = (WindowManager)
-                InstrumentationRegistry.getTargetContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = manager.getDefaultDisplay();
-        Point screenSize = new Point();
-        display.getSize(screenSize);
+        device.findObject(By.res("com.amaze.filemanager:id/pager")).swipe(Direction.RIGHT, 0.6f);
+//        WindowManager manager = (WindowManager)
+//                InstrumentationRegistry.getTargetContext().getSystemService(Context.WINDOW_SERVICE);
+//        Display display = manager.getDefaultDisplay();
+//        Point screenSize = new Point();
+//        display.getSize(screenSize);
+//
+//        Point startPoint = new Point(0, screenSize.y/2);
+//        Point endPoint = new Point(screenSize.x/2, screenSize.y/2);
+//
+//        device.drag(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 3);
+    }
 
-        Point startPoint = new Point(0, screenSize.y/2);
-        Point endPoint = new Point(screenSize.x/2, screenSize.y/2);
+    public static void swipeToLeftScreen(UiDevice device) throws Exception{
 
-        device.drag(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 3);
+        Point startPoint = new Point(device.getDisplayWidth()/4, device.getDisplayHeight()/2);
+        Point endPoint = new Point(device.getDisplayWidth(), startPoint.y);
 
+        device.swipe(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
+    }
+
+    public static void swipeToRightScreen(UiDevice device){
+        //-20 to width so we dont start from absolute edge, swipe wont work that way
+        Point startPoint = new Point(device.getDisplayWidth()-20, device.getDisplayHeight()/2);
+        Point endPoint = new Point(device.getDisplayWidth()/4, startPoint.y);
+
+        device.swipe(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
     }
 }
