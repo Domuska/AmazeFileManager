@@ -28,13 +28,14 @@ public class BaseTestClass extends BaseUIAutomatorTest{
     @After
     public final void tearDownBaseTestClass() throws Exception{
 
-        device.pressBack();
-        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/pathbar")),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+//        device.pressBack();
+//        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/pathbar")),
+//                BaseUIAutomatorTest.GENERAL_TIMEOUT);
 
-        Utils.swipeDownInPathBar(device);
+//        Utils.swipeDownInPathBar(device);
         Utils.navigateToTestFolder(device);
         device.findObject(By.text(amazeTestingFolder)).longClick();
+        Utils.swipeDownInPathBar(device);
         device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
 
         device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")),

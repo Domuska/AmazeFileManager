@@ -1,23 +1,40 @@
 package com.amaze.filemanager.test.Utilities;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.amaze.filemanager.test.BaseUIAutomatorTest;
 
 public class Utils {
 
     private static String generalTestingFolderName = TestDataSource.generalTestFolderName;
+    private static String storageText = "Storage";
 
     public static void navigateToTestFolder(UiDevice device) throws Exception{
-        device.findObject(By.res("com.amaze.filemanager:id/home")).click();
 
+        openDrawer(device);
+//        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/pathbar")),
+//                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+        UiScrollable navDrawer = new UiScrollable(
+                new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
+
+        navDrawer.scrollTextIntoView(storageText);
+        navDrawer.getChildByText(
+                new UiSelector().resourceId("com.amaze.filemanager:id/second"),
+                storageText).click();
+
+//        device.findObject(By.res("com.amaze.filemanager:id/home")).click();
+//
         UiScrollable mainFragment = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/listView"));
 
@@ -68,5 +85,19 @@ public class Utils {
     private static void openFabMenu(UiDevice device){
         UiObject2 object = device.findObject(By.res("com.amaze.filemanager:id/menu"));
         object.findObject(By.clazz("android.widget.ImageView")).click();
+    }
+
+    public static void openDrawer(UiDevice device){
+        WindowManager manager = (WindowManager)
+                InstrumentationRegistry.getTargetContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        Point screenSize = new Point();
+        display.getSize(screenSize);
+
+        Point startPoint = new Point(0, screenSize.y/2);
+        Point endPoint = new Point(screenSize.x/2, screenSize.y/2);
+
+        device.drag(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 3);
+
     }
 }
