@@ -3,11 +3,14 @@ package com.amaze.filemanager.test;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.Direction;
+import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
 import com.amaze.filemanager.R;
+import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.Before;
@@ -27,6 +30,10 @@ public class NavigationTests extends BaseUIAutomatorTest{
         storageText = context.getString(R.string.storage);
         recentFilesText = context.getString(R.string.recent);
         videosText = context.getString(R.string.videos);
+
+        gridViewText = context.getString(R.string.gridview);
+        listViewText = context.getString(R.string.listview);
+        generalTestFolderName = TestDataSource.generalTestFolderName;
     }
 
     @Test
@@ -77,7 +84,49 @@ public class NavigationTests extends BaseUIAutomatorTest{
         assertTrue(recentFilesText + " should be visible in path",
                 device.findObject(By.res("com.amaze.filemanager:id/fullpath"))
                         .getText().endsWith(recentFilesText));
+    }
 
+    @Test
+    public void testGridView() throws Exception{
+        Utils.swipeToRightScreen(device);
 
+        //assert .../Testing is visible
+        assertGeneralTestingFolderVisible();
+
+        //switch to grid layout
+        swipeUpInMainView();
+        Utils.openOverflowMenu(device);
+        device.wait(Until.hasObject(By.text(gridViewText)),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+
+        device.findObject(By.text(gridViewText)).click();
+        assertGeneralTestingFolderVisible();
+
+        //switch back to list layout
+        swipeUpInMainView();
+        Utils.openOverflowMenu(device);
+        device.wait(Until.hasObject(By.text(listViewText)),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+        device.findObject(By.text(listViewText)).click();
+        assertGeneralTestingFolderVisible();
+    }
+
+    private void swipeUpInMainView() throws Exception{
+        UiScrollable navDrawer = new UiScrollable(
+                new UiSelector().resourceId("com.amaze.filemanager:id/listView"));
+
+        navDrawer.getChildByText(
+                new UiSelector().resourceId("com.amaze.filemanager:id/second"),
+                generalTestFolderName)
+        .swipeDown(10);
+    }
+
+    private void assertGeneralTestingFolderVisible() throws Exception{
+        UiScrollable recyclerView = new UiScrollable(
+                new UiSelector().resourceId("com.amaze.filemanager:id/listView"));
+
+        assertTrue("Folder " + generalTestFolderName + " is not visible",
+                recyclerView.scrollTextIntoView(generalTestFolderName));
     }
 }
+

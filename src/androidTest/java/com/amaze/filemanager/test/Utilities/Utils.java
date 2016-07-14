@@ -22,6 +22,7 @@ public class Utils {
 
     private static String generalTestingFolderName = TestDataSource.generalTestFolderName;
     private static String storageText = "Storage";
+    private static String overflowContentDesc = "More options";
 
     public static void navigateToTestFolder(UiDevice device) throws Exception{
 
@@ -120,5 +121,10 @@ public class Utils {
 
         device.swipe(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
         device.waitForIdle(BaseUIAutomatorTest.GENERAL_TIMEOUT);
+    }
+
+    public static void openOverflowMenu(UiDevice device){
+//        device.pressMenu();
+        device.findObject(By.descContains(overflowContentDesc)).click();
     }
 }
