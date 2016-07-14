@@ -7,6 +7,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
@@ -129,5 +130,21 @@ public class Utils {
     public static UiObject2 waitForText(UiDevice device, String text) {
         return device.wait(Until.findObject(By.text(text)),
                 BaseUIAutomatorTest.GENERAL_TIMEOUT);
+    }
+
+    public static void addFileToBookMarks(UiDevice device, String folderName) throws Exception{
+
+        UiScrollable mainFragment = new UiScrollable(
+                new UiSelector().resourceId("com.amaze.filemanager:id/listView"));
+
+        UiObject row = mainFragment.getChildByText(
+                new UiSelector().resourceId("com.amaze.filemanager:id/second"),
+                folderName);
+
+        row.getChild(new UiSelector().className("android.widget.ImageButton")).click();
+
+        device.wait(Until.findObject(By.text("Add to Bookmark")),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT)
+        .click();
     }
 }
