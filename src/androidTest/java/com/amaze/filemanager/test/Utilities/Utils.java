@@ -86,7 +86,8 @@ public class Utils {
     }
 
     private static void openFabMenu(UiDevice device){
-        UiObject2 object = device.findObject(By.res("com.amaze.filemanager:id/menu"));
+        UiObject2 object = device.wait(Until.findObject(By.res("com.amaze.filemanager:id/menu")),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT);
         object.findObject(By.clazz("android.widget.ImageView")).click();
     }
 
