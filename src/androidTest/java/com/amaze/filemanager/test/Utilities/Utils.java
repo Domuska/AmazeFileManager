@@ -11,17 +11,20 @@ import android.widget.AdapterView;
 
 import com.amaze.filemanager.*;
 import com.amaze.filemanager.R;
+import com.amaze.filemanager.ui.drawer.EntryItem;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
@@ -29,11 +32,16 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasToString;
 
 public class Utils {
 
     private static String addToBookmark = "Add to Bookmark";
+    private static String storageText = "Storage";
 
     public static void createFolderWithName(String name){
         openFabMenu();
@@ -77,15 +85,14 @@ public class Utils {
 
     public static void navigateToTestFolder(String testFolderName) {
 
-//        onView(withText(storageText)).perform(click());
+        openDrawer();
+//        onData(allOf(hasToString(storageText), is(instanceOf(EntryItem.class))))
+//                .inAdapterView(withId(R.id.menu_drawer))
+//                .check(matches(isDisplayed()))
+//                .perform(click());
+        onView(withText(storageText)).perform(click());
 
-        onView(withId(R.id.home)).perform(click());
-
-        //at some point home was set to be in the OS file structure, not in sdcard
-//        onView(allOf(withId(R.id.listView), isDisplayed()))
-//                .perform(RecyclerViewActions.actionOnItem(
-//                        hasDescendant(withText("sdcard")), click()
-//                ));
+//        onView(withId(R.id.home)).perform(click());
 
 
         //have to use the isDisplayed because there's actually two lists in the app open at this point
