@@ -91,17 +91,14 @@ public class Utils {
     }
 
     public static void openDrawer(UiDevice device){
-        device.findObject(By.res("com.amaze.filemanager:id/pager")).swipe(Direction.RIGHT, 0.6f);
-//        WindowManager manager = (WindowManager)
-//                InstrumentationRegistry.getTargetContext().getSystemService(Context.WINDOW_SERVICE);
-//        Display display = manager.getDefaultDisplay();
-//        Point screenSize = new Point();
-//        display.getSize(screenSize);
-//
-//        Point startPoint = new Point(0, screenSize.y/2);
-//        Point endPoint = new Point(screenSize.x/2, screenSize.y/2);
-//
-//        device.drag(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 3);
+
+        Point startPoint = new Point(0, device.getDisplayHeight()/2);
+        Point endPoint = new Point(device.getDisplayWidth()/2, device.getDisplayHeight()/2);
+
+        //wait that all popup windows and such are closed
+        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/pager")),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+        device.drag(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
     }
 
     public static void swipeToLeftScreen(UiDevice device) throws Exception{
