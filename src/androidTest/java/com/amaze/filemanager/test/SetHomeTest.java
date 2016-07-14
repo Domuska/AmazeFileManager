@@ -3,6 +3,7 @@ package com.amaze.filemanager.test;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiScrollable;
@@ -18,9 +19,11 @@ import com.amaze.filemanager.test.Utilities.Utils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertTrue;
 
+@RunWith(AndroidJUnit4.class)
 public class SetHomeTest extends BaseUIAutomatorTest{
 
     private String generalTestFolderName,

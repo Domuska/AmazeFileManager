@@ -27,18 +27,16 @@ public class Utils {
     public static void navigateToTestFolder(UiDevice device) throws Exception{
 
         openDrawer(device);
-//        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/pathbar")),
-//                BaseUIAutomatorTest.GENERAL_TIMEOUT);
         UiScrollable navDrawer = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
 
-        navDrawer.scrollTextIntoView(storageText);
+//        navDrawer.scrollTextIntoView(storageText);
         navDrawer.getChildByText(
                 new UiSelector().resourceId("com.amaze.filemanager:id/second"),
                 storageText).click();
 
 //        device.findObject(By.res("com.amaze.filemanager:id/home")).click();
-//
+
         UiScrollable mainFragment = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/listView"));
 

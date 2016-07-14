@@ -2,6 +2,7 @@ package com.amaze.filemanager.test;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.Direction;
 import android.support.test.uiautomator.UiDevice;
@@ -16,9 +17,11 @@ import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertTrue;
 
+@RunWith(AndroidJUnit4.class)
 public class NavigationTests extends BaseUIAutomatorTest{
 
     private String storageText, recentFilesText, videosText;
