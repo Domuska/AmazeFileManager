@@ -110,6 +110,7 @@ public class Utils {
         Point endPoint = new Point(device.getDisplayWidth(), startPoint.y);
 
         device.swipe(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
+        device.waitForIdle(BaseUIAutomatorTest.GENERAL_TIMEOUT);
     }
 
     public static void swipeToRightScreen(UiDevice device){
@@ -118,5 +119,6 @@ public class Utils {
         Point endPoint = new Point(device.getDisplayWidth()/4, startPoint.y);
 
         device.swipe(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
+        device.waitForIdle(BaseUIAutomatorTest.GENERAL_TIMEOUT);
     }
 }

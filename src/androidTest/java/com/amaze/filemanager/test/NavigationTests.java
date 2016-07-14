@@ -3,6 +3,8 @@ package com.amaze.filemanager.test;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.UiScrollable;
+import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
 import com.amaze.filemanager.R;
@@ -10,6 +12,8 @@ import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class NavigationTests extends BaseUIAutomatorTest{
 
@@ -28,13 +32,52 @@ public class NavigationTests extends BaseUIAutomatorTest{
     @Test
     public void testSwipingBetweenFolders() throws Exception{
 
-//        Utils.swipeToLeftScreen(device);
-//
-//        device.wait(Until.hasObject(By.res("android:id/input")),
-//                BaseUIAutomatorTest.GENERAL_TIMEOUT);
-        
-        Utils.swipeToRightScreen(device);
-        device.wait(Until.hasObject(By.res("android:id/input")),
+        //make sure we're on the leftmost screen
+        Utils.swipeToLeftScreen(device);
+
+        //navigate to pager to images
+        Utils.openDrawer(device);
+        UiScrollable navDrawer = new UiScrollable(
+                new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
+
+        navDrawer.scrollTextIntoView(videosText);
+        navDrawer.getChildByText(
+                new UiSelector().resourceId("com.amaze.filemanager:id/second"),
+                videosText
+        ).click();
+
+        device.wait(Until.hasObject(By.text(videosText)),
                 BaseUIAutomatorTest.GENERAL_TIMEOUT);
+
+        //swipe to other screen
+        Utils.swipeToRightScreen(device);
+
+
+        //navigate to recent files
+        Utils.openDrawer(device);
+        navDrawer = new UiScrollable(
+                new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
+
+        navDrawer.scrollTextIntoView(recentFilesText);
+        navDrawer.getChildByText(
+                new UiSelector().resourceId("com.amaze.filemanager:id/second"),
+                recentFilesText
+        ).click();
+
+        device.wait(Until.hasObject(By.text(recentFilesText)),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+
+        //assert we can swipe between the two folders
+        Utils.swipeToLeftScreen(device);
+        assertTrue(videosText + " should be visible in path",
+                device.findObject(By.res("com.amaze.filemanager:id/fullpath"))
+                        .getText().endsWith(videosText));
+
+        Utils.swipeToRightScreen(device);
+        assertTrue(recentFilesText + " should be visible in path",
+                device.findObject(By.res("com.amaze.filemanager:id/fullpath"))
+                        .getText().endsWith(recentFilesText));
+
+
     }
 }
