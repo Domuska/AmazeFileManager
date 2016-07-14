@@ -42,8 +42,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         //delete the file
         device.findObject(By.text(fileName)).longClick();
         device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
-//        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")),
-//                BaseUIAutomatorTest.GENERAL_TIMEOUT);
 
 //        device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
         device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
@@ -54,5 +52,26 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
                 device.findObject(new UiSelector().text(fileName)).exists());
     }
 
+    @Test
+    public void testCreateNewFolderAndDeleteIt() throws Exception{
+        Utils.createFolderWithName(device, folderName1);
+
+        //assert folder is visible
+        assertTrue("Folder should be visible",
+                device.findObject(new UiSelector().text(folderName1)).exists());
+
+        //delete the folder
+        device.findObject(By.text(folderName1)).longClick();
+        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
+
+        device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
+                .clickAndWaitForNewWindow();
+
+        //assert folder is deleted
+        assertFalse("Folder should be gone",
+                device.findObject(new UiSelector().text(folderName1)).exists());
+    }
+
+    
 
 }
