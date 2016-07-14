@@ -28,6 +28,7 @@ public class BaseTestClass extends BaseUIAutomatorTest{
     @After
     public final void tearDownBaseTestClass() throws Exception{
 
+        device.pressBack();
         device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/pathbar")),
                 BaseUIAutomatorTest.GENERAL_TIMEOUT);
 

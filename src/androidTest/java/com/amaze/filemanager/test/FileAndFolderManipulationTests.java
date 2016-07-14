@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
@@ -48,8 +49,9 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
                 .clickAndWaitForNewWindow();
 
-
         //assert it is gone
+        assertFalse("File " + fileName + " should be gone",
+                device.findObject(new UiSelector().text(fileName)).exists());
     }
 
 

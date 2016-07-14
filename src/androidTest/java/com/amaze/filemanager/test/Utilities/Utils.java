@@ -56,12 +56,13 @@ public class Utils {
     }
 
     public static void swipeDownInPathBar(UiDevice device){
-        UiObject2 pathBar = device.findObject(By.res("com.amaze.filemanager:id/pathbar"));
+//        UiObject2 pathBar = device.findObject(By.res("com.amaze.filemanager:id/pathbar"));
+        UiObject2 pathBar = device.findObject(By.res("com.amaze.filemanager:id/buttonbarframe"));
         Point middlePoint = pathBar.getVisibleCenter();
         Rect bounds = pathBar.getVisibleBounds();
 
         Point targetPoint = new Point(middlePoint.x, middlePoint.y + bounds.height());
-        pathBar.drag(targetPoint, 1000);
+        pathBar.drag(targetPoint, 500);
     }
 
     private static void openFabMenu(UiDevice device){
