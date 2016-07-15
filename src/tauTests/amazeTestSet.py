@@ -5,12 +5,14 @@ class FileAndFolderManipulationTests(UITestCase):
     
     def setUp(self):
         global folderName1
+        global folderName2
         global testingFolderName
         global amazeTestingFolder
         global fileName
         
         testingFolderName = TestDataSource.generalTestFolderName
         folderName1 = TestDataSource.folderName1
+        folderName2 = TestDataSource.folderName2
         amazeTestingFolder = TestDataSource.amazeTestFolderName
         fileName = TestDataSource.textFileName
         launch.activity('com.amaze.filemanager', '.activities.MainActivity')
@@ -37,10 +39,7 @@ class FileAndFolderManipulationTests(UITestCase):
         #create the file
         #Utils.createFolderWithName(folderName1)
         #for some reason the way it is done in utils does not work!
-        tap.instanceOf('android.widget.ImageView', index=2)
-        tap.resourceId("com.amaze.filemanager:id/menu_item")
-        input.text(folderName1)
-        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
+        self.createFolderWithName(folderName1)
         
         #assert it is visible
         exists.text(folderName1)
@@ -57,10 +56,7 @@ class FileAndFolderManipulationTests(UITestCase):
     def testCreateNewFileAndDeleteIt(self):
         
         #Utils.createFileWithName(fileName)
-        tap.instanceOf('android.widget.ImageView', index=2)
-        tap.resourceId("com.amaze.filemanager:id/menu_item1")
-        input.text(fileName)
-        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
+        self.createFileWithName(fileName)
         
         #assert file is visible
         exists.text(fileName)
@@ -74,4 +70,39 @@ class FileAndFolderManipulationTests(UITestCase):
         exists.no.text(fileName)
         
         
+    @testCaseInfo('<Copy a file to another folder>', deviceCount=1)
+    def testCopyFileToAnotherFolder(self):
+        self.createFolderWithName(folderName1)
+        self.createFolderWithName(folderName2)
         
+        #add file to the folder
+        tap.text(folderName1)
+        self.createFileWithName(fileName)
+        
+        #copy the file
+        tap.resourceId("com.amaze.filemanager:id/properties")
+        tap.text("Copy")
+        
+        input.key.back()
+        Utils.swipeDownInPathBar()
+        
+        #paste the file to another folder
+        tap.text(folderName2)
+        tap.resourceId("com.amaze.filemanager:id/paste")
+        
+        #assert file is visible
+        exists.text(fileName, wait=10000)
+        
+    
+    def createFolderWithName(self, folderName):
+        tap.instanceOf('android.widget.ImageView', index=1)
+        tap.resourceId("com.amaze.filemanager:id/menu_item")
+        input.text(folderName)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
+        
+    def createFileWithName(self, name):
+        tap.instanceOf('android.widget.ImageView', index=1)
+        tap.resourceId("com.amaze.filemanager:id/menu_item1")
+        input.text(name)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
+    

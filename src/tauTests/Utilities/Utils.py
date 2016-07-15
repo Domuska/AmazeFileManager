@@ -26,3 +26,6 @@ def openDrawer():
 def openFabMenu():
     tap.instanceOf('android.widget.ImageView', area='com.amaze.filemanager:id/menu')
 	
+def swipeDownInPathBar():
+	swipe.resourceId("com.amaze.filemanager:id/pathbar").down(distance=0.1)
+	
