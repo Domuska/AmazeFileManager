@@ -30,10 +30,10 @@ def swipeDownInPathBar():
 	swipe.resourceId("com.amaze.filemanager:id/pathbar").down(distance=0.1)
 	
 def swipeToLeftScreen():
-	#swipe.resourceId("com.amaze.filemanager:id/generictext").right(0.9)
 	flick.resourceId("com.amaze.filemanager:id/pager").right()
 	
 def swipeToRightScreen():
-	#swipe.resourceId("com.amaze.filemanager:id/properties").left(0.9)
 	flick.resourceId("com.amaze.filemanager:id/pager").left()
 	
+def openOverFlowMenu():
+	tap.description("More options")
