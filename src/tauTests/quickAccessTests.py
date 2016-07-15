@@ -15,8 +15,11 @@ class QuickAccessFileTest(UITestCase):
         Utils.createFolderWithName(amazeTestingFolder)
         tap.text(amazeTestingFolder)
         
-    #def tearDown(self):
-        #do things        
+    def tearDown(self):
+        Utils.navigateToTestFolder()
+        tap.long.text(amazeTestingFolder)
+        tap.resourceId('com.amaze.filemanager:id/delete')
+        tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
 
     @testCaseInfo('<Quick access text>', deviceCount=1)
     def testOpenFileCheckRecents(self):
