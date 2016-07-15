@@ -20,3 +20,4 @@ def openDrawer():
     
 def openFabMenu():
     tap.instanceOf('android.widget.ImageView', area='com.amaze.filemanager:id/menu')
+	
