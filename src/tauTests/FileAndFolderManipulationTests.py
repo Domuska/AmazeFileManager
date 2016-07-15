@@ -30,9 +30,6 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
         
         
-        
-        
-        
     @testCaseInfo('<Add a new folder>', deviceCount=1)
     def testCreateNewFolderAndDeleteIt(self):
       
@@ -42,7 +39,8 @@ class FileAndFolderManipulationTests(UITestCase):
         self.createFolderWithName(folderName1)
         
         #assert it is visible
-        exists.text(folderName1)
+        assert exists.text(folderName1), \
+        "folder " + folderName1 + " should be visible"
         
         #delete the file
         tap.long.text(folderName1)
@@ -50,7 +48,8 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
         
         #assert it is gone
-        exists.no.text(folderName1)
+        assert exists.no.text(folderName1), \
+        "folder " + folderName1 + " should not be visible"
         
     @testCaseInfo('<Add a new file>', deviceCount=1)
     def testCreateNewFileAndDeleteIt(self):
@@ -59,7 +58,8 @@ class FileAndFolderManipulationTests(UITestCase):
         self.createFileWithName(fileName)
         
         #assert file is visible
-        exists.text(fileName)
+        assert exists.text(fileName), \
+        "file " + fileName + " should be visible"
         
         #delete the file
         tap.long.text(fileName)
@@ -67,7 +67,8 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
         
         #assert it is gone
-        exists.no.text(fileName)
+        assert exists.no.text(fileName), \
+        "file " + fileName + " should not be visible"
         
         
     @testCaseInfo('<Copy a file to another folder>', deviceCount=1)
@@ -91,17 +92,18 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.resourceId("com.amaze.filemanager:id/paste")
         
         #assert file is visible
-        exists.text(fileName, wait=10000)
+        assert exists.text(fileName, wait=10000), \
+        "file " + fileName + " should be visible"
         
     
     def createFolderWithName(self, folderName):
-        tap.instanceOf('android.widget.ImageView', index=1)
+        tap.instanceOf('android.widget.ImageView', index=2)
         tap.resourceId("com.amaze.filemanager:id/menu_item")
         input.text(folderName)
         tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         
     def createFileWithName(self, name):
-        tap.instanceOf('android.widget.ImageView', index=1)
+        tap.instanceOf('android.widget.ImageView', index=2)
         tap.resourceId("com.amaze.filemanager:id/menu_item1")
         input.text(name)
         tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
