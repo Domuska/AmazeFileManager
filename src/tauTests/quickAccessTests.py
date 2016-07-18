@@ -11,6 +11,8 @@ class QuickAccessFileTest(UITestCase):
         quickAccessText = "Quick Access"
         amazeTestingFolder = TestDataSource.amazeTestFolderName
         
+        launch.activity('com.amaze.filemanager', '.activities.MainActivity')
+        
         Utils.navigateToTestFolder()
         Utils.createFolderWithName(amazeTestingFolder)
         tap.text(amazeTestingFolder)
@@ -43,6 +45,11 @@ class QuickAccessFileTest(UITestCase):
      
     def openFileNavigateBack(self):
          tap.text(fileName)
+         #wait for the video player to start up
+         #this is not the way we'd do it in a real situation but here
+         #it's fine, we wait for the only video player to show up
+         #(in real situation we'd maybe handle a different video player)
+         exists.resourceId("com.google.android.apps.photos:id/video_player_controller_fragment_container")
          input.key.back()
          
     def createFileWithName(self, name):
