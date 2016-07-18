@@ -48,5 +48,5 @@ def addFileToBookMarks(folderName):
 		if exists.text(folderName, area = i):
 			settingsRow = i
 			tap.resourceId("com.amaze.filemanager:id/properties", area = settingsRow)
-			
+	tap.text("Add to Bookmark")
 	
