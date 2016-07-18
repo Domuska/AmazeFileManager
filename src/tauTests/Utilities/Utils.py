@@ -37,3 +37,16 @@ def swipeToRightScreen():
 	
 def openOverFlowMenu():
 	tap.description("More options")
+	
+def addFileToBookMarks(folderName):
+	
+	#find the testing text
+	find.text(folderName, direction = "vertical")
+	rowItems = get.items.resourceId("com.amaze.filemanager:id/second")
+	#tap the overflow menu
+	for i in rowItems:
+		if exists.text(folderName, area = i):
+			settingsRow = i
+			tap.resourceId("com.amaze.filemanager:id/properties", area = settingsRow)
+			
+	
