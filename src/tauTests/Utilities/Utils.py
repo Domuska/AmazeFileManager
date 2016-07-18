@@ -9,11 +9,13 @@ def createFolderWithName(folderName):
 	input.text(folderName)
 	tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
 	
+	
 def createFileWithName(fileName):
 	openFabMenu()
 	tap.resourceId("com.amaze.filemanager:id/menu_item1")
 	input.text(fileName)
 	tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
+	
     
 def navigateToTestFolder():
     openDrawer()

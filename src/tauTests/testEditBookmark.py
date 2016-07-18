@@ -24,8 +24,7 @@ class EditBookmarkTests(UITestCase):
         
         #rename the test folder
         tap.long.text(generalTestFolderName)
-        #tap.resourceId("com.amaze.filemanager:id/editText4")
-        tap.long.text(generalTestFolderName)
+        tap.resourceId("com.amaze.filemanager:id/editText4")
         
         for x in xrange(1,11):
             input.key.delete()
