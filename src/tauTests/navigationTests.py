@@ -14,6 +14,14 @@ class NavigationTests(UITestCase):
         gridViewText = "Grid View"
         listViewText = "List View"
         generalTestFolderName = TestDataSource.generalTestFolderName
+        
+        reactor.add("Permission Reactor", self.allowPermissions, text="Allow")
+        #launch app with verify=False so when app launches it won't fail if
+        #the app asks for permissions
+        launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
+        
+    def allowPermissions(self):
+        tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
 
     @testCaseInfo('<swipe between two folders>', deviceCount=1)
     def testSwipingBetweenTwoFolders(self):

@@ -15,7 +15,9 @@ class FileAndFolderManipulationTests(UITestCase):
         folderName2 = TestDataSource.folderName2
         amazeTestingFolder = TestDataSource.amazeTestFolderName
         fileName = TestDataSource.textFileName
-        launch.activity('com.amaze.filemanager', '.activities.MainActivity')
+        
+        reactor.add("Permission Reactor", self.allowPermissions, text="Allow")
+        launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
         
         Utils.navigateToTestFolder()
         Utils.createFolderWithName(amazeTestingFolder)
@@ -29,6 +31,10 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.resourceId('com.amaze.filemanager:id/delete')
         tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
         
+        
+    def allowPermissions(self):
+        tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
+ 
         
     @testCaseInfo('<Add a new folder>', deviceCount=1)
     def testCreateNewFolderAndDeleteIt(self):

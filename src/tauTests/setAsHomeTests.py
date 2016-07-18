@@ -12,10 +12,9 @@ class SetHomeTest(UITestCase):
         quickAccessText = "Quick Access"
         
         reactor.add("Permission Reactor", self.allowPermissions, text="Allow")
+        #launch app with verify=False so when app launches it won't fail if
+        #the app asks for permissions
         launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
-        #omatekemä launchi
-        #tap.description("Apps")
-        #tap.text("Amaze")
         
         Utils.swipeToRightScreen()
         Utils.navigateToTestFolder()
@@ -26,8 +25,8 @@ class SetHomeTest(UITestCase):
         
         
     def allowPermissions(self):
-        #tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
-        tap.text("Allow")
+        tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
+        #tap.text("Allow")
 
     @testCaseInfo('<Test setting folder as home>', deviceCount=1)
     def testSetHome(self):
