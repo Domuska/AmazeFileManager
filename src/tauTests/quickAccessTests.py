@@ -16,6 +16,7 @@ class QuickAccessFileTest(UITestCase):
         tap.text(amazeTestingFolder)
         
     def tearDown(self):
+        #remove the testing folder
         Utils.navigateToTestFolder()
         tap.long.text(amazeTestingFolder)
         tap.resourceId('com.amaze.filemanager:id/delete')
