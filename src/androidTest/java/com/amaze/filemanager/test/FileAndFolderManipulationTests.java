@@ -1,6 +1,7 @@
 package com.amaze.filemanager.test;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -58,7 +59,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         assertFalse("Folder should be gone", folderFound);
     }
 
-    //this test does not work. For some reason it is not possible to click on the properties.
     public void testCopyFileToAnotherFolder(){
 
         Utils.createFolderWithName(solo, folderName1);
@@ -69,43 +69,13 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         Utils.createFileWithName(solo, fileName);
 
         //copy the file
-
-        List<View> views = solo.getViews();
-        for(View view : views){
-            if(view instanceof RelativeLayout && view.getId() == R.id.second){
-                //find the properties element inside the correct row and click it
-                TextView folderName = (TextView)view.findViewById(R.id.firstline);
-                if(folderName.getText().equals(fileName)) {
-                    solo.clickOnView(view.findViewById(R.id.properties));
-                    solo.clickOnText(copyText);
-                }
-            }
+        solo.waitForDialogToClose();
+        List<ImageButton> views = solo.getCurrentViews(ImageButton.class);
+        for(ImageButton button : views){
+            if(button.getId() == R.id.properties)
+                solo.clickOnView(button);
         }
-
-//        List<View> views = solo.getViews(solo.getView(R.id.listView));
-//
-//        for(View view : views){
-//            if(view instanceof RelativeLayout && view.getId() == R.id.second){
-//                TextView rowText = (TextView)view.findViewById(R.id.firstline);
-//                if(rowText.getText().toString().equals(fileName)) {
-//                    solo.clickOnView(view.findViewById(R.id.properties));
-//                }
-//            }
-//        }
-
-//        solo.clickOnView(solo.getView("com.amaze.filemanager:id/properties", 0));
-
-//        solo.clickInRecyclerView(0, 0, R.id.properties);
-//        RelativeLayout relativeLayout = (RelativeLayout)solo.getView(R.id.second, 0);
-//
-//        for(int i = 0; i < relativeLayout.getChildCount(); i++){
-//            if(relativeLayout.getChildAt(i) instanceof ImageButton)
-//                solo.clickOnView(relativeLayout.getChildAt(i));
-//        }
-
-
-//        solo.clickOnText(copyText);
-
+        solo.clickOnText(copyText);
         solo.goBack();
 
         //paste the file to another folder

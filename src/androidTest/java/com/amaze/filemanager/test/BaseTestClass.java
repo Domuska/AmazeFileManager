@@ -1,5 +1,7 @@
 package com.amaze.filemanager.test;
 
+import android.support.test.InstrumentationRegistry;
+
 import com.amaze.filemanager.R;
 
 import com.amaze.filemanager.test.Utilities.TestDataSource;
@@ -24,10 +26,14 @@ public class BaseTestClass extends BaseRobotiumTest {
 
     public void tearDown() throws Exception{
 
-        Utils.navigateToTestFolder(solo);
-        solo.clickLongOnView(solo.getText(amazeTestFolderName));
-        solo.clickOnView(solo.getView(R.id.delete));
-        solo.clickOnView(solo.getView(R.id.buttonDefaultPositive));
+//        Utils.navigateToTestFolder(solo);
+//        solo.clickLongOnView(solo.getText(amazeTestFolderName));
+//        solo.clickOnView(solo.getView(R.id.delete));
+//        solo.clickOnView(solo.getView(R.id.buttonDefaultPositive));
+
+        //using ADB shell command (API lvl 21+)
+        InstrumentationRegistry.getInstrumentation().
+                getUiAutomation().executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestFolderName);
 
         //since using JUnit3, we cant use @After annotation and have to call the tearDown last
         super.tearDown();

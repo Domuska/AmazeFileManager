@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 public class Utils {
 
     private static String generalTestFolderName = TestDataSource.generalTestFolderName;
+    private static String storageText = "Storage";
     private static String addToBookmark = "Add to Bookmark";
 
     public static void createFolderWithName(Solo solo, String folderName) {
@@ -64,7 +65,8 @@ public class Utils {
     }
 
     public static void navigateToTestFolder(Solo solo) {
-        solo.clickOnView(solo.getView(R.id.home));
+        openDrawer(solo);
+        solo.clickOnText(storageText);
         solo.clickOnText(generalTestFolderName);
     }
 
@@ -137,31 +139,39 @@ public class Utils {
 
     //this method will fail silently if the correct folder is not found, which is not nice
     public static void addFileToBookMarks(Solo solo, String name){
-
-
         solo.searchText(generalTestFolderName, true);
         solo.waitForText(generalTestFolderName);
-        List<View> views = solo.getViews();
 
-        //go through all the views to get the correct row
-        for(View view : views){
-            if(view instanceof RelativeLayout && view.getId() == R.id.second){
-                //find the properties element inside the correct row and click it
-                TextView folderName = (TextView)view.findViewById(R.id.firstline);
-                if(folderName.getText().equals(name)) {
-                    solo.clickOnView(view.findViewById(R.id.properties));
-                    solo.clickOnText(addToBookmark);
+        //go through all imageButtons to get the right row's properties button, a bit hacky
+        List<ImageButton> views = solo.getCurrentViews(ImageButton.class);
+        for(ImageButton button : views){
+            if(button.getId() == R.id.properties) {
+                View parent = (View)button.getParent();
+                if(((TextView)parent.findViewById(R.id.firstline))
+                        .getText().toString().equals(generalTestFolderName)) {
+
+                    solo.clickOnView(button);
                 }
             }
         }
+        solo.clickOnText(addToBookmark);
+
+//        for(View view : views){
+//            if(view instanceof RelativeLayout && view.getId() == R.id.second){
+//                //find the properties element inside the correct row and click it
+//                TextView folderName = (TextView)view.findViewById(R.id.firstline);
+//                if(folderName.getText().equals(name)) {
+//                    solo.clickOnView(view.findViewById(R.id.properties));
+//                    solo.clickOnText(addToBookmark);
+//                }
+//            }
+//        }
     }
 
     //this way to do searching is dirty-ish, but it seems there is no way to search
     //in a specific list with Robotium. This way also would not work if the nav drawer list
     //was long enough. Could be made smarter but as a whole, bad idea.
     public static boolean isElementFoundInDrawer(Solo solo, String elementName) {
-
-
         boolean elementFound = false;
         int j = 0;
 

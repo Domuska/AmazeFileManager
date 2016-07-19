@@ -36,7 +36,7 @@ public class BaseRobotiumTest extends ActivityInstrumentationTestCase2{
         super.tearDown();
     }
 
-    public void testStuff(){
-        solo.clickOnText("Alarms");
-    }
+//    public void testStuff(){
+//        solo.clickOnText("Alarms");
+////    }
 }
