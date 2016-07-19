@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.test.espresso.IdlingResource;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -30,7 +31,8 @@ import java.util.ArrayList;
  * Created by arpitkh996 on 12-01-2016.
  */
 
-public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayList<BaseFile>> {
+public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayList<BaseFile>>
+    implements IdlingResource {
     Main ma;
     String path;
     Boolean move;
@@ -41,6 +43,13 @@ public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayL
     Context con;
     boolean rootmode=false;
     int openMode=0;
+
+    private final String resourceName = "CopyFileCheck";
+    private boolean isIdleNow;
+    private ResourceCallback resourceCallback;
+
+
+
     public CopyFileCheck(Main main, String path, Boolean move, MainActivity context,boolean rootMode) {
         this.ma = main;
         this.path = path;
@@ -195,5 +204,27 @@ public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayL
     protected void onPostExecute(ArrayList<BaseFile> strings) {
         super.onPostExecute(strings);
         showDialog();
+    }
+
+    /*
+    19.7.2016
+    added for IdlingResource (Espresso tests)
+    by Tomi Lämsä lamsatom(at)gmail(dot)com
+     */
+
+    @Override
+    public String getName() {
+        return this.resourceName;
+    }
+
+    @Override
+    public boolean isIdleNow() {
+        //todo: figure out logic for this
+        return false;
+    }
+
+    @Override
+    public void registerIdleTransitionCallback(ResourceCallback callback) {
+        this.resourceCallback = callback;
     }
 }

@@ -1,5 +1,8 @@
 package com.amaze.filemanager.test;
 
+import android.app.Instrumentation;
+import android.support.test.InstrumentationRegistry;
+
 import com.amaze.filemanager.R;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
@@ -38,14 +41,19 @@ public class BaseTestClass {
     @After
     public void tearDownTestingFolder(){
 
-        Utils.navigateToTestFolder(generalTestFolderName);
+//        Utils.navigateToTestFolder(generalTestFolderName);
+        Utils.openDrawer();
+        onView(withText(storageText)).perform(click());
 
         //remove the testing folder
-        onView(withText(amazeTestFolderName)).perform(longClick());
-        onView(withId(R.id.delete)).perform(click());
-        onView(withId(R.id.buttonDefaultPositive)).perform(click());
+
+        //manual way
+//        onView(withText(amazeTestFolderName)).perform(longClick());
+//        onView(withId(R.id.delete)).perform(click());
+//        onView(withId(R.id.buttonDefaultPositive)).perform(click());
+
+        //using ADB shell command (API lvl 21+)
+        InstrumentationRegistry.getInstrumentation().
+                getUiAutomation().executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestFolderName);
     }
-
-
-
 }

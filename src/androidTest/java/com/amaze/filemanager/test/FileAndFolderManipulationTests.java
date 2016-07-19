@@ -61,7 +61,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         onView(withText(fileName)).check(doesNotExist());
     }
 
-
     @Test
     public void testCreateNewFolderAndDeleteIt(){
 
@@ -99,6 +98,7 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         //paste the file to another folder
         onView(withText(folderName2)).perform(click());
         onView(withId(R.id.paste)).perform(click());
+
 
         //assert file is visible
         onView(withText(fileName)).check(matches(isDisplayed()));

@@ -32,7 +32,7 @@ android {
 
     defaultConfig {
         applicationId "com.amaze.filemanager"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 41
         versionName "3.1.0"
@@ -136,10 +136,13 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support:support-annotations:23.2.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+    compile 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
+
     // for nav drawer
     androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.2.1'){
         exclude module: 'support-annotations' exclude module: 'support-v4' exclude module: 'support-v13' exclude module: 'recyclerview-v7'
     }
+
 
 
 }
