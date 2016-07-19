@@ -31,7 +31,7 @@ public class BookMarkTests {
 
 
     private String generalTestFolderName;
-    private String newTestFolderName;
+
 
     @Rule
     public ActivityTestRule<MainActivity> myActivityRule =
@@ -40,7 +40,6 @@ public class BookMarkTests {
     @Before
     public void initStrings(){
         generalTestFolderName = TestDataSource.generalTestFolderName;
-        newTestFolderName = TestDataSource.newTestFolderName;
     }
 
 

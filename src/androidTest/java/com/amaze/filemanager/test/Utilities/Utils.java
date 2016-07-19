@@ -92,9 +92,6 @@ public class Utils {
 //                .perform(click());
         onView(withText(storageText)).perform(click());
 
-//        onView(withId(R.id.home)).perform(click());
-
-
         //have to use the isDisplayed because there's actually two lists in the app open at this point
         //go to Testing folder in sdcard
         onView(allOf(withId(com.amaze.filemanager.R.id.listView), isDisplayed()))

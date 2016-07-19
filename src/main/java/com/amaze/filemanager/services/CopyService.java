@@ -35,6 +35,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -64,7 +65,8 @@ import java.util.List;
 
 import jcifs.smb.SmbException;
 
-public class CopyService extends Service {
+public class CopyService extends Service
+    implements IdlingResource {
     HashMap<Integer, Boolean> hash = new HashMap<Integer, Boolean>();
     public HashMap<Integer, DataPackage> hash1 = new HashMap<Integer, DataPackage>();
     boolean rootmode;
@@ -72,6 +74,11 @@ public class CopyService extends Service {
     NotificationCompat.Builder mBuilder;
     Context c;
     Futils utils ;
+
+    private final String resourceName = CopyService.class.getName();
+    private boolean isIdleNow = true;
+    private volatile ResourceCallback resourceCallback;
+
     @Override
     public void onCreate() {
         c = getApplicationContext();
@@ -85,6 +92,7 @@ public class CopyService extends Service {
     boolean foreground=true;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        isIdleNow = false;
         Bundle b = new Bundle();
         ArrayList<BaseFile> files = intent.getParcelableArrayListExtra("FILE_PATHS");
         String FILE2 = intent.getStringExtra("COPY_DIRECTORY");
@@ -156,6 +164,7 @@ public class CopyService extends Service {
 
         @Override
         public void onPostExecute(Integer b) {
+            isIdleNow = true;
             publishResults("", 0, 0, b, 0, 0, true, move);
             if(fileVerifier!=null && fileVerifier.isRunning()){
                 while (fileVerifier.isRunning()){
@@ -535,5 +544,25 @@ public class CopyService extends Service {
     public IBinder onBind(Intent arg0) {
         // TODO Auto-generated method stub
         return registerCallback.asBinder();
+    }
+
+    /*
+    19.7.2016
+    following three overrides added for IdlingResource (Espresso tests)
+    by Tomi Lämsä lamsatom(at)gmail(dot)com
+     */
+    @Override
+    public String getName() {
+        return this.resourceName;
+    }
+
+    @Override
+    public boolean isIdleNow() {
+        return isIdleNow;
+    }
+
+    @Override
+    public void registerIdleTransitionCallback(ResourceCallback callback) {
+        this.resourceCallback = callback;
     }
 }

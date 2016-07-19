@@ -31,8 +31,7 @@ import java.util.ArrayList;
  * Created by arpitkh996 on 12-01-2016.
  */
 
-public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayList<BaseFile>>
-    implements IdlingResource {
+public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayList<BaseFile>> {
     Main ma;
     String path;
     Boolean move;
@@ -44,9 +43,6 @@ public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayL
     boolean rootmode=false;
     int openMode=0;
 
-    private final String resourceName = "CopyFileCheck";
-    private boolean isIdleNow;
-    private ResourceCallback resourceCallback;
 
 
 
@@ -67,6 +63,13 @@ public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayL
     @Override
     public void onProgressUpdate(String... message) {
         Toast.makeText(con, message[0], Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onPreExecute() {
+
+        super.onPreExecute();
+
     }
 
     @Override
@@ -204,27 +207,8 @@ public class CopyFileCheck extends AsyncTask<ArrayList<BaseFile>, String, ArrayL
     protected void onPostExecute(ArrayList<BaseFile> strings) {
         super.onPostExecute(strings);
         showDialog();
+
     }
 
-    /*
-    19.7.2016
-    added for IdlingResource (Espresso tests)
-    by Tomi Lämsä lamsatom(at)gmail(dot)com
-     */
 
-    @Override
-    public String getName() {
-        return this.resourceName;
-    }
-
-    @Override
-    public boolean isIdleNow() {
-        //todo: figure out logic for this
-        return false;
-    }
-
-    @Override
-    public void registerIdleTransitionCallback(ResourceCallback callback) {
-        this.resourceCallback = callback;
-    }
 }
