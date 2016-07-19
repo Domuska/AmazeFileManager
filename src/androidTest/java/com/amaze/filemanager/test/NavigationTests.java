@@ -39,8 +39,10 @@ public class NavigationTests extends BaseUIAutomatorTest{
         listViewText = context.getString(R.string.listview);
         generalTestFolderName = TestDataSource.generalTestFolderName;
 
-        Utils.openDrawer(device);
-        device.findObject(By.text(storageText)).click();
+//        Utils.swipeToRightScreen(device);
+//        Utils.openDrawer(device);
+//        device.findObject(By.text(storageText)).click();
+//        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/fullpath")), GENERAL_TIMEOUT);
     }
 
     @Test
@@ -51,10 +53,13 @@ public class NavigationTests extends BaseUIAutomatorTest{
 
         //navigate to pager to images
         Utils.openDrawer(device);
+
         UiScrollable navDrawer = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
 
         navDrawer.scrollTextIntoView(videosText);
+        //fail on row 58 - android.support.test.uiautomator.UiObjectNotFoundException: UiSelector[RESOURCE_ID=com.amaze.filemanager:id/menu_drawer]
+
         navDrawer.getChildByText(
                 new UiSelector().resourceId("com.amaze.filemanager:id/second"),
                 videosText
@@ -110,7 +115,6 @@ public class NavigationTests extends BaseUIAutomatorTest{
         Utils.waitForText(device, listViewText).click();
         assertGeneralTestingFolderVisible();
     }
-
 
 
     private void swipeUpInMainView() throws Exception{

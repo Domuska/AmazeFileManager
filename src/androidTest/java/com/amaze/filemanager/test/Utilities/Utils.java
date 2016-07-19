@@ -100,15 +100,16 @@ public class Utils {
         device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/pager")),
                 BaseUIAutomatorTest.GENERAL_TIMEOUT);
         device.drag(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
+        device.waitForIdle(5000);
     }
 
-    public static void swipeToLeftScreen(UiDevice device) throws Exception{
+    public static void swipeToLeftScreen(UiDevice device){
 
         Point startPoint = new Point(device.getDisplayWidth()/4, device.getDisplayHeight()/2);
-        Point endPoint = new Point(device.getDisplayWidth(), startPoint.y);
+        Point endPoint = new Point(device.getDisplayWidth()-20, startPoint.y);
 
         device.swipe(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
-        device.waitForIdle(BaseUIAutomatorTest.GENERAL_TIMEOUT);
+//        device.waitForIdle(BaseUIAutomatorTest.GENERAL_TIMEOUT);
     }
 
     public static void swipeToRightScreen(UiDevice device){

@@ -66,8 +66,13 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
                 device.findObject(new UiSelector().text(folderName1)).exists());
 
         //delete the folder
-        device.findObject(By.text(folderName1)).longClick();
-        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
+//        device.findObject(By.text(folderName1)).longClick();
+        device.findObject(new UiSelector().text(folderName1)).longClick();
+        //todo failed on this row before, will pass with the new wait?
+        UiObject2 deleteButton =
+                device.wait(Until.findObject(By.res("com.amaze.filemanager:id/delete")), GENERAL_TIMEOUT);
+        deleteButton.click();
+//        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
 
         device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
                 .clickAndWaitForNewWindow();
