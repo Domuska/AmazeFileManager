@@ -15,6 +15,7 @@ import org.slf4j.helpers.Util;
 
 import io.appium.java_client.TouchAction;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
 public class FileAndFolderManipulationTests extends BaseTestClass {
@@ -103,6 +104,11 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         if(driver.findElements(By.name(fileName)).isEmpty()){
             fail("File should be pasted in, is not visible on the screen");
         }
+    }
+
+    @Test
+    public void testthings(){
+        assertEquals(true, true);
     }
 
 }

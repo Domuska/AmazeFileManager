@@ -18,9 +18,11 @@ public class BaseTestClass extends BaseAppiumTest{
 
     @Before
     final public void setUpBaseTestClass(){
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions
-//                .visibilityOfElementLocated(By.id("com.amaze.filemanager:id/pathbar")));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[@text='Alarms']"))
+        );
+
         //go to the testing folder in root of sdcard (hopefully)
         Utils.navigateToTestingFolder(driver);
 
