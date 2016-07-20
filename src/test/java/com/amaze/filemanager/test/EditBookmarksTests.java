@@ -4,6 +4,7 @@ import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -28,11 +29,14 @@ public class EditBookmarksTests extends BaseAppiumTest{
         driver.findElementById("com.amaze.filemanager:id/buttonDefaultNegative").click();
     }
 
-    @Test
-    public void editBookmarkTest(){
-
+    @Before
+    public void setUp(){
         Utils.swipeDownInPathBar(driver);
         driver.findElementById("com.amaze.filemanager:id/home").click();
+    }
+
+    @Test
+    public void editBookmarkTest(){
 
         Utils.addFileToBookMarks(driver, generalTestFoldername);
         Utils.openDrawer(driver);

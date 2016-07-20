@@ -19,14 +19,9 @@ import static junit.framework.Assert.fail;
 
 public class FileAndFolderManipulationTests extends BaseTestClass {
 
-    private String fileName, folderName1, folderName2;
-
-    @Before
-    public void initStrings(){
-        fileName = TestDataSource.textFileName;
-        folderName1 = TestDataSource.folderNames[0];
-        folderName2 = TestDataSource.folderNames[1];
-    }
+    private String fileName = TestDataSource.textFileName;
+    private String folderName1 = TestDataSource.folderNames[0];
+    private String folderName2= TestDataSource.folderNames[1];
 
     @Test
     public void testCreateNewFileAndDeleteIt(){
@@ -85,9 +80,9 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         driver.findElementByName(folderName1).click();
         Utils.createFileWithName(driver, fileName);
 
-        //cut the file to the other folder
+        //copy the file to the other folder
         driver.findElementById("com.amaze.filemanager:id/properties").click();
-        driver.findElementByName("Cut").click();
+        driver.findElementByName("Copy").click();
 
         driver.navigate().back();
 
@@ -96,10 +91,15 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
 
         //paste the file to another folder
         driver.findElementByName(folderName2).click();
-
         driver.findElementById("com.amaze.filemanager:id/paste").click();
 
-        //assert the file is is present
+        //wait for the slow copy action to perform
+        WebDriverWait driverWait = new WebDriverWait(driver, 10);
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.name(fileName)
+        ));
+
+        //assert the file is is visible
         if(driver.findElements(By.name(fileName)).isEmpty()){
             fail("File should be pasted in, is not visible on the screen");
         }

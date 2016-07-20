@@ -36,16 +36,30 @@ public class BaseAppiumTest {
         cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "4000");
         cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "6.0.1");
         cap.setCapability("appPackage", "com.amaze.filemanager");
-//        cap.setCapability("appActivity", );
-//        cap.setCapability(MobileCapabilityType.APP, "c://apk//sample.apk");
-        cap.setCapability(MobileCapabilityType.APP,
-                "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
+//        cap.setCapability(MobileCapabilityType.APP,
+//                "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
 
         // https://discuss.appium.io/t/android-m-and-permissions/5760/13
         //noReset so the app does not get reinstalled ever so we don't have to deal with permissions
-        cap.setCapability("noReset", true);
+        cap.setCapability("noReset", false);
         cap.setCapability(MobileCapabilityType.FULL_RESET, false);
+
+        //need to do this so that we can install the .apk with all permissions given
+        cap.setCapability("autoLaunch", false);
+        Runtime.getRuntime()
+                .exec("adb install -g C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
+
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
+        driver.startActivity("com.amaze.filemanager", "activities.MainActivity");
+
+        Thread.sleep(5);
+
+//        WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+//        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
+//                By.xpath("//*[@text='Amaze']")
+//        ));
+
+        //https://discuss.appium.io/t/giving-app-permissions-for-marshmallow-at-runtime-in-appium/8951/5
 
     }
 

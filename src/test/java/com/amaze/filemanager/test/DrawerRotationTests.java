@@ -23,6 +23,8 @@ public class DrawerRotationTests extends BaseAppiumTest{
 
         //rotate screen
         driver.rotate(ScreenOrientation.LANDSCAPE);
+
+        //assert the elements are still visible
         assertViewsAreVisible();
 
         //rotate again

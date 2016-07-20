@@ -36,7 +36,6 @@ public class MainFragmentRotationTests extends BaseTestClass{
         if(driver.findElements(By.name(fileName)).isEmpty()){
             fail("The element named " + fileName  + " should be visible");
         }
-
         if(driver.findElements(By.name(folderName)).isEmpty()){
             fail("The element named " + folderName  + " should be visible");
         }

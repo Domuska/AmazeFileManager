@@ -3,6 +3,7 @@ package com.amaze.filemanager.test;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,13 @@ import static junit.framework.Assert.fail;
 public class BookMarkTests extends BaseAppiumTest{
 
     private String generalTestFoldername = TestDataSource.generalTestFolderName;
+    private String storageText = "Storage";
+
+    @Before
+    public void setUp(){
+        Utils.openDrawer(driver);
+        driver.findElementByName(storageText).click();
+    }
 
     @Test
     public void testBookMarking(){

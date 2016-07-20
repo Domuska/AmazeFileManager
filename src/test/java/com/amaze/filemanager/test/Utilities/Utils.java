@@ -15,15 +15,13 @@ public class Utils {
     private static String generalTestingFolder = "Testing";
     private static String overflowMenuDescription = "More options";
     private static String addToBookmark = "Add to Bookmark";
+    private static String storageText = "Storage";
 
     public static void navigateToTestingFolder(AndroidDriver driver){
 
-        //have to swipe down pathbar since some times it is not visible
-        swipeDownInPathBar(driver);
-
-        driver.findElement(By.id("com.amaze.filemanager:id/home")).click();
+        openDrawer(driver);
+        driver.findElementByName(storageText).click();
         searchInVisibleListWithName(driver, generalTestingFolder).click();
-
     }
 
     /**
