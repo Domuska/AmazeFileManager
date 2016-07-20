@@ -38,11 +38,13 @@ public class EditBookmarkTests{
             new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Before
-    public void initStrings(){
+    public void setUp(){
         addToBookmark =
                 myActivityRule.getActivity().getApplicationContext().getString(R.string.addtobook);
         generalTestFolderName = TestDataSource.generalTestFolderName;
         newTestFolderName = TestDataSource.newTestFolderName;
+
+        onView(withId(R.id.home)).perform(click());
     }
 
     @After
