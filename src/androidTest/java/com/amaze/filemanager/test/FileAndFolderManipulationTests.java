@@ -44,7 +44,7 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
         //delete the file
         device.findObject(By.text(fileName)).longClick();
-//        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
+        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
 
         device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
                 .clickAndWaitForNewWindow();
