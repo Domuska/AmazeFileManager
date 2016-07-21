@@ -20,7 +20,6 @@ public class SetHomeTest extends BaseAppiumTest{
     private String quickAccessText = "Quick Access";
     private String generalTestingFolderName = TestDataSource.generalTestFolderName;
 
-    //todo handle the @before annotation problems
     @Before
     public void setUp(){
         Utils.swipeToRightScreen(driver);

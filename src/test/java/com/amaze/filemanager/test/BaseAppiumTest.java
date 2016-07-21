@@ -22,18 +22,15 @@ import io.appium.java_client.remote.MobileCapabilityType;
 // for skeleton of this file and instructions on how to setup Appium with Android Studio
 public class BaseAppiumTest {
 
-//    AppiumDriver driver;
     AndroidDriver driver;
 
     @Before
     final public void setUpBaseAppiumTest() throws Exception{
-        //service.start();
-        //reader.readFile();
+
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
         cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 5x 1");
         cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "4000");
-        cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "6.0.1");
         cap.setCapability("appPackage", "com.amaze.filemanager");
         cap.setCapability(MobileCapabilityType.APP,
                 "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
@@ -44,13 +41,13 @@ public class BaseAppiumTest {
         cap.setCapability(MobileCapabilityType.FULL_RESET, false);
 
         //need to do this so that we can install the .apk with all permissions given
-        cap.setCapability("autoLaunch", false);
-        Runtime.getRuntime()
-                .exec("adb install -g C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
+//        cap.setCapability("autoLaunch", false);
+//        Runtime.getRuntime()
+//                .exec("adb install -g C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
 
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
-        driver.startActivity("com.amaze.filemanager", "activities.MainActivity",
-                "com.amaze.filemanager", "activities.MainActivity");
+//        driver.startActivity("com.amaze.filemanager", "activities.MainActivity",
+//                "com.amaze.filemanager", "activities.MainActivity");
 
 
 
