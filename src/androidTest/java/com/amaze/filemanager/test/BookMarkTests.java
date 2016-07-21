@@ -22,12 +22,9 @@ public class BookMarkTests extends BaseRobotiumTest{
         //assert the bookmark is visible
         Utils.openDrawer(solo);
         boolean bookmarkFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
-
         assertTrue("Folder/file " + generalTestingFolder + " was not found in bookmarks", bookmarkFound);
 
-        //remove the bookmark
-        //can't just do solo.longClickText(generalTestingFolder) since it tries to click the
-        //view behind the drawer -> wrong row is clicked in the nav drawer
+        //remove the bookmark, can't just do solo.longClick since it tries to push the view behind drawer
         List<View> drawerViews = solo.getViews(solo.getView(R.id.menu_drawer));
         for(View row : drawerViews){
             if(row.getId() == R.id.firstline){

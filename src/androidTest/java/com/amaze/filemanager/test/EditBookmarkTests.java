@@ -16,6 +16,11 @@ public class EditBookmarkTests extends BaseRobotiumTest{
     private String generalTestFolderName = TestDataSource.generalTestFolderName;
     private String newTestFoldername = TestDataSource.newTestFolderName;
 
+    public void setUp() throws Exception{
+        super.setUp();
+        solo.clickOnView(solo.getView(R.id.home));
+    }
+
     public void tearDown() throws Exception{
         //remove the bookmark
         longClickFolderWithNameInDrawer(newTestFoldername);
