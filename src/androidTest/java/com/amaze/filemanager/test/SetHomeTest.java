@@ -50,7 +50,7 @@ public class SetHomeTest extends BaseUIAutomatorTest{
         //clear database and preferences to remove the set home
         PreferenceManager.
                 getDefaultSharedPreferences(
-                        InstrumentationRegistry.getContext())
+                        InstrumentationRegistry.getTargetContext())
                 .edit().clear().commit();
 
         TabHandler.clearDatabase(InstrumentationRegistry.getContext());
