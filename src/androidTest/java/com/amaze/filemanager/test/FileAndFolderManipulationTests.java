@@ -27,8 +27,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
     @Before
     public void setUp(){
-
-        Context contex = InstrumentationRegistry.getContext();
         fileName = TestDataSource.textFileName;
         folderName1 = TestDataSource.folderNames[0];
         folderName2 = TestDataSource.folderNames[1];
@@ -46,9 +44,8 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
         //delete the file
         device.findObject(By.text(fileName)).longClick();
-        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
+//        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
 
-//        device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
         device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
                 .clickAndWaitForNewWindow();
 
@@ -66,14 +63,10 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
                 device.findObject(new UiSelector().text(folderName1)).exists());
 
         //delete the folder
-//        device.findObject(By.text(folderName1)).longClick();
         device.findObject(new UiSelector().text(folderName1)).longClick();
-        //todo failed on this row before, will pass with the new wait?
-        UiObject2 deleteButton =
-                device.wait(Until.findObject(By.res("com.amaze.filemanager:id/delete")), GENERAL_TIMEOUT);
-        deleteButton.click();
-//        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
 
+        device.wait(Until.findObject(
+                By.res("com.amaze.filemanager:id/delete")), GENERAL_TIMEOUT).click();
         device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
                 .clickAndWaitForNewWindow();
 
@@ -101,15 +94,15 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
         //copy the file
         device.findObject(By.res("com.amaze.filemanager:id/properties")).click();
-        device.wait(Until.hasObject(By.text(copyText)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
-        device.findObject(By.text(copyText)).click();
+        device.wait(Until.findObject(By.text(copyText)),
+                BaseUIAutomatorTest.GENERAL_TIMEOUT).click();
 
         device.pressBack();
         Utils.swipeDownInPathBar(device);
 
         //paste the file
-        device.findObject(By.text(folderName2)).click();
+//        device.findObject(By.text(folderName2)).click();
+        device.wait(Until.findObject(By.text(folderName2)), GENERAL_TIMEOUT).click();
         device.findObject(By.res("com.amaze.filemanager:id/paste")).click();
 
         //assert it is visible
@@ -117,14 +110,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
                 BaseUIAutomatorTest.GENERAL_TIMEOUT);
         assertTrue("File" + fileName + " should be copied in folder " + folderName2,
                 device.findObject(new UiSelector().text(fileName)).exists());
-
-//        List<UiObject2> objects = device.findObjects(By.res("com.amaze.filemanager:id/second"));
-
-//        for(UiObject2 row : objects){
-//            if(row.findObject(By.res("com.amaze.filemanager:id/firstline")).getText().equals(fileName)){
-//
-//            }
-//        }
     }
 
 }

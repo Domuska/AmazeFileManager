@@ -33,22 +33,11 @@ public class BaseTestClass extends BaseUIAutomatorTest{
     @After
     public final void tearDownBaseTestClass() throws Exception{
 
-//        Utils.navigateToTestFolder(device);
-//        device.findObject(By.text(amazeTestingFolder)).longClick();
-//        Utils.swipeDownInPathBar(device);
-//        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
-//
-//        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")),
-//                BaseUIAutomatorTest.GENERAL_TIMEOUT);
-//
-//        device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
-
-
         //go back to the main storage list
-        Utils.openDrawer(device);
-        device.findObject(By.text(storageText)).click();
-        //wait so that the nav drawer is closed
-        device.wait(Until.hasObject(By.text("Testing")), 3000);
+//        Utils.openDrawer(device);
+//        device.findObject(By.text(storageText)).click();
+//        //wait so that the nav drawer is closed
+//        device.wait(Until.hasObject(By.text("Testing")), 3000);
 
         //run adb shell command to remove the testing folder
         InstrumentationRegistry.getInstrumentation().getUiAutomation()

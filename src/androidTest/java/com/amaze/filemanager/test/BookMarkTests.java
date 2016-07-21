@@ -28,9 +28,10 @@ public class BookMarkTests extends BaseUIAutomatorTest{
 
     @Before
     public void setUp(){
-        Utils.openDrawer(device);
-        storageText = InstrumentationRegistry.getTargetContext().getString(R.string.storage);
-        device.findObject(By.text(storageText)).click();
+        //removed 21.7
+//        Utils.openDrawer(device);
+//        storageText = InstrumentationRegistry.getTargetContext().getString(R.string.storage);
+//        device.findObject(By.text(storageText)).click();
     }
 
 

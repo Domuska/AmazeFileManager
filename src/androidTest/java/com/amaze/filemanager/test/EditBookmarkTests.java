@@ -34,8 +34,9 @@ public class EditBookmarkTests extends BaseUIAutomatorTest{
     public void setUp(){
         addToBookmark = InstrumentationRegistry.getTargetContext().getString(R.string.addtobook);
         storageText = InstrumentationRegistry.getTargetContext().getString(R.string.storage);
-        Utils.openDrawer(device);
-        device.findObject(By.text(storageText)).click();
+//        Utils.openDrawer(device);
+//        device.findObject(By.text(storageText)).click();
+        device.findObject(By.res("com.amaze.filemanager:id/home"));
     }
 
     @After
@@ -48,31 +49,32 @@ public class EditBookmarkTests extends BaseUIAutomatorTest{
 
         device.wait(Until.findObject(By.res("com.amaze.filemanager:id/buttonDefaultNegative")),
                 GENERAL_TIMEOUT).click();
-
     }
 
     @Test
     public void testEditBookmark() throws Exception{
 
         Utils.addFileToBookMarks(device, generalTestFolderName);
+        Utils.openDrawer(device);
 
         //rename the bookmark
-        Utils.openDrawer(device);
         UiScrollable navDrawer = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
-        navDrawer.scrollTextIntoView(generalTestFolderName);
 
+        navDrawer.scrollTextIntoView(generalTestFolderName);
         device.findObject(By.text(generalTestFolderName)).longClick();
+
         UiObject2 textField =
                 device.wait(Until.findObject(By.res("com.amaze.filemanager:id/editText4")),
                 GENERAL_TIMEOUT);
         textField.clear();
         textField.setText(newTestFolderName);
+
         device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
 
-        //assert new name is visible
-        device.wait(Until.hasObject(By.text(newTestFolderName)), GENERAL_TIMEOUT);
-
+        //assert new name is visible, if assert is not done after wait there will be no reasonable error message
+//        device.wait(Until.hasObject(By.text(newTestFolderName)), GENERAL_TIMEOUT);
+        device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/menu_drawer")), GENERAL_TIMEOUT);
         assertTrue("Bookmark with name " + newTestFolderName + " should be visible",
                 device.findObject(new UiSelector().text(newTestFolderName)).exists());
     }

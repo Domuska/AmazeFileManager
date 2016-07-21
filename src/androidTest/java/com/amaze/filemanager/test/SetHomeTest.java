@@ -32,6 +32,8 @@ public class SetHomeTest extends BaseUIAutomatorTest{
 
     @Before
     public void setUp() throws Exception{
+        Utils.swipeToRightScreen(device);
+
         Context context = InstrumentationRegistry.getTargetContext();
         generalTestFolderName = TestDataSource.generalTestFolderName;
         amazeTestFolderName = TestDataSource.amazeTestFolderName;
@@ -45,7 +47,6 @@ public class SetHomeTest extends BaseUIAutomatorTest{
 
     @After
     public final void tearDown(){
-
         //clear database and preferences to remove the set home
         PreferenceManager.
                 getDefaultSharedPreferences(
@@ -61,7 +62,6 @@ public class SetHomeTest extends BaseUIAutomatorTest{
 
         //set this folder as home
         Utils.waitForText(device, setAsHomeText).click();
-//        device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
         device.wait(Until.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")),
                 GENERAL_TIMEOUT).click();
 
@@ -73,7 +73,6 @@ public class SetHomeTest extends BaseUIAutomatorTest{
         UiScrollable navDrawer = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
 
-//        navDrawer.scrollTextIntoView(storageText);
         navDrawer.getChildByText(
                 new UiSelector().resourceId("com.amaze.filemanager:id/second"),
                 quickAccessText).click();
