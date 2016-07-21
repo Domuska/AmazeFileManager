@@ -53,7 +53,7 @@ public class SetHomeTest extends BaseUIAutomatorTest{
                         InstrumentationRegistry.getTargetContext())
                 .edit().clear().commit();
 
-        TabHandler.clearDatabase(InstrumentationRegistry.getContext());
+        TabHandler.clearDatabase(InstrumentationRegistry.getTargetContext());
     }
 
     @Test
