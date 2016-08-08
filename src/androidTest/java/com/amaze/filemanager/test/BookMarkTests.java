@@ -23,17 +23,6 @@ import static org.junit.Assert.assertTrue;
 public class BookMarkTests extends BaseUIAutomatorTest{
 
     private String generalTestFolderName = TestDataSource.generalTestFolderName;
-    private String newTestFolderName = TestDataSource.newTestFolderName;
-    private String storageText;
-
-    @Before
-    public void setUp(){
-        //removed 21.7
-//        Utils.openDrawer(device);
-//        storageText = InstrumentationRegistry.getTargetContext().getString(R.string.storage);
-//        device.findObject(By.text(storageText)).click();
-    }
-
 
     @Test
     public void testBookmarking() throws Exception{

@@ -22,20 +22,13 @@ import static org.junit.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class EditBookmarkTests extends BaseUIAutomatorTest{
 
-    private String addToBookmark;
     private String generalTestFolderName = TestDataSource.generalTestFolderName;
     private String newTestFolderName = TestDataSource.newTestFolderName;
-    private String amazeTestFolderName = TestDataSource.amazeTestFolderName;
-    private String storageText;
 
     private UiScrollable navDrawer;
 
     @Before
     public void setUp(){
-        addToBookmark = InstrumentationRegistry.getTargetContext().getString(R.string.addtobook);
-        storageText = InstrumentationRegistry.getTargetContext().getString(R.string.storage);
-//        Utils.openDrawer(device);
-//        device.findObject(By.text(storageText)).click();
         device.findObject(By.res("com.amaze.filemanager:id/home"));
     }
 
@@ -72,8 +65,7 @@ public class EditBookmarkTests extends BaseUIAutomatorTest{
 
         device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
 
-        //assert new name is visible, if assert is not done after wait there will be no reasonable error message
-//        device.wait(Until.hasObject(By.text(newTestFolderName)), GENERAL_TIMEOUT);
+        //assert new name is visible
         device.wait(Until.hasObject(By.res("com.amaze.filemanager:id/menu_drawer")), GENERAL_TIMEOUT);
         assertTrue("Bookmark with name " + newTestFolderName + " should be visible",
                 device.findObject(new UiSelector().text(newTestFolderName)).exists());

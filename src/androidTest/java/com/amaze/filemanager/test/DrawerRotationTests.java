@@ -19,7 +19,6 @@ import static org.junit.Assert.assertTrue;
 public class DrawerRotationTests extends BaseUIAutomatorTest{
 
     private String quickAccessText, settingsText;
-    private UiScrollable navDrawer;
 
     @Before
     public void setUp(){
@@ -37,8 +36,7 @@ public class DrawerRotationTests extends BaseUIAutomatorTest{
     public void testDrawerOpenRotateScreen() throws Exception{
 
         Utils.openDrawer(device);
-        navDrawer = new UiScrollable(
-                new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
+
         
         //assert some elements are visible
         assertElementsDisplayed();
@@ -57,6 +55,8 @@ public class DrawerRotationTests extends BaseUIAutomatorTest{
     }
 
     private void assertElementsDisplayed() throws Exception{
+        UiScrollable navDrawer = new UiScrollable(
+                new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
         assertTrue("Element " + quickAccessText + " should be visible",
                 navDrawer.scrollTextIntoView(quickAccessText));
         assertTrue("Element " + settingsText + " should be visible",

@@ -101,7 +101,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         Utils.swipeDownInPathBar(device);
 
         //paste the file
-//        device.findObject(By.text(folderName2)).click();
         device.wait(Until.findObject(By.text(folderName2)), GENERAL_TIMEOUT).click();
         device.findObject(By.res("com.amaze.filemanager:id/paste")).click();
 
