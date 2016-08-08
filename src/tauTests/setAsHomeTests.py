@@ -20,13 +20,12 @@ class SetHomeTest(UITestCase):
         Utils.navigateToTestFolder()
         
     def tearDown(self):
-        input.key.home()
+        #input.key.home()
         packages.clearData('com.amaze.filemanager')
         
         
     def allowPermissions(self):
         tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
-        #tap.text("Allow")
 
     @testCaseInfo('<Test setting folder as home>', deviceCount=1)
     def testSetHome(self):

@@ -11,20 +11,23 @@ class QuickAccessFileTest(UITestCase):
         quickAccessText = "Quick Access"
         amazeTestingFolder = TestDataSource.amazeTestFolderName
         
-        launch.activity('com.amaze.filemanager', '.activities.MainActivity')
+        reactor.add("Permission Reactor", self.allowPermissions, text="Allow")
+        
+        launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
         
         Utils.navigateToTestFolder()
         Utils.createFolderWithName(amazeTestingFolder)
         tap.text(amazeTestingFolder)
         
     def tearDown(self):
+        packages.clearData('com.amaze.filemanager')
         #remove the testing folder
-        Utils.navigateToTestFolder()
-        tap.long.text(amazeTestingFolder)
-        tap.resourceId('com.amaze.filemanager:id/delete')
-        tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
+        shell('rm -r /storage/emulated/0/Testing/%s' % amazeTestingFolder)
+        
+    def allowPermissions(self):
+        tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
 
-    @testCaseInfo('<Quick access text>', deviceCount=1)
+    @testCaseInfo('<Quick access test>', deviceCount=1)
     def testOpenFileCheckRecents(self):
         
         self.createFileWithName(fileName)
@@ -40,8 +43,7 @@ class QuickAccessFileTest(UITestCase):
         tap.text(quickAccessText)
         
         #assert file name is visible here
-        assert exists.text(fileName), \
-        "file " + fileName + " should be visible"
+        verify.text(fileName)
      
     def openFileNavigateBack(self):
          tap.text(fileName)

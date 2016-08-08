@@ -22,6 +22,9 @@ class NavigationTests(UITestCase):
         
     def allowPermissions(self):
         tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
+        
+    def tearDown(self):
+        packages.clearData('com.amaze.filemanager')
 
     @testCaseInfo('<swipe between two folders>', deviceCount=1)
     def testSwipingBetweenTwoFolders(self):
@@ -74,8 +77,9 @@ class NavigationTests(UITestCase):
         
         
     def assertGeneralTestingFolderVisible(self):
-        assert find.text(generalTestFolderName, direction="vertical"), \
-        "file " + generalTestFolderName + " was not found"
+        verify.text(generalTestFolderName, direction="vertical", scroll = True)
+        #assert find.text(generalTestFolderName, direction="vertical"), \
+        #"file " + generalTestFolderName + " was not found"
         
         
         

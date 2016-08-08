@@ -7,10 +7,19 @@ class DrawerRotationTests(UITestCase):
         quickAccessText = "Quick Access"
         settingsText = "Settings"
         
+        reactor.add("Permission Reactor", self.allowPermissions, text="Allow")
+        launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
+        
+    def tearDown(self):
+        packages.clearData('com.amaze.filemanager')
+        
+    def allowPermissions(self):
+        tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
 
     @testCaseInfo('<rotate screen in nav drawer>', deviceCount=1)
     def testDrawerOpenRotateScreen(self):
         
+        wait(500)
         #Open drawer
         Utils.openDrawer()
         
@@ -36,6 +45,8 @@ class DrawerRotationTests(UITestCase):
         quickFound = find.text(quickAccessText, area = navList, direction="vertical")
         settingsFound = find.text(settingsText, area = navDrawer, direction="vertical")
         
-        assert quickFound, quickAccessText + " should be visible"
-        assert settingsFound, settingsText + " should be visible"
+        #assert quickFound, quickAccessText + " should be visible"
+        #assert settingsFound, settingsText + " should be visible"
+        verify.text(quickAccessText)
+        verify.text(settingsText)
     

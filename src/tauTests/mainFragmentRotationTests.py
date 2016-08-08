@@ -16,11 +16,9 @@ class MainFragmentRotationTests(UITestCase):
         tap.text(amazeTestingFolder)
         
     def tearDown(self):
-        #remove the folder
-        Utils.navigateToTestFolder()
-        tap.long.text(amazeTestingFolder)
-        tap.resourceId('com.amaze.filemanager:id/delete')
-        tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
+        packages.clearData('com.amaze.filemanager')
+        #remove the testing folder
+        shell('rm -r /storage/emulated/0/Testing/%s' % amazeTestingFolder)
         
     def allowPermissions(self):
         tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
@@ -36,15 +34,15 @@ class MainFragmentRotationTests(UITestCase):
         orientation.left()        
         
         #assert file and folder still visible
-        assert exists.text(folderName), "folder should be visible"
-        assert exists.text(fileName), "file should be visible"
+        verify.text(folderName)
+        verify.text(fileName)
         
         #rotate screen again
         orientation.portrait()
         
         #assert file and folder still visible
-        assert exists.text(folderName), "folder should be visible"
-        assert exists.text(fileName), "file should be visible"
+        verify.text(folderName)
+        verify.text(fileName)
         
         
     def createFolderWithName(self, folderName):

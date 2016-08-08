@@ -24,13 +24,9 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.text(amazeTestingFolder)
         
     def tearDown(self):
-        #packages.clearData('com.amaze.filemanager')
-        #remove the folder
-        Utils.navigateToTestFolder()
-        tap.long.text(amazeTestingFolder)
-        tap.resourceId('com.amaze.filemanager:id/delete')
-        tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
-        
+        packages.clearData('com.amaze.filemanager')
+        #remove the testing folder
+        shell('rm -r /storage/emulated/0/Testing/%s' % amazeTestingFolder)
         
     def allowPermissions(self):
         tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
@@ -45,8 +41,7 @@ class FileAndFolderManipulationTests(UITestCase):
         self.createFolderWithName(folderName1)
         
         #assert it is visible
-        assert exists.text(folderName1), \
-        "folder " + folderName1 + " should be visible"
+        verify.text(folderName1)
         
         #delete the file
         tap.long.text(folderName1)
@@ -54,8 +49,7 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
         
         #assert it is gone
-        assert exists.no.text(folderName1), \
-        "folder " + folderName1 + " should not be visible"
+        verify.no.text(folderName1)
         
     @testCaseInfo('<Add a new file>', deviceCount=1)
     def testCreateNewFileAndDeleteIt(self):
@@ -64,8 +58,9 @@ class FileAndFolderManipulationTests(UITestCase):
         self.createFileWithName(fileName)
         
         #assert file is visible
-        assert exists.text(fileName), \
-        "file " + fileName + " should be visible"
+        #assert exists.text(fileName), \
+        #"file " + fileName + " should be visible"
+        verify.text(fileName)
         
         #delete the file
         tap.long.text(fileName)
@@ -73,8 +68,9 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.resourceId('com.amaze.filemanager:id/buttonDefaultPositive')
         
         #assert it is gone
-        assert exists.no.text(fileName), \
-        "file " + fileName + " should not be visible"
+        #assert exists.no.text(fileName), \
+        #"file " + fileName + " should not be visible"
+        verify.no.text(fileName)
         
         
     @testCaseInfo('<Copy a file to another folder>', deviceCount=1)
@@ -98,8 +94,9 @@ class FileAndFolderManipulationTests(UITestCase):
         tap.resourceId("com.amaze.filemanager:id/paste")
         
         #assert file is visible
-        assert exists.text(fileName, wait=10000), \
-        "file " + fileName + " should be visible"
+        #assert exists.text(fileName, wait=10000), \
+        #"file " + fileName + " should be visible"
+        verify.text(fileName, wait=10000)
         
     
     def createFolderWithName(self, folderName):

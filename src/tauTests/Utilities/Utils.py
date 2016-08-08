@@ -23,7 +23,9 @@ def navigateToTestFolder():
     tap.text(testingFolderName, direction='vertical')
     
 def openDrawer():
-    swipe.location((0, 0.5)).to.location((0.99, 0.5))
+	#swipe.location((0, 0.5)).to.location((0.5, 0.5))
+	tap.description("Navigate up")
+	
     
 def openFabMenu():
     tap.instanceOf('android.widget.ImageView', area='com.amaze.filemanager:id/menu')

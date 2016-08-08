@@ -10,6 +10,9 @@ class BookMarkTests(UITestCase):
         reactor.add("Permission Reactor", self.allowPermissions, text="Allow")
         launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
         
+    def tearDown(self):
+        packages.clearData('com.amaze.filemanager')
+        
     def allowPermissions(self):
         tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
 
@@ -21,39 +24,18 @@ class BookMarkTests(UITestCase):
         
         #assert the bookmark is visible
         Utils.openDrawer()
-        assert exists.text(generalTestFolderName, area="com.amaze.filemanager:id/menu_drawer"), \
-        "bookmark " + generalTestFolderName + " is not visible"
+        #assert exists.text(generalTestFolderName, area="com.amaze.filemanager:id/menu_drawer"), \
+        #"bookmark " + generalTestFolderName + " is not visible"
+        verify.text(generalTestFolderName, area="com.amaze.filemanager:id/menu_drawer")
         
         #remove the bookmark
         tap.long.text(generalTestFolderName)
         tap.resourceId("com.amaze.filemanager:id/buttonDefaultNegative")
         
         #assert the bookmark is gone
-        log("assert bookmark is gone")
+        #this assertion sadly does not work since the text is visible behind the nav drawer and
+        #Tau will pick it up
+        verify.no.text(generalTestFolderName, area="com.amaze.filemanager:id/menu_drawer")
         
-        #itemFound = False
-        #get row items from both nav drawer and main list 
-        #rowTexts = get.items.resourceId("com.amaze.filemanager:id/firstline_nav_drawer")
-        #for row in rowTexts:
-         #   if row.Text            
-            #if exists.text(generalTestFolderName):
-                #see if the underlying list's overflow button is inside that element
-                #if not exists.resourceId("com.amaze.filemanager:id/properties", area = row):
-                  #  itemFound = True
-            
-        #assert exists.no.text(generalTestFolderName, area="com.amaze.filemanager:id/menu_drawer"), \
-        #"bookmark " + generalTestFolderName + " should not be visible"
-        
-        #item = get.item.text(generalTestFolderName, resourceId="com.amaze.filemanager:id/firstline_nav_drawer")
-        wait(2000)
-        #this does not work because both of the row items in nav drawer
-        #and in main fragment use same row layout as basis
-        item = get.item.resourceId("com.amaze.filemanager:id/firstline_nav_drawer", text=generalTestFolderName)
-        #if item is not None:
-        log('text:' + item.Text)
-        log('text:' + item.ResourceId)
-        #log('item: ' + item.Attributes)
-        if generalTestFolderName in item.Text:
-            fail("bookmark should not be visible")
         
         
