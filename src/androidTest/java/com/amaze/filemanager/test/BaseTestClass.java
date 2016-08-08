@@ -26,12 +26,7 @@ public class BaseTestClass extends BaseRobotiumTest {
 
     public void tearDown() throws Exception{
 
-//        Utils.navigateToTestFolder(solo);
-//        solo.clickLongOnView(solo.getText(amazeTestFolderName));
-//        solo.clickOnView(solo.getView(R.id.delete));
-//        solo.clickOnView(solo.getView(R.id.buttonDefaultPositive));
-
-        //using ADB shell command (API lvl 21+)
+        //using ADB shell command (API lvl 21+) to remove folder
         InstrumentationRegistry.getInstrumentation().
                 getUiAutomation().executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestFolderName);
 
