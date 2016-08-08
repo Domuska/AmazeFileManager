@@ -56,8 +56,6 @@ public class NavigationTests {
                 myActivityRule.getActivity().getApplicationContext().getString(R.string.gridview);
         listViewText =
                 myActivityRule.getActivity().getApplicationContext().getString(R.string.listview);
-
-
     }
 
     @Test
@@ -82,24 +80,10 @@ public class NavigationTests {
                 .inAdapterView(withId(R.id.menu_drawer))
                 .perform(click());
 
-        //sadly does not work, might require some work
-//        onData(hasProperty("Title", equalTo(recentFilesText)))
-//                .inAdapterView(withId(R.id.menu_drawer))
-//                .perform(click());
-
-        //löytää useampia resultteja, pitäs tarkentaa
-//        onData(allOf(is(instanceOf(EntryItem.class)))).perform(click());
-
-        //works, but is a scheisse way to do it
-//        onData(anything()).inAdapterView(withId(R.id.menu_drawer))
-//                .atPosition(11).perform(click());
-
         Utils.swipeToLeftScreen();
         onView(withId(R.id.fullpath)).check(matches(allOf(isDisplayed(), withText(videosText))));
         Utils.swipeToRightScreen();
         onView(withId(R.id.fullpath)).check(matches(allOf(isDisplayed(), withText(recentFilesText))));
-
-
     }
 
     @Test
@@ -118,21 +102,12 @@ public class NavigationTests {
         Utils.openOverflowMenu();
         onView(withText(listViewText)).perform(click());
         assertGeneralTestingFolderVisible();
-
     }
-
-
 
     private void assertGeneralTestingFolderVisible() {
         onView(allOf(withId(R.id.listView), isDisplayed()))
                 .perform(RecyclerViewActions.scrollTo(
                         hasDescendant(withText(generalTestFolderName))
                 ));
-
-        //not needed, if the above action scrolls down the text is there
-//        onView(withText(generalTestFolderName)).check(matches(isDisplayed()));
     }
-
-
-
 }

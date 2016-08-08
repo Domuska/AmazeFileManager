@@ -27,9 +27,8 @@ import static org.hamcrest.Matchers.hasToString;
 
 public class SetHomeTest{
 
-    private String storageText, generalTestFolderName,
-            amazeTestFolderName, sdcardText, newFolderName,
-            setAsHomeText, quickAccessText, historyText;
+    private String generalTestFolderName,
+            setAsHomeText, quickAccessText;
 
     @Rule
     public IntentsTestRule<MainActivity> myActivityRule =
@@ -39,15 +38,9 @@ public class SetHomeTest{
     public void setUp(){
 
         Utils.swipeToRightScreen();
-
-        storageText = "Storage";
         generalTestFolderName = TestDataSource.generalTestFolderName;
-        amazeTestFolderName = TestDataSource.amazeTestFolderName;
-        sdcardText = "sdcard";
-        newFolderName = TestDataSource.folderNames[0];
         setAsHomeText = myActivityRule.getActivity().getString(R.string.setashome);
         quickAccessText =  myActivityRule.getActivity().getString(R.string.quick);
-        historyText = myActivityRule.getActivity().getString(R.string.history);
 
         Utils.navigateToTestFolder(generalTestFolderName);
 
@@ -55,7 +48,6 @@ public class SetHomeTest{
 
     @After
     public void tearDown(){
-
         //clear preferences
         PreferenceManager.
                 getDefaultSharedPreferences(
@@ -65,9 +57,6 @@ public class SetHomeTest{
         TabHandler.clearDatabase(myActivityRule.getActivity().getApplicationContext());
     }
 
-    /**
-     * before this test we should be in .../Testing folder, which is set as home
-     */
     @Test
     public void testSetHome(){
 

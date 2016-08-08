@@ -27,16 +27,14 @@ import static org.hamcrest.Matchers.hasToString;
 
 public class BaseTestClass {
 
-    private String storageText, generalTestFolderName, amazeTestFolderName, sdcardText;
+    private String generalTestFolderName, amazeTestFolderName;
 
 
     @Before
     public void setUpTestingFolder(){
 
-        storageText = "Storage";
         generalTestFolderName = TestDataSource.generalTestFolderName;
         amazeTestFolderName = TestDataSource.amazeTestFolderName;
-        sdcardText = "sdcard";
 
         Utils.navigateToTestFolder(generalTestFolderName);
 
@@ -46,29 +44,6 @@ public class BaseTestClass {
 
     @After
     public void tearDownTestingFolder(){
-
-//        Utils.navigateToTestFolder(generalTestFolderName);
-//        Utils.openDrawer();
-//        onData(allOf(hasToString(storageText), is(instanceOf(EntryItem.class))))
-//                .inAdapterView(withId(R.id.menu_drawer))
-//                .perform(scrollTo());
-
-//        onData(allOf(hasToString("Download"), is(instanceOf(EntryItem.class))))
-//                .inAdapterView(withId(R.id.menu_drawer))
-//                .perform(click());
-
-//        onData(hasDescendant(allOf(withId(R.id.firstline), withText("Storage"))))
-//                .inAdapterView(withId(R.id.menu_drawer))
-//                .perform(scrollTo());
-
-//        onView(withText(storageText)).perform(click());
-
-        //remove the testing folder
-
-        //manual way
-//        onView(withText(amazeTestFolderName)).perform(longClick());
-//        onView(withId(R.id.delete)).perform(click());
-//        onView(withId(R.id.buttonDefaultPositive)).perform(click());
 
         //using ADB shell command (API lvl 21+)
         InstrumentationRegistry.getInstrumentation().

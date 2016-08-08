@@ -28,10 +28,8 @@ import static org.hamcrest.Matchers.hasToString;
 
 public class EditBookmarkTests{
 
-    private String addToBookmark;
     private String generalTestFolderName;
     private String newTestFolderName;
-    private String amazeTestFolderName;
 
     @Rule
     public ActivityTestRule<MainActivity> myActivityRule =
@@ -39,8 +37,6 @@ public class EditBookmarkTests{
 
     @Before
     public void setUp(){
-        addToBookmark =
-                myActivityRule.getActivity().getApplicationContext().getString(R.string.addtobook);
         generalTestFolderName = TestDataSource.generalTestFolderName;
         newTestFolderName = TestDataSource.newTestFolderName;
 

@@ -57,10 +57,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
     @Before
     public void setUpIdlingResource(){
         Context context = InstrumentationRegistry.getTargetContext();
-
-//        Main mainFragment = (Main)myActivityRule.getActivity().getFragment().getTab();
-//        Espresso.registerIdlingResources(new CopyFileCheck(
-//                mainFragment, null, false, myActivityRule.getActivity(), false));
         intentServiceIdlingResource = new IntentServiceIdlingResource(context);
         Espresso.registerIdlingResources(intentServiceIdlingResource);
     }
@@ -74,7 +70,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
     public void testCreateNewFileAndDeleteIt(){
 
         Utils.createFileWithName(fileName);
-
         //assert it is visible
         onView(withText(fileName)).check(matches(isDisplayed()));
 
@@ -91,7 +86,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
     public void testCreateNewFolderAndDeleteIt(){
 
         Utils.createFolderWithName(folderName1);
-
         //assert folder is visible
         onView(withText(folderName1)).check(matches(isDisplayed()));
 
@@ -132,7 +126,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
     //helper class for handling the slow file copy task,
     // credit to http://blog.sqisland.com/2015/04/espresso-custom-idling-resource.html
-
     public class IntentServiceIdlingResource implements IdlingResource {
         private final Context context;
         private ResourceCallback resourceCallback;

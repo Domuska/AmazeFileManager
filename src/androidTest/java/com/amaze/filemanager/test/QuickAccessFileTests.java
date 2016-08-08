@@ -38,22 +38,16 @@ public class QuickAccessFileTests extends BaseTestClass{
     public void initStrings(){
         fileName = TestDataSource.movieFileName;
         quickAccessText = myActivityRule.getActivity().getString(R.string.quick);
-
     }
 
-    //stub any intents that would be sent
     @Before
     public void stubAllExternalIntents(){
         intending(not(isInternal()))
                 .respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
-
     }
 
     @Test
     public void testOpenFileCheckRecents(){
-
-//        Intents.init();
-
         Utils.createFileWithName(fileName);
 
         //open the file multiple times so it is added to "Quick Access"
@@ -70,7 +64,5 @@ public class QuickAccessFileTests extends BaseTestClass{
 
         //assert file name is visible here
         onView(withText(fileName)).check(matches(isDisplayed()));
-
-//        Intents.release();
     }
 }
