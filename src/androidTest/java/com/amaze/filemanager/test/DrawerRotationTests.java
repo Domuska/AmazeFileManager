@@ -23,18 +23,15 @@ public class DrawerRotationTests extends BaseRobotiumTest{
 
         //rotate
         solo.setActivityOrientation(Solo.LANDSCAPE);
-
         assertElementsDisplayed();
 
         //rotate
         solo.setActivityOrientation(Solo.PORTRAIT);
-
         assertElementsDisplayed();
-
     }
 
     private void assertElementsDisplayed(){
-        Utils.isElementFoundInDrawer(solo, quickAccessText);
-        Utils.isElementFoundInDrawer(solo, settingsText);
+        solo.searchText(quickAccessText);
+        solo.searchText(settingsText);
     }
 }

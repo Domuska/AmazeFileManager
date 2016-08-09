@@ -61,7 +61,6 @@ public class Utils {
                 break;
             }
         }
-
     }
 
     public static void navigateToTestFolder(Solo solo) {
@@ -83,12 +82,6 @@ public class Utils {
         float endX = point.floatValue();
         float endY = startY;
         solo.drag(startX, endX, startY, endY, 3);
-
-//        PointF startPoint = new PointF(startX, startY);
-//        PointF endPoint = new PointF(endX, endY);
-//
-//        solo.swipe(startPoint, startPoint, endPoint, endPoint);
-
     }
 
     public static void swipeToRightScreen(Solo solo){
@@ -122,9 +115,7 @@ public class Utils {
 
     public static void openOverflowMenu(Solo solo){
         /*not the best way to do this, but since commands like
-        solo.clickOnMenuItem();
-        or
-        solo.sendKey(Solo.MENU);
+        solo.clickOnMenuItem(); or solo.sendKey(Solo.MENU);
         don't work, this seems to be the only option
         */
         List<View> views = solo.getViews();
@@ -139,8 +130,8 @@ public class Utils {
 
     //this method will fail silently if the correct folder is not found, which is not nice
     public static void addFileToBookMarks(Solo solo, String name){
-        solo.searchText(generalTestFolderName, true);
-        solo.waitForText(generalTestFolderName);
+        solo.searchText(name, true);
+        solo.waitForText(name);
 
         //go through all imageButtons to get the right row's properties button, a bit hacky
         List<ImageButton> views = solo.getCurrentViews(ImageButton.class);
@@ -148,24 +139,13 @@ public class Utils {
             if(button.getId() == R.id.properties) {
                 View parent = (View)button.getParent();
                 if(((TextView)parent.findViewById(R.id.firstline))
-                        .getText().toString().equals(generalTestFolderName)) {
+                        .getText().toString().equals(name)) {
 
                     solo.clickOnView(button);
                 }
             }
         }
         solo.clickOnText(addToBookmark);
-
-//        for(View view : views){
-//            if(view instanceof RelativeLayout && view.getId() == R.id.second){
-//                //find the properties element inside the correct row and click it
-//                TextView folderName = (TextView)view.findViewById(R.id.firstline);
-//                if(folderName.getText().equals(name)) {
-//                    solo.clickOnView(view.findViewById(R.id.properties));
-//                    solo.clickOnText(addToBookmark);
-//                }
-//            }
-//        }
     }
 
     //this way to do searching is dirty-ish, but it seems there is no way to search

@@ -21,7 +21,8 @@ public class BookMarkTests extends BaseRobotiumTest{
 
         //assert the bookmark is visible
         Utils.openDrawer(solo);
-        boolean bookmarkFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
+//        boolean bookmarkFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
+        boolean bookmarkFound = solo.searchText(generalTestingFolder);
         assertTrue("Folder/file " + generalTestingFolder + " was not found in bookmarks", bookmarkFound);
 
         //remove the bookmark, can't just do solo.longClick since it tries to push the view behind drawer
