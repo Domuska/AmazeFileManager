@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -23,6 +24,8 @@ import io.appium.java_client.remote.MobileCapabilityType;
 public class BaseAppiumTest {
 
     AndroidDriver driver;
+    private final int KEYCODE_HOME = 3;
+    protected WebDriverWait stareAtPixies;
 
     @Before
     final public void setUpBaseAppiumTest() throws Exception{
@@ -42,20 +45,23 @@ public class BaseAppiumTest {
 
         //need to do this so that we can install the .apk with all permissions given
         cap.setCapability("autoLaunch", false);
-//        Runtime.getRuntime()
-//                .exec("adb install -g C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
+        Runtime.getRuntime()
+                .exec("adb install -g C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
 
 
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
 //        driver.startActivity("com.amaze.filemanager", "activities.MainActivity",
 //                "com.amaze.filemanager", "activities.MainActivity");
-        driver.launchApp();
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 5000);
+//        driver.launchApp();
+        stareAtPixies = new WebDriverWait(driver, 5);
+        driver.pressKeyCode(KEYCODE_HOME);
+        driver.findElementByAccessibilityId("Apps").click();
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name("Amaze")
-        ));
-
+        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[@text='Amaze']"))).click();
+//        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+//                By.id("com.android.packageinstaller:id/permission_allow_button")))
+//                .click();
 
 //        WebDriverWait webDriverWait = new WebDriverWait(driver, 30);
 //        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(
@@ -71,6 +77,7 @@ public class BaseAppiumTest {
 
     @After
     final public void tearDownBaseAppiumTest() {
+        driver.pressKeyCode(KEYCODE_HOME);
         driver.quit();
     }
 }

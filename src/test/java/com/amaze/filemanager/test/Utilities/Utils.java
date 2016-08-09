@@ -20,8 +20,13 @@ public class Utils {
     public static void navigateToTestingFolder(AndroidDriver driver){
 
         openDrawer(driver);
-        driver.findElementByName(storageText).click();
+//        driver.findElementByName(storageText).click();
+        findElementByName(driver, storageText).click();
         searchInVisibleListWithName(driver, generalTestingFolder).click();
+    }
+
+    public static WebElement findElementByName(AndroidDriver driver, String using){
+        return driver.findElementByXPath("//*[@text='"+using+"']");
     }
 
     /**
@@ -45,7 +50,6 @@ public class Utils {
         return driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)" +
                 ".instance(0)).scrollIntoView(new UiSelector()" +
                 ".textContains(\"" + elementName + "\").instance(0))");
-
     }
 
 

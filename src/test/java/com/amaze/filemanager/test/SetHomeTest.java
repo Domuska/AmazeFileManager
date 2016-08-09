@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.helpers.Util;
 
 import javax.sql.DataSource;
@@ -43,7 +45,9 @@ public class SetHomeTest extends BaseAppiumTest{
         //set this folder as home folder
         Utils.swipeDownInPathBar(driver);
         Utils.openOverflowMenu(driver);
-        driver.findElementByName(setAsHomeText).click();
+        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[@text='"+setAsHomeText+"']")))
+                .click();
         driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
 
         //navigate to somewhere else
