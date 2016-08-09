@@ -2,11 +2,13 @@ package com.amaze.filemanager.test.Utilities;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 
@@ -27,6 +29,10 @@ public class Utils {
 
     public static WebElement findElementByName(AndroidDriver driver, String using){
         return driver.findElementByXPath("//*[@text='"+using+"']");
+    }
+
+    public static List findElementsByName(AndroidDriver driver, String using){
+        return driver.findElementsByXPath("//*[@text='"+using+"']");
     }
 
     /**
@@ -110,22 +116,26 @@ public class Utils {
         driver.findElementByAccessibilityId(overflowMenuDescription).click();
     }
 
-    public static void addFileToBookMarks(AndroidDriver driver, String folderName){
+    public static void addFileToBookMarks(AndroidDriver<MobileElement> driver, String folderName){
         searchInVisibleListWithName(driver, folderName);
-//        TouchAction longPress = new TouchAction(driver);
-//        longPress.longPress(folderToBeBookmarked, 2000).release().perform();
 
-        List<WebElement> elements = driver.findElementsById("com.amaze.filemanager:id/second");
-//        driver.findElementById("com.amaze.filemanager:id/second");
+        MobileElement recyclerView = driver.findElementById("com.amaze.filemanager:id/listView");
+        List<MobileElement> elements = recyclerView.findElementsById("com.amaze.filemanager:id/second");
 
         for(int i = 0; i < elements.size(); i++){
-            if(elements.get(i).findElement(By.id("com.amaze.filemanager:id/firstline")).getText().equals(folderName)){
-                elements.get(i).findElement(By.id("com.amaze.filemanager:id/properties")).click();
-                break;
+            MobileElement element = elements.get(i);
+            try{
+                MobileElement rowText = element.findElementById("com.amaze.filemanager:id/firstline");
+                if(rowText.getText().equals(folderName)){
+                    elements.get(i).findElement(By.id("com.amaze.filemanager:id/properties")).click();
+                    break;
+                }
+            }
+            catch(NoSuchElementException e){
+                //empty since we dont want to do anything but try the next element if this is not found
             }
         }
-
-        driver.findElementByName(addToBookmark).click();
+        findElementByName(driver, addToBookmark).click();
 
     }
 

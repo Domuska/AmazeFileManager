@@ -20,7 +20,7 @@ public class BookMarkTests extends BaseAppiumTest{
     @Before
     public void setUp(){
         Utils.openDrawer(driver);
-        driver.findElementByName(storageText).click();
+        Utils.findElementByName(driver, storageText).click();
     }
 
     @Test
@@ -42,7 +42,7 @@ public class BookMarkTests extends BaseAppiumTest{
         //assert it is no longer visible in the nav drawer, we can assert like this since after deleting
         //the bookmark the navigation drawer stays at the same position
         WebElement drawer = driver.findElementById("com.amaze.filemanager:id/left_drawer");
-        if(!drawer.findElements(By.name(generalTestFoldername)).isEmpty()){
+        if(!drawer.findElements(By.xpath("//*[@text='"+generalTestFoldername+"']")).isEmpty()){
             fail("The bookmark with name " + generalTestFoldername + " should not be visible any more");
         }
 

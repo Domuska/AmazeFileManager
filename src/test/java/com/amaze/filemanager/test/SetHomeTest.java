@@ -28,18 +28,7 @@ public class SetHomeTest extends BaseAppiumTest{
         Utils.navigateToTestingFolder(driver);
     }
 
-    //todo this way of clearing down does not work
-    /*
-    see if the database or preferences needs to be cleared using espresso tests.
-    could also be that we cant call the app's methods in these tests
-     */
-    @After
-    public void tearDown(){
-//        TabHandler.clearDatabase();
-    }
-
     @Test
-    @Ignore
     public void testSetHome(){
 
         //set this folder as home folder
@@ -62,6 +51,5 @@ public class SetHomeTest extends BaseAppiumTest{
                 driver.findElementById("com.amaze.filemanager:id/fullpath").getText();
         assertTrue("Wrong file path, should contain folder name " + generalTestingFolderName,
                 filePathText.contains(generalTestingFolderName));
-
     }
 }

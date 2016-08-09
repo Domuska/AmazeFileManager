@@ -37,7 +37,7 @@ public class DrawerRotationTests extends BaseAppiumTest{
 
     private void assertViewsAreVisible() {
         Utils.searchInVisibleListWithName(driver, quickAccessText);
-        if(driver.findElements(By.name(settingsText)).isEmpty()){
+        if(Utils.findElementsByName(driver, settingsText).isEmpty()){
             fail("The element named " + settingsText  + " should be visible");
         }
     }

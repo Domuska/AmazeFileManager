@@ -22,7 +22,7 @@ public class EditBookmarksTests extends BaseAppiumTest{
     public void tearDown(){
 
         //remove the bookmarked file
-        WebElement newBookMark = driver.findElementByName(newTestFolderName);
+        WebElement newBookMark = Utils.findElementByName(driver, newTestFolderName);
         TouchAction longPress = new TouchAction(driver);
         longPress.longPress(newBookMark, 2000).release().perform();
 
@@ -31,8 +31,10 @@ public class EditBookmarksTests extends BaseAppiumTest{
 
     @Before
     public void setUp(){
-        Utils.swipeDownInPathBar(driver);
-        driver.findElementById("com.amaze.filemanager:id/home").click();
+//        Utils.swipeDownInPathBar(driver);
+//        driver.findElementById("com.amaze.filemanager:id/home").click();
+        Utils.openDrawer(driver);
+        Utils.findElementByName(driver, storageText).click();
     }
 
     @Test
@@ -52,7 +54,7 @@ public class EditBookmarksTests extends BaseAppiumTest{
 
         //assert new name is visible
         WebElement drawer = driver.findElementById("com.amaze.filemanager:id/left_drawer");
-        if(drawer.findElements(By.name(newTestFolderName)).isEmpty()){
+        if(drawer.findElements(By.xpath("//*[@text='" + newTestFolderName +"']")).isEmpty()){
             fail("The bookmark named " + newTestFolderName  + " should be visible");
         }
     }

@@ -23,9 +23,11 @@ import io.appium.java_client.remote.MobileCapabilityType;
 // for skeleton of this file and instructions on how to setup Appium with Android Studio
 public class BaseAppiumTest {
 
-    AndroidDriver driver;
+    AndroidDriver<MobileElement> driver;
     private final int KEYCODE_HOME = 3;
     protected WebDriverWait stareAtPixies;
+
+    protected String storageText = "Storage";
 
     @Before
     final public void setUpBaseAppiumTest() throws Exception{
@@ -40,20 +42,15 @@ public class BaseAppiumTest {
 
         // https://discuss.appium.io/t/android-m-and-permissions/5760/13
         //noReset so the app does not get reinstalled ever so we don't have to deal with permissions
-//        cap.setCapability("noReset", false);
-        cap.setCapability(MobileCapabilityType.FULL_RESET, false);
+        cap.setCapability("noReset", false);
+//        cap.setCapability(MobileCapabilityType.FULL_RESET, true);
 
         //need to do this so that we can install the .apk with all permissions given
         cap.setCapability("autoLaunch", false);
         Runtime.getRuntime()
                 .exec("adb install -g C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
-
-
-        driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
-//        driver.startActivity("com.amaze.filemanager", "activities.MainActivity",
-//                "com.amaze.filemanager", "activities.MainActivity");
-//        driver.launchApp();
-        stareAtPixies = new WebDriverWait(driver, 5);
+        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
+        stareAtPixies = new WebDriverWait(driver, 10);
         driver.pressKeyCode(KEYCODE_HOME);
         driver.findElementByAccessibilityId("Apps").click();
 
@@ -62,17 +59,7 @@ public class BaseAppiumTest {
 //        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
 //                By.id("com.android.packageinstaller:id/permission_allow_button")))
 //                .click();
-
-//        WebDriverWait webDriverWait = new WebDriverWait(driver, 30);
-//        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(
-//                By.xpath("//*[@text='Amaze']"))
-//        );
-//        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
-//                By.xpath("//*[@text='Amaze']")
-//        ));
-
         //https://discuss.appium.io/t/giving-app-permissions-for-marshmallow-at-runtime-in-appium/8951/5
-
     }
 
     @After

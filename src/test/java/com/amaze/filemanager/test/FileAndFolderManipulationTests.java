@@ -14,6 +14,7 @@ import org.slf4j.helpers.Util;
 
 
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidFindBys;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
@@ -30,22 +31,23 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         Utils.createFileWithName(driver, fileName);
 
         //assert it exists
-        if(driver.findElements(By.name(fileName)).isEmpty()){
+        if(Utils.findElementsByName(driver, fileName).isEmpty()){
             fail("File is not visible");
         }
 
         //delete the file
-        WebElement folder = driver.findElementByName(fileName);
+        WebElement folder = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[@text='"+fileName+"']")));
         TouchAction longPress = new TouchAction(driver);
         longPress.longPress(folder, 2000).release().perform();
         driver.findElementById("com.amaze.filemanager:id/delete").click();
         driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
 
         //assert the file is deleted
-        if(!driver.findElements(By.name(fileName)).isEmpty()){
+//        if(!driver.findElements(By.name(fileName)).isEmpty()){
+        if(!Utils.findElementsByName(driver, fileName).isEmpty()){
             fail("File is still visible, should be deleted");
         }
-
     }
 
     @Test
@@ -55,19 +57,20 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         Utils.createFolderWithName(driver, folderName1);
 
         //assert it exists
-        if(driver.findElements(By.name(folderName1)).isEmpty()){
+        if(Utils.findElementsByName(driver, folderName1).isEmpty()){
             fail("Folder is not visible");
         }
 
         //remove the folder
-        WebElement folder = driver.findElementByName(folderName1);
+        WebElement folder = Utils.findElementByName(driver, folderName1);
         TouchAction longPress = new TouchAction(driver);
         longPress.longPress(folder, 2000).release().perform();
         driver.findElementById("com.amaze.filemanager:id/delete").click();
         driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
 
         //assert the folder is deleted
-        if(!driver.findElements(By.name(folderName1)).isEmpty()){
+//        if(!driver.findElements(By.name(folderName1)).isEmpty()){
+        if(!Utils.findElementsByName(driver, folderName1).isEmpty()){
             fail("Folder is still visible, should be deleted");
         }
     }
@@ -78,12 +81,15 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         Utils.createFolderWithName(driver, folderName2);
 
         //add file to folder 1
-        driver.findElementByName(folderName1).click();
+        Utils.findElementByName(driver, folderName1).click();
         Utils.createFileWithName(driver, fileName);
 
         //copy the file to the other folder
         driver.findElementById("com.amaze.filemanager:id/properties").click();
-        driver.findElementByName("Copy").click();
+//        Utils.findElementByName(driver, "Copy").click();
+        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[@text='Copy']")))
+                .click();
 
         driver.navigate().back();
 
@@ -91,24 +97,18 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         Utils.swipeDownInPathBar(driver);
 
         //paste the file to another folder
-        driver.findElementByName(folderName2).click();
+        Utils.findElementByName(driver, folderName2).click();
         driver.findElementById("com.amaze.filemanager:id/paste").click();
 
         //wait for the slow copy action to perform
         WebDriverWait driverWait = new WebDriverWait(driver, 10);
         driverWait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name(fileName)
+                By.xpath("//*[@text='"+fileName+"']")
         ));
 
         //assert the file is is visible
-        if(driver.findElements(By.name(fileName)).isEmpty()){
+        if(Utils.findElementsByName(driver, fileName).isEmpty()){
             fail("File should be pasted in, is not visible on the screen");
         }
     }
-
-    @Test
-    public void testthings(){
-        assertEquals(true, true);
-    }
-
 }

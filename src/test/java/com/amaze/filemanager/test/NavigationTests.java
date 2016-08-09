@@ -3,6 +3,7 @@ package com.amaze.filemanager.test;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -18,6 +19,12 @@ public class NavigationTests extends BaseAppiumTest{
     private String generalTestFolderName = TestDataSource.generalTestFolderName;
     private String overflowGridText = "Grid View";
     private String overflowLIstText = "List View";
+
+    @Before
+    public void setUp(){
+        Utils.openDrawer(driver);
+        Utils.findElementByName(driver, storageText).click();
+    }
 
     @Test
     public void testSwipingBetweenTwoFolders(){
@@ -61,13 +68,13 @@ public class NavigationTests extends BaseAppiumTest{
         //switch to grid layout
         swipeUpInMainView();
         Utils.openOverflowMenu(driver);
-        driver.findElementByName(overflowGridText).click();
+        Utils.findElementByName(driver, overflowGridText).click();
         Utils.searchInVisibleListWithName(driver, generalTestFolderName);
 
         //switch back to list layout
         swipeUpInMainView();
         Utils.openOverflowMenu(driver);
-        driver.findElementByName(overflowLIstText).click();
+        Utils.findElementByName(driver, overflowLIstText).click();
         Utils.searchInVisibleListWithName(driver, generalTestFolderName);
     }
 

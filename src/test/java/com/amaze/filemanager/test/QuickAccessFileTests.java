@@ -30,7 +30,7 @@ public class QuickAccessFileTests extends BaseTestClass{
         Utils.searchInVisibleListWithName(driver, quickAccessText).click();
 
         //assert the test file is visible
-        if(driver.findElements(By.name(fileName)).isEmpty()){
+        if(Utils.findElementsByName(driver, fileName).isEmpty()){
             fail("The element named " + fileName  + " should be visible");
         }
 
@@ -39,7 +39,7 @@ public class QuickAccessFileTests extends BaseTestClass{
     // possibly a bit brittle way to do it, we are presuming here that a popup comes up
     // and asks which text editor to use to open the file - pick the first one that is visible
     private void openTestFile() {
-        driver.findElementByName(fileName).click();
+        Utils.findElementByName(driver, fileName).click();
         driver.findElementById("android:id/button_once").click();
         driver.navigate().back();
     }

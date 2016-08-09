@@ -16,24 +16,20 @@ public class BaseTestClass extends BaseAppiumTest{
 
     String amazeTestFolderName = TestDataSource.amazeTestFolderName;
 
+
     @Before
     final public void setUpBaseTestClass(){
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[@text='Alarms']"))
-        );
-
         //go to the testing folder in root of sdcard (hopefully)
         Utils.navigateToTestingFolder(driver);
 
         //create the testing folder
         Utils.createFolderWithName(driver, amazeTestFolderName);
-        driver.findElementByName(amazeTestFolderName).click();
+//        driver.findElementByName(amazeTestFolderName).click();
+        Utils.findElementByName(driver, amazeTestFolderName).click();
     }
 
     @After
     final public void tearDownBaseTestClass(){
-
         // move back from the folder we're in so we can push the home
         // button or alternatively to close nav drawer
         driver.navigate().back();
