@@ -41,14 +41,20 @@ public class BaseAppiumTest {
         cap.setCapability(MobileCapabilityType.FULL_RESET, false);
 
         //need to do this so that we can install the .apk with all permissions given
-//        cap.setCapability("autoLaunch", false);
+        cap.setCapability("autoLaunch", false);
 //        Runtime.getRuntime()
 //                .exec("adb install -g C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
+
 
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), cap);
 //        driver.startActivity("com.amaze.filemanager", "activities.MainActivity",
 //                "com.amaze.filemanager", "activities.MainActivity");
+        driver.launchApp();
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 5000);
 
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.name("Amaze")
+        ));
 
 
 //        WebDriverWait webDriverWait = new WebDriverWait(driver, 30);
