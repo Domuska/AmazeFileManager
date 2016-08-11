@@ -15,8 +15,6 @@ import org.junit.Before;
 
 public class BaseTestClass extends BaseUIAutomatorTest{
 
-    private String amazeTestingFolder = TestDataSource.amazeTestFolderName;
-
     @Before
     public final void setUpBaseTestClass() throws Exception{
         Utils.navigateToTestFolder(device);
@@ -25,12 +23,5 @@ public class BaseTestClass extends BaseUIAutomatorTest{
                 BaseUIAutomatorTest.GENERAL_TIMEOUT);
 
         device.findObject(new UiSelector().text(amazeTestingFolder)).click();
-    }
-
-    @After
-    public final void tearDownBaseTestClass() throws Exception{
-        //run adb shell command to remove the testing folder
-        InstrumentationRegistry.getInstrumentation().getUiAutomation()
-                .executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestingFolder);
     }
 }

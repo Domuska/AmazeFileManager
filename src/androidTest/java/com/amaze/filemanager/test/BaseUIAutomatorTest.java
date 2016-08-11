@@ -11,6 +11,7 @@ import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 
 import com.amaze.filemanager.database.TabHandler;
+import com.amaze.filemanager.test.Utilities.TestDataSource;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,6 +24,7 @@ public class BaseUIAutomatorTest {
     protected UiDevice device;
     public static final int GENERAL_TIMEOUT = 5000;
     private final String AMAZE_PACKAGE = "com.amaze.filemanager";
+    protected String amazeTestingFolder = TestDataSource.amazeTestFolderName;
 
     @Before
     public final void setUpBaseUIAutomatorTest(){
@@ -53,5 +55,12 @@ public class BaseUIAutomatorTest {
 //        UiObject2 allowButton = device.findObject(By.res("com.android.packageinstaller:id/permission_allow_button"));
 //        if(allowButton != null)
 //            allowButton.click();
+    }
+
+    @After
+    public void tearDownBaseUIAutomatorTest(){
+        //run adb shell command to remove the testing folder
+        InstrumentationRegistry.getInstrumentation().getUiAutomation()
+                .executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestingFolder);
     }
 }

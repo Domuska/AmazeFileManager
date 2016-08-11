@@ -46,10 +46,10 @@ public class MainFragmentRotationTests extends BaseTestClass{
     }
 
     private void assertFileAndFolderVisible() {
+        device.wait(Until.hasObject(By.text(fileName)), GENERAL_TIMEOUT);
         assertTrue("File " + fileName + " should be visible",
                 device.findObject(new UiSelector().text(fileName)).exists());
         assertTrue("Folder " + folderName + " should be visible",
                 device.findObject(new UiSelector().text(folderName)).exists());
     }
-
 }

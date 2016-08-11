@@ -38,7 +38,6 @@ public class BookMarkTests extends BaseUIAutomatorTest{
         assertTrue("Bookmark " + generalTestFolderName + " is not visible",
                 navDrawer.scrollTextIntoView(generalTestFolderName));
 
-
         //remove the bookmark
         device.findObject(By.text(generalTestFolderName)).longClick();
         device.wait(Until.findObject(
