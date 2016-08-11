@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 
 import com.amaze.filemanager.database.TabHandler;
@@ -43,7 +45,13 @@ public class BaseUIAutomatorTest {
         context.startActivity(intent);
 
         device.wait(Until.hasObject(By.pkg(AMAZE_PACKAGE).depth(0)), GENERAL_TIMEOUT);
+
+        //this would be the way to handle permissions. Would add 5s to every test run.
+//        device.wait(Until.hasObject(
+//                By.pkg("com.google.android.packageinstaller")), GENERAL_TIMEOUT);
+//
+//        UiObject2 allowButton = device.findObject(By.res("com.android.packageinstaller:id/permission_allow_button"));
+//        if(allowButton != null)
+//            allowButton.click();
     }
-
-
 }

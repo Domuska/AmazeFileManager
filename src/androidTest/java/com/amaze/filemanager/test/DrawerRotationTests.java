@@ -22,7 +22,6 @@ public class DrawerRotationTests extends BaseUIAutomatorTest{
 
     @Before
     public void setUp(){
-
         quickAccessText = InstrumentationRegistry.getTargetContext().getString(R.string.quick);
         settingsText = InstrumentationRegistry.getTargetContext().getString(R.string.setting);
     }
@@ -37,7 +36,6 @@ public class DrawerRotationTests extends BaseUIAutomatorTest{
 
         Utils.openDrawer(device);
 
-        
         //assert some elements are visible
         assertElementsDisplayed();
 
@@ -62,6 +60,4 @@ public class DrawerRotationTests extends BaseUIAutomatorTest{
         assertTrue("Element " + settingsText + " should be visible",
                 device.findObject(new UiSelector().text(settingsText)).exists());
     }
-
-
 }

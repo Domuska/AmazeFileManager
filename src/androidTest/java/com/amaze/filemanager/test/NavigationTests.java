@@ -38,6 +38,14 @@ public class NavigationTests extends BaseUIAutomatorTest{
         gridViewText = context.getString(R.string.gridview);
         listViewText = context.getString(R.string.listview);
         generalTestFolderName = TestDataSource.generalTestFolderName;
+
+        Utils.openDrawer(device);
+        UiObject2 navDrawer = device.wait(Until.findObject(
+                By.res("com.amaze.filemanager:id/menu_drawer")), GENERAL_TIMEOUT);
+        navDrawer.findObject(By.text(storageText)).click();
+        device.wait(Until.gone(
+                By.res("com.amaze.filemanager:id/menu_drawer")
+        ), GENERAL_TIMEOUT);
     }
 
     @Test
