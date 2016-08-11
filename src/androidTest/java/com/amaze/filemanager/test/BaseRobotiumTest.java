@@ -1,10 +1,12 @@
 package com.amaze.filemanager.test;
 
+import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.amaze.filemanager.R;
 
 import com.amaze.filemanager.activities.MainActivity;
+import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 import com.robotium.solo.Solo;
 
@@ -18,6 +20,8 @@ public class BaseRobotiumTest extends ActivityInstrumentationTestCase2{
     private static final String LAUNCHER_ACTIVITY_FULL_CLASSNAME =
             "com.amaze.filemanager.MainActivity";
 
+    protected String amazeTestFolderName = TestDataSource.amazeTestFolderName;
+
     public BaseRobotiumTest(){
         super(MainActivity.class);
     }
@@ -26,17 +30,14 @@ public class BaseRobotiumTest extends ActivityInstrumentationTestCase2{
         super.setUp();
         solo = new Solo(getInstrumentation());
         getActivity();
- 
         Utils.swipeToRightScreen(solo);
-        solo.clickOnView(solo.getView(R.id.home));
     }
 
     public void tearDown() throws Exception{
+        //using ADB shell command (API lvl 21+) to remove folder
+        InstrumentationRegistry.getInstrumentation().
+                getUiAutomation().executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestFolderName);
         solo.finishOpenedActivities();
         super.tearDown();
     }
-
-//    public void testStuff(){
-//        solo.clickOnText("Alarms");
-////    }
 }

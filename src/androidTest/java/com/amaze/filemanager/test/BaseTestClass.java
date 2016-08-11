@@ -10,8 +10,6 @@ import com.amaze.filemanager.test.Utilities.Utils;
 public class BaseTestClass extends BaseRobotiumTest {
 
     private String generalTestFolderName = TestDataSource.generalTestFolderName;
-    private String amazeTestFolderName = TestDataSource.amazeTestFolderName;
-
 
     public void setUp() throws Exception{
 
@@ -25,11 +23,6 @@ public class BaseTestClass extends BaseRobotiumTest {
     }
 
     public void tearDown() throws Exception{
-
-        //using ADB shell command (API lvl 21+) to remove folder
-        InstrumentationRegistry.getInstrumentation().
-                getUiAutomation().executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestFolderName);
-
         //since using JUnit3, we cant use @After annotation and have to call the tearDown last
         super.tearDown();
     }

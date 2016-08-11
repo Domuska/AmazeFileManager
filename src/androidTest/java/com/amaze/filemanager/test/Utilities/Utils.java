@@ -65,6 +65,9 @@ public class Utils {
 
     public static void navigateToTestFolder(Solo solo) {
         openDrawer(solo);
+//        solo.clickOnText(storageText);
+        solo.waitForDialogToOpen();
+//        solo.waitForText(storageText);
         solo.clickOnText(storageText);
         solo.clickOnText(generalTestFolderName);
     }
@@ -100,17 +103,18 @@ public class Utils {
     }
 
     public static void openDrawer(Solo solo){
-        Point deviceSize = new Point();
-        solo.getCurrentActivity().getWindowManager().getDefaultDisplay().getSize(deviceSize);
-
-        int screenWidth = deviceSize.x;
-        int screenHeight = deviceSize.y;
-        int fromX = 0;
-        int toX = screenWidth / 2;
-        int fromY = screenHeight / 2;
-        int toY = fromY;
-
-        solo.drag(fromX, toX, fromY, toY, 4);
+        solo.clickOnActionBarHomeButton();
+//        Point deviceSize = new Point();
+//        solo.getCurrentActivity().getWindowManager().getDefaultDisplay().getSize(deviceSize);
+//
+//        int screenWidth = deviceSize.x;
+//        int screenHeight = deviceSize.y;
+//        int fromX = 0;
+//        int toX = screenWidth / 2;
+//        int fromY = screenHeight / 2;
+//        int toY = fromY;
+//
+//        solo.drag(fromX, toX, fromY, toY, 4);
     }
 
     public static void openOverflowMenu(Solo solo){

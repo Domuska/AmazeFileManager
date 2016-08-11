@@ -13,7 +13,7 @@ import com.robotium.solo.Solo;
 public class NavigationTests extends BaseRobotiumTest{
 
 
-    private String recentFilesText, videosText;
+    private String storageText, recentFilesText, videosText;
     private String gridViewText, listViewText;
     private String generalTestFolderName = TestDataSource.generalTestFolderName;
 
@@ -21,9 +21,15 @@ public class NavigationTests extends BaseRobotiumTest{
         super.setUp();
         recentFilesText = getInstrumentation().getTargetContext().getString(R.string.recent);
         videosText = getInstrumentation().getTargetContext().getString(R.string.videos);
+        storageText = getInstrumentation().getTargetContext().getString(R.string.storage);
 
         gridViewText = getInstrumentation().getTargetContext().getString(R.string.gridview);
         listViewText = getInstrumentation().getTargetContext().getString(R.string.listview);
+
+        Utils.openDrawer(solo);
+        solo.waitForView(solo.getView(R.id.menu_drawer));
+        solo.clickOnText(storageText);
+        solo.waitForDialogToClose();
     }
 
     public void testSwipingBetweenFolders(){
