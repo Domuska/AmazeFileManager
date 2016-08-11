@@ -30,7 +30,6 @@ public class SetHomeTest extends BaseAppiumTest{
 
     @Test
     public void testSetHome(){
-
         //set this folder as home folder
         Utils.swipeDownInPathBar(driver);
         Utils.openOverflowMenu(driver);
