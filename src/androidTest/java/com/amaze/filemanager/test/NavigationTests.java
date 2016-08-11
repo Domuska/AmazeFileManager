@@ -43,7 +43,7 @@ public class NavigationTests {
 
 
     @Before
-    public void initStrings(){
+    public void setUp(){
         storageText = myActivityRule.getActivity().getApplicationContext()
                 .getResources().getString(com.amaze.filemanager.R.string.storage);
         recentFilesText = myActivityRule.getActivity().getApplicationContext()
@@ -52,10 +52,11 @@ public class NavigationTests {
                 .getResources().getString(R.string.videos);
         generalTestFolderName = TestDataSource.generalTestFolderName;
 
-        gridViewText =
-                myActivityRule.getActivity().getApplicationContext().getString(R.string.gridview);
-        listViewText =
-                myActivityRule.getActivity().getApplicationContext().getString(R.string.listview);
+        gridViewText = myActivityRule.getActivity().getApplicationContext().getString(R.string.gridview);
+        listViewText = myActivityRule.getActivity().getApplicationContext().getString(R.string.listview);
+
+        Utils.openDrawer();
+        onView(withText(storageText)).perform(click());
     }
 
     @Test
