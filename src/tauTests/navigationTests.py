@@ -19,6 +19,8 @@ class NavigationTests(UITestCase):
         #launch app with verify=False so when app launches it won't fail if
         #the app asks for permissions
         launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
+        Utils.openDrawer()
+        tap.text("Storage")
         
     def allowPermissions(self):
         tap.resourceId("com.android.packageinstaller:id/permission_allow_button")
@@ -74,12 +76,8 @@ class NavigationTests(UITestCase):
         tap.text(listViewText)
         self.assertGeneralTestingFolderVisible()
         
-        
-        
     def assertGeneralTestingFolderVisible(self):
         verify.text(generalTestFolderName, direction="vertical", scroll = True)
-        #assert find.text(generalTestFolderName, direction="vertical"), \
-        #"file " + generalTestFolderName + " was not found"
         
         
         
