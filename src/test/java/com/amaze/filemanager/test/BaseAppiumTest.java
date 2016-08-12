@@ -37,8 +37,10 @@ public class BaseAppiumTest {
         cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 5x 1");
         cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "4000");
         cap.setCapability("appPackage", "com.amaze.filemanager");
+//        cap.setCapability(MobileCapabilityType.APP,
+//                "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
         cap.setCapability(MobileCapabilityType.APP,
-                "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\build\\outputs\\apk\\AmazeFileManager-play-debug.apk");
+                "C:\\Users\\Tomi\\Projects\\amazeFileManager\\AmazeFileManager\\AmazeFileManager-play-debug.apk");
 
         // https://discuss.appium.io/t/android-m-and-permissions/5760/13
         //noReset so the app does not get reinstalled ever so we don't have to deal with permissions

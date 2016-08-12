@@ -84,6 +84,15 @@ android {
             signingConfig signingConfigs.config
         }
     }
+
+}
+
+//for appium, so Gradle does not swallow stdout prints
+//http://stackoverflow.com/questions/3963708/gradle-how-to-display-test-results-in-the-console-in-real-time
+tasks.withType(Test) {
+    testLogging {
+        events "started", "passed", "skipped", "failed"
+   }
 }
 
 dependencies {
@@ -138,6 +147,8 @@ dependencies {
     compile files('libs/Appium/java-client-4.0.0.jar')
     compile files('libs/Appium/selenium-java-2.47.1.jar')
 }
+
+
 
 def Properties props = new Properties()
 def propFile = new File('signing.properties')
