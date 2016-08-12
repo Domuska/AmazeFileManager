@@ -87,7 +87,37 @@ android {
             signingConfig signingConfigs.config
         }
     }
+
+    //for testing purposes we have to have permissions given automagically
+    android.productFlavors.all { flavour ->
+        def applicationId = flavour.applicationId
+        def adb = android.getAdbExe().toString()
+
+        def grantPermissionsTask = tasks.create("grant${flavour.name.capitalize()}Permissions") << {
+            "${adb} shell pm grant ${applicationId} android.permission.WRITE_EXTERNAL_STORAGE".execute()
+            "${adb} shell pm grant ${applicationId} android.permission.ACCESS_SUPERUSER".execute()
+            //
+        }
+        grantPermissionsTask.description = "Grants permissions for Marshmallow"
+
+        tasks.whenTaskAdded { theTask ->
+            def assemblePattern = ~"assemble${flavour.name.capitalize()}DebugAndroidTest"
+            if (assemblePattern.matcher(theTask.name).matches()) {
+                theTask.dependsOn grantPermissionsTask.name
+            }
+        }
+    }
+
+    //so Gradle does not swallow stdout prints
+    //http://stackoverflow.com/questions/3963708/gradle-how-to-display-test-results-in-the-console-in-real-time
+    tasks.withType(Test) {
+        testLogging {
+            events "started", "passed", "skipped", "failed"
+        }
+    }
 }
+
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
