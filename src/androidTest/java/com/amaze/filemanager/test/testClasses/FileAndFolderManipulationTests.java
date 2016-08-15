@@ -1,10 +1,7 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
@@ -14,8 +11,6 @@ import com.amaze.filemanager.test.Utilities.Utils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -80,22 +75,22 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
         Utils.createFolderWithName(device, folderName1);
         device.wait(Until.hasObject(By.text(folderName1)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+                GENERAL_TIMEOUT);
 
         Utils.createFolderWithName(device, folderName2);
         device.wait(Until.hasObject(By.text(folderName2)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+                GENERAL_TIMEOUT);
 
         //add file to the folder
         device.findObject(By.text(folderName1)).click();
         Utils.createFileWithName(device, fileName);
         device.wait(Until.hasObject(By.text(fileName)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+                GENERAL_TIMEOUT);
 
         //copy the file
         device.findObject(By.res("com.amaze.filemanager:id/properties")).click();
         device.wait(Until.findObject(By.text(copyText)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT).click();
+                GENERAL_TIMEOUT).click();
 
         device.pressBack();
         Utils.swipeDownInPathBar(device);
@@ -106,7 +101,7 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
 
         //assert it is visible
         device.wait(Until.hasObject(By.text(fileName)),
-                BaseUIAutomatorTest.GENERAL_TIMEOUT);
+                GENERAL_TIMEOUT);
         assertTrue("File" + fileName + " should be copied in folder " + folderName2,
                 device.findObject(new UiSelector().text(fileName)).exists());
     }

@@ -1,16 +1,12 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
 import android.content.Context;
 import android.content.Intent;
-import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 
-import com.amaze.filemanager.database.TabHandler;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 
 import org.junit.After;

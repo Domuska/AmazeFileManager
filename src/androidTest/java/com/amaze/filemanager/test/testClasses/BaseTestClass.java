@@ -1,16 +1,11 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
-import com.amaze.filemanager.R;
-
-import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
-import org.junit.After;
 import org.junit.Before;
 
 public class BaseTestClass extends BaseUIAutomatorTest{

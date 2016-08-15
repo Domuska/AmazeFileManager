@@ -1,4 +1,4 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
