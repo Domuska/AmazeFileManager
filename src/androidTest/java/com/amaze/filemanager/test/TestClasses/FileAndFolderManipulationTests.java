@@ -1,15 +1,12 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
 import com.amaze.filemanager.R;
 import com.amaze.filemanager.activities.MainActivity;
-import com.amaze.filemanager.fragments.Main;
 import com.amaze.filemanager.services.CopyService;
-import com.amaze.filemanager.services.asynctasks.CopyFileCheck;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
 import android.app.ActivityManager;
-import android.app.IntentService;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;

@@ -1,4 +1,4 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
