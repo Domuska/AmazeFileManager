@@ -1,6 +1,5 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
-import com.amaze.filemanager.database.TabHandler;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
@@ -10,9 +9,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.helpers.Util;
-
-import javax.sql.DataSource;
 
 import static org.junit.Assert.assertTrue;
 

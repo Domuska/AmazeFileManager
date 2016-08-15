@@ -1,4 +1,4 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
@@ -10,7 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.helpers.Util;
 
 
 import io.appium.java_client.TouchAction;

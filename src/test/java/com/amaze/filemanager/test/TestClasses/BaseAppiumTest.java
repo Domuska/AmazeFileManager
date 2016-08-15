@@ -1,4 +1,4 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
 import com.amaze.filemanager.database.TabHandler;
 
