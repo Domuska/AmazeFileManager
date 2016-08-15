@@ -1,9 +1,6 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
-import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.amaze.filemanager.R;
 

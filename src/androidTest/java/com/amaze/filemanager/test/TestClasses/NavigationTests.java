@@ -1,8 +1,5 @@
-package com.amaze.filemanager.test;
+package com.amaze.filemanager.test.TestClasses;
 
-import android.graphics.Point;
-import android.view.Display;
-import android.view.View;
 import android.widget.TextView;
 
 import com.amaze.filemanager.R;

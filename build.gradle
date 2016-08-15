@@ -140,8 +140,8 @@ dependencies {
     // Set this dependency to use JUnit 4 rules
     androidTestCompile 'com.android.support.test:rules:0.4'
     androidTestCompile 'com.android.support:support-annotations:23.2.1'
-
-
+    //for grant permissions task we use uiautomator
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 }
 
 def Properties props = new Properties()
