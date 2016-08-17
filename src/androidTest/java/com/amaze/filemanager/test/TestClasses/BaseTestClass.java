@@ -29,7 +29,6 @@ public class BaseTestClass {
 
     private String generalTestFolderName, amazeTestFolderName;
 
-
     @Before
     public void setUpTestingFolder(){
 

@@ -30,6 +30,7 @@ public class EditBookmarkTests{
 
     private String generalTestFolderName;
     private String newTestFolderName;
+    private String storageText;
 
     @Rule
     public ActivityTestRule<MainActivity> myActivityRule =
@@ -39,8 +40,10 @@ public class EditBookmarkTests{
     public void setUp(){
         generalTestFolderName = TestDataSource.generalTestFolderName;
         newTestFolderName = TestDataSource.newTestFolderName;
+        storageText = myActivityRule.getActivity().getString(R.string.storage);
 
-        onView(withId(R.id.home)).perform(click());
+        Utils.openDrawer();
+        onView(withText(storageText)).perform(click());
     }
 
     @After
@@ -48,7 +51,6 @@ public class EditBookmarkTests{
 
         //remove the bookmarked file
         onView(withText(newTestFolderName)).perform(longClick());
-
         onView(withId(R.id.buttonDefaultNegative)).perform(click());
     }
 
