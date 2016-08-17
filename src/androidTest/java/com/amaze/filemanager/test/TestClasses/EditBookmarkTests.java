@@ -15,10 +15,13 @@ public class EditBookmarkTests extends BaseRobotiumTest{
 
     private String generalTestFolderName = TestDataSource.generalTestFolderName;
     private String newTestFoldername = TestDataSource.newTestFolderName;
+    private String storageText;
 
     public void setUp() throws Exception{
         super.setUp();
-        solo.clickOnView(solo.getView(R.id.home));
+        Utils.openDrawer(solo);
+        storageText = getActivity().getString(R.string.storage);
+        solo.clickOnText(storageText);
     }
 
     public void tearDown() throws Exception{
