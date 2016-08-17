@@ -92,6 +92,7 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         device.wait(Until.findObject(By.text(copyText)),
                 GENERAL_TIMEOUT).click();
 
+        device.wait(Until.gone(By.text(copyText)), GENERAL_TIMEOUT);
         device.pressBack();
         Utils.swipeDownInPathBar(device);
 
