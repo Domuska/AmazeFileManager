@@ -27,7 +27,8 @@ public class EditBookmarkTests extends BaseUIAutomatorTest{
 
     @Before
     public void setUp(){
-        device.findObject(By.res("com.amaze.filemanager:id/home"));
+        Utils.openDrawer(device);
+        device.findObject(By.text(storageText)).click();
     }
 
     @After
