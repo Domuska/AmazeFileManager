@@ -56,10 +56,6 @@ public class Utils {
         return driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)" +
                 ".instance(0)).scrollIntoView(new UiSelector()" +
                 ".textContains(\"" + elementName + "\").instance(0))");
-
-//        return driver.findElementByAndroidUIAutomator(
-//                "new UiScrollable(new UiSelector().scrollable(true).instance(0))" +
-//                ".getChildByText(new UiSelector().resourceId(\"com.amaze.filemanager:id/second\"), Testing)");
     }
 
 
