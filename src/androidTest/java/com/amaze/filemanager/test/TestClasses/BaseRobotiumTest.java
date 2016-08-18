@@ -1,5 +1,6 @@
 package com.amaze.filemanager.test.TestClasses;
 
+import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 
@@ -29,6 +30,8 @@ public class BaseRobotiumTest extends ActivityInstrumentationTestCase2{
     public void setUp() throws Exception{
         super.setUp();
         solo = new Solo(getInstrumentation());
+        solo.getConfig().screenshotSavePath =
+                Environment.getExternalStorageDirectory().getAbsolutePath() + "/Testing/screenshots/";
         getActivity();
         Utils.swipeToRightScreen(solo);
     }
@@ -39,5 +42,17 @@ public class BaseRobotiumTest extends ActivityInstrumentationTestCase2{
                 getUiAutomation().executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestFolderName);
         solo.finishOpenedActivities();
         super.tearDown();
+    }
+
+    //for taking screenshots
+    @Override
+    protected void runTest() throws Throwable {
+        try {
+            super.runTest();
+        }
+        catch(Throwable t){
+            solo.takeScreenshot("failure_robotium_" + System.currentTimeMillis());
+            throw t;
+        }
     }
 }

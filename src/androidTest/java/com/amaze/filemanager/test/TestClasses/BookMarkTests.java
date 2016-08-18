@@ -1,5 +1,6 @@
 package com.amaze.filemanager.test.TestClasses;
 
+import android.os.Environment;
 import android.view.View;
 import android.widget.TextView;
 
@@ -7,6 +8,7 @@ import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
 import com.amaze.filemanager.R;
+import com.robotium.solo.Solo;
 
 import java.util.List;
 
@@ -14,14 +16,12 @@ public class BookMarkTests extends BaseRobotiumTest{
 
     private String generalTestingFolder = TestDataSource.generalTestFolderName;
 
-
     public void testBookMarking(){
 
         Utils.addFileToBookMarks(solo, generalTestingFolder);
 
         //assert the bookmark is visible
         Utils.openDrawer(solo);
-//        boolean bookmarkFound = Utils.isElementFoundInDrawer(solo, generalTestingFolder);
         boolean bookmarkFound = solo.searchText(generalTestingFolder);
         assertTrue("Folder/file " + generalTestingFolder + " was not found in bookmarks", bookmarkFound);
 
