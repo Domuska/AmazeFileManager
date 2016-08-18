@@ -27,6 +27,7 @@ public class BaseUIAutomatorTest {
     @Before
     public final void setUpBaseUIAutomatorTest(){
 
+
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
         //start up application
