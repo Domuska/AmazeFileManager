@@ -26,12 +26,9 @@ public class Utils {
         UiScrollable navDrawer = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
 
-//        navDrawer.scrollTextIntoView(storageText);
         navDrawer.getChildByText(
                 new UiSelector().resourceId("com.amaze.filemanager:id/second"),
                 storageText).click();
-
-//        device.findObject(By.res("com.amaze.filemanager:id/home")).click();
 
         UiScrollable mainFragment = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/listView"));
@@ -66,12 +63,9 @@ public class Utils {
 
         device.findObject(By.res("android:id/input")).setText(folderName);
         device.findObject(By.res("com.amaze.filemanager:id/buttonDefaultPositive")).click();
-//        device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
-//                .clickAndWaitForNewWindow();
     }
 
     public static void swipeDownInPathBar(UiDevice device){
-//        UiObject2 pathBar = device.findObject(By.res("com.amaze.filemanager:id/pathbar"));
         UiObject2 pathBar = device.findObject(By.res("com.amaze.filemanager:id/buttonbarframe"));
         Point middlePoint = pathBar.getVisibleCenter();
         Rect bounds = pathBar.getVisibleBounds();
@@ -104,7 +98,6 @@ public class Utils {
         Point endPoint = new Point(device.getDisplayWidth()-20, startPoint.y);
 
         device.swipe(startPoint.x, startPoint.y, endPoint.x, endPoint.y, 5);
-//        device.waitForIdle(BaseUIAutomatorTest.GENERAL_TIMEOUT);
     }
 
     public static void swipeToRightScreen(UiDevice device){
@@ -117,7 +110,6 @@ public class Utils {
     }
 
     public static void openOverflowMenu(UiDevice device){
-//        device.pressMenu();
         device.findObject(By.descContains(overflowContentDesc)).click();
     }
 
