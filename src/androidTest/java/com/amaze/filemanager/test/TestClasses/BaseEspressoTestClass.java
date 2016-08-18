@@ -59,7 +59,7 @@ public class BaseEspressoTestClass {
                 delegate.handle(error, viewMatcher);
             }
             catch(NoMatchingViewException e) {
-                takeScreenshot("Failure_" + System.currentTimeMillis(), myActivityRule.getActivity());
+                takeScreenshot("Failure_espresso_" + System.currentTimeMillis(), myActivityRule.getActivity());
                 delegate.handle(error, viewMatcher);
             }
         }
@@ -69,7 +69,7 @@ public class BaseEspressoTestClass {
     // http://instantdevices.com/tech/tips-and-tricks-taking-screenshots-with-espresso-or-espresso-v2-0
     private void takeScreenshot(String name, Activity activity) {
         String path =
-                Environment.getExternalStorageDirectory().getAbsolutePath() + "/test-screenshots/" + name + ".png";
+                Environment.getExternalStorageDirectory().getAbsolutePath() + "/Testing/screenshots/" + name + ".png";
 
         View scrView = activity.getWindow().getDecorView().getRootView();
         scrView.setDrawingCacheEnabled(true);
