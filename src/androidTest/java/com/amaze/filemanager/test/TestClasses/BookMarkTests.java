@@ -42,8 +42,6 @@ public class BookMarkTests extends BaseEspressoTestClass{
     @Test
     public void testBookmarking(){
 
-        onView(withText("seppo")).perform(click());
-
         //click on the overflow button with custom viewAction
         Utils.addFileToBookMarks(generalTestFolderName);
 

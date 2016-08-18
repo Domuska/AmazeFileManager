@@ -2,7 +2,9 @@ package com.amaze.filemanager.test.TestClasses;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.rule.ActivityTestRule;
 
 import com.amaze.filemanager.activities.MainActivity;
 import com.amaze.filemanager.R;
@@ -29,6 +31,10 @@ import static org.hamcrest.core.IsNot.not;
 public class QuickAccessFileTests extends BaseTestClass{
 
     private String fileName, quickAccessText;
+
+    @Rule
+    public IntentsTestRule<MainActivity> myActivityRule =
+        new IntentsTestRule<MainActivity>(MainActivity.class);
 
     @Before
     public void initStrings(){
