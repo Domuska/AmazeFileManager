@@ -31,16 +31,11 @@ import static org.hamcrest.Matchers.hasToString;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class NavigationTests {
+public class NavigationTests extends BaseEspressoTestClass{
 
     private String storageText, recentFilesText, videosText;
     private String gridViewText, listViewText;
     private String generalTestFolderName;
-
-    @Rule
-    public ActivityTestRule<MainActivity> myActivityRule =
-            new ActivityTestRule<MainActivity>(MainActivity.class);
-
 
     @Before
     public void setUp(){

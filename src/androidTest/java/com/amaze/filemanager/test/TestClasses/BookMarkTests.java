@@ -1,5 +1,6 @@
 package com.amaze.filemanager.test.TestClasses;
 
+import android.os.Environment;
 import android.support.test.rule.ActivityTestRule;
 
 import com.amaze.filemanager.R;
@@ -25,27 +26,23 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasToString;
 
-public class BookMarkTests {
-
+public class BookMarkTests extends BaseEspressoTestClass{
 
     private String generalTestFolderName;
-
-
-    @Rule
-    public ActivityTestRule<MainActivity> myActivityRule =
-            new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Before
     public void initStrings(){
         generalTestFolderName = TestDataSource.generalTestFolderName;
     }
 
-
     //it is presumed that at this point there is .../Testing folder
     @Test
     public void testBookmarking(){
+
+        onView(withText("seppo")).perform(click());
 
         //click on the overflow button with custom viewAction
         Utils.addFileToBookMarks(generalTestFolderName);
@@ -67,7 +64,4 @@ public class BookMarkTests {
                 .check(matches(not(withAdaptedData(hasToString(generalTestFolderName)))));
 
     }
-
-
-
 }

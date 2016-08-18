@@ -30,10 +30,6 @@ public class QuickAccessFileTests extends BaseTestClass{
 
     private String fileName, quickAccessText;
 
-    @Rule
-    public IntentsTestRule<MainActivity> myActivityRule =
-            new IntentsTestRule<MainActivity>(MainActivity.class);
-
     @Before
     public void initStrings(){
         fileName = TestDataSource.movieFileName;

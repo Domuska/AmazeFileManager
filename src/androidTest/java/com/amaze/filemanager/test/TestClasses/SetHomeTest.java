@@ -25,14 +25,10 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.hasToString;
 
-public class SetHomeTest{
+public class SetHomeTest extends BaseEspressoTestClass{
 
     private String generalTestFolderName,
             setAsHomeText, quickAccessText;
-
-    @Rule
-    public IntentsTestRule<MainActivity> myActivityRule =
-            new IntentsTestRule<MainActivity>(MainActivity.class);
 
     @Before
     public void setUp(){

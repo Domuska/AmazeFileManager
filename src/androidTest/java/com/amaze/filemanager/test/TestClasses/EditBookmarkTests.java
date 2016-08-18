@@ -26,15 +26,11 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasToString;
 
-public class EditBookmarkTests{
+public class EditBookmarkTests extends BaseEspressoTestClass{
 
     private String generalTestFolderName;
     private String newTestFolderName;
     private String storageText;
-
-    @Rule
-    public ActivityTestRule<MainActivity> myActivityRule =
-            new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Before
     public void setUp(){

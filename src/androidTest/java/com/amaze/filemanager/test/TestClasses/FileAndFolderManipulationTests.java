@@ -38,11 +38,6 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
     private String fileName, folderName1, folderName2, copyText;
     private IntentServiceIdlingResource intentServiceIdlingResource;
 
-
-    @Rule
-    public ActivityTestRule<MainActivity> myActivityRule =
-            new ActivityTestRule<MainActivity>(MainActivity.class);
-
     @Before
     public void initStrings(){
         fileName = TestDataSource.textFileName;

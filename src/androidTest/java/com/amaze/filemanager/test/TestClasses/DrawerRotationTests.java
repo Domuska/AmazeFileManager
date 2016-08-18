@@ -25,13 +25,9 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasToString;
 
-public class DrawerRotationTests {
+public class DrawerRotationTests extends BaseEspressoTestClass{
 
     private String quickAccessText, settingsText;
-
-    @Rule
-    public ActivityTestRule<MainActivity> myActivityRule =
-            new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Before
     public void initStrings(){

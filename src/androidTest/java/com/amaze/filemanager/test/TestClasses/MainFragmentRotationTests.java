@@ -23,10 +23,6 @@ public class MainFragmentRotationTests extends BaseTestClass{
 
     private String fileName, folderName;
 
-    @Rule
-    public ActivityTestRule<MainActivity> myActivityRule =
-            new ActivityTestRule<MainActivity>(MainActivity.class);
-
     @Before
     public void initStrings(){
         fileName = TestDataSource.textFileName;
