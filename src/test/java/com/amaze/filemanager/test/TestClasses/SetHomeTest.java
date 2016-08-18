@@ -25,26 +25,32 @@ public class SetHomeTest extends BaseAppiumTest{
     }
 
     @Test
-    public void testSetHome(){
-        //set this folder as home folder
-        Utils.swipeDownInPathBar(driver);
-        Utils.openOverflowMenu(driver);
-        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[@text='"+setAsHomeText+"']")))
-                .click();
-        driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
+    public void testSetHome() {
+        try {
+            //set this folder as home folder
+            Utils.swipeDownInPathBar(driver);
+            Utils.openOverflowMenu(driver);
+            stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//*[@text='" + setAsHomeText + "']")))
+                    .click();
+            driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
 
-        //navigate to somewhere else
-        Utils.openDrawer(driver);
-        Utils.searchInVisibleListWithName(driver, quickAccessText).click();
+            //navigate to somewhere else
+            Utils.openDrawer(driver);
+            Utils.searchInVisibleListWithName(driver, quickAccessText).click();
 
-        //go back home
-        driver.findElementById("com.amaze.filemanager:id/home").click();
+            //go back home
+            driver.findElementById("com.amaze.filemanager:id/home").click();
 
-        //assert we're in the .../Testing folder
-        String filePathText =
-                driver.findElementById("com.amaze.filemanager:id/fullpath").getText();
-        assertTrue("Wrong file path, should contain folder name " + generalTestingFolderName,
-                filePathText.contains(generalTestingFolderName));
+            //assert we're in the .../Testing folder
+            String filePathText =
+                    driver.findElementById("com.amaze.filemanager:id/fullpath").getText();
+            assertTrue("Wrong file path, should contain folder name " + generalTestingFolderName,
+                    filePathText.contains(generalTestingFolderName));
+        }
+        catch (Exception e) {
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
+        }
     }
 }

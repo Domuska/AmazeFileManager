@@ -2,12 +2,14 @@ package com.amaze.filemanager.test.TestClasses;
 
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
+import com.google.gson.annotations.Until;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.appium.java_client.TouchAction;
 
@@ -30,28 +32,37 @@ public class EditBookmarksTests extends BaseAppiumTest{
     @Before
     public void setUp(){
         Utils.openDrawer(driver);
-        Utils.findElementByName(driver, storageText).click();
+        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[@text='"+ storageText +"']")
+        )).click();
+//        Utils.findElementByName(driver, storageText).click();
     }
 
     @Test
     public void editBookmarkTest(){
 
-        Utils.addFileToBookMarks(driver, generalTestFoldername);
-        Utils.openDrawer(driver);
+        try {
+            Utils.addFileToBookMarks(driver, generalTestFoldername);
+            Utils.openDrawer(driver);
 
-        //rename the test folder bookmark
-        WebElement folder = Utils.searchInVisibleListWithName(driver, generalTestFoldername);
-        TouchAction longPress = new TouchAction(driver);
-        longPress.longPress(folder, 2000).release().perform();
+            //rename the test folder bookmark
+            WebElement folder = Utils.searchInVisibleListWithName(driver, generalTestFoldername);
+            TouchAction longPress = new TouchAction(driver);
+            longPress.longPress(folder, 2000).release().perform();
 
-        driver.findElementById("com.amaze.filemanager:id/editText4").clear();
-        driver.findElementById("com.amaze.filemanager:id/editText4").sendKeys(newTestFolderName);
-        driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
+            driver.findElementById("com.amaze.filemanager:id/editText4").clear();
+            driver.findElementById("com.amaze.filemanager:id/editText4").sendKeys(newTestFolderName);
+            driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
 
-        //assert new name is visible
-        WebElement drawer = driver.findElementById("com.amaze.filemanager:id/left_drawer");
-        if(drawer.findElements(By.xpath("//*[@text='" + newTestFolderName +"']")).isEmpty()){
-            fail("The bookmark named " + newTestFolderName  + " should be visible");
+            //assert new name is visible
+            WebElement drawer = driver.findElementById("com.amaze.filemanager:id/left_drawer");
+            if (drawer.findElements(By.xpath("//*[@text='" + newTestFolderName + "']")).isEmpty()) {
+                fail("The bookmark named " + newTestFolderName + " should be visible");
+            }
+        }
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
         }
     }
 }

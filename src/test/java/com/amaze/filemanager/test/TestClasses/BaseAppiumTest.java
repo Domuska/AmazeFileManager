@@ -2,14 +2,19 @@ package com.amaze.filemanager.test.TestClasses;
 
 import com.amaze.filemanager.database.TabHandler;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +33,8 @@ public class BaseAppiumTest {
     protected WebDriverWait stareAtPixies;
 
     protected String storageText = "Storage";
+
+    private final String TEST_RESULT_FOLDER = "C:\\Users\\Tomi\\testAutomation\\appium_screenshot_folder";
 
     @Before
     final public void setUpBaseAppiumTest() throws Exception{
@@ -69,4 +76,31 @@ public class BaseAppiumTest {
         driver.pressKeyCode(KEYCODE_HOME);
         driver.quit();
     }
+
+    //credit to bitbar & testDroid for this
+    // https://github.com/bitbar/testdroid-samples/tree/master/appium/sample-scripts/java/src/test/java/com/testdroid/appium
+    protected void takeScreenshot(String screenshotName) {
+
+//        String fullFileName = System.getProperty("user.dir") + "/Screenshots/" + "_" + screenshotName + ".png";
+        String fullFileName = TEST_RESULT_FOLDER + "\\" + screenshotName + ".png";
+        screenshot(fullFileName);
+    }
+
+    private File screenshot(String name) {
+        System.out.println("Taking screenshot...");
+        File scrFile = driver.getScreenshotAs(OutputType.FILE);
+
+        try {
+
+            File testScreenshot = new File(name);
+            FileUtils.copyFile(scrFile, testScreenshot);
+            System.out.println("Screenshot stored to " + testScreenshot.getAbsolutePath());
+
+            return testScreenshot;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

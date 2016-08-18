@@ -26,88 +26,102 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
 
     @Test
     public void testCreateNewFileAndDeleteIt(){
-        //create the file
-        Utils.createFileWithName(driver, fileName);
+        try {
+            //create the file
+            Utils.createFileWithName(driver, fileName);
 
-        //assert it exists
-        if(Utils.findElementsByName(driver, fileName).isEmpty()){
-            fail("File is not visible");
+            //assert it exists
+            if (Utils.findElementsByName(driver, fileName).isEmpty()) {
+                fail("File is not visible");
+            }
+
+            //delete the file
+            WebElement folder = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//*[@text='" + fileName + "']")));
+            TouchAction longPress = new TouchAction(driver);
+            longPress.longPress(folder, 2000).release().perform();
+            driver.findElementById("com.amaze.filemanager:id/delete").click();
+            driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
+
+            //assert the file is deleted
+            if (!Utils.findElementsByName(driver, fileName).isEmpty()) {
+                fail("File is still visible, should be deleted");
+            }
         }
-
-        //delete the file
-        WebElement folder = stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[@text='"+fileName+"']")));
-        TouchAction longPress = new TouchAction(driver);
-        longPress.longPress(folder, 2000).release().perform();
-        driver.findElementById("com.amaze.filemanager:id/delete").click();
-        driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
-
-        //assert the file is deleted
-//        if(!driver.findElements(By.name(fileName)).isEmpty()){
-        if(!Utils.findElementsByName(driver, fileName).isEmpty()){
-            fail("File is still visible, should be deleted");
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
         }
     }
 
     @Test
     public void testCreateNewFolderAndDeleteIt(){
+        try {
+            //create the folder
+            Utils.createFolderWithName(driver, folderName1);
 
-        //create the folder
-        Utils.createFolderWithName(driver, folderName1);
+            //assert it exists
+            if (Utils.findElementsByName(driver, folderName1).isEmpty()) {
+                fail("Folder is not visible");
+            }
 
-        //assert it exists
-        if(Utils.findElementsByName(driver, folderName1).isEmpty()){
-            fail("Folder is not visible");
+            //remove the folder
+            WebElement folder = Utils.findElementByName(driver, folderName1);
+            TouchAction longPress = new TouchAction(driver);
+            longPress.longPress(folder, 2000).release().perform();
+            driver.findElementById("com.amaze.filemanager:id/delete").click();
+            driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
+
+            //assert the folder is deleted
+            if (!Utils.findElementsByName(driver, folderName1).isEmpty()) {
+                fail("Folder is still visible, should be deleted");
+            }
         }
-
-        //remove the folder
-        WebElement folder = Utils.findElementByName(driver, folderName1);
-        TouchAction longPress = new TouchAction(driver);
-        longPress.longPress(folder, 2000).release().perform();
-        driver.findElementById("com.amaze.filemanager:id/delete").click();
-        driver.findElementById("com.amaze.filemanager:id/buttonDefaultPositive").click();
-
-        //assert the folder is deleted
-//        if(!driver.findElements(By.name(folderName1)).isEmpty()){
-        if(!Utils.findElementsByName(driver, folderName1).isEmpty()){
-            fail("Folder is still visible, should be deleted");
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
         }
     }
 
     @Test
-    public void testCopyFileToAnotherFolder(){
-        Utils.createFolderWithName(driver, folderName1);
-        Utils.createFolderWithName(driver, folderName2);
+    public void testCopyFileToAnotherFolder() {
+        try {
+            Utils.createFolderWithName(driver, folderName1);
+            Utils.createFolderWithName(driver, folderName2);
 
-        //add file to folder 1
-        Utils.findElementByName(driver, folderName1).click();
-        Utils.createFileWithName(driver, fileName);
+            //add file to folder 1
+            Utils.findElementByName(driver, folderName1).click();
+            Utils.createFileWithName(driver, fileName);
 
-        //copy the file to the other folder
-        driver.findElementById("com.amaze.filemanager:id/properties").click();
-//        Utils.findElementByName(driver, "Copy").click();
-        stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[@text='Copy']")))
-                .click();
+            //copy the file to the other folder
+            driver.findElementById("com.amaze.filemanager:id/properties").click();
+            stareAtPixies.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//*[@text='Copy']")))
+                    .click();
 
-        driver.navigate().back();
+            driver.navigate().back();
 
-        //have to swipe down to make the top part of toolbar visible
-        Utils.swipeDownInPathBar(driver);
+            //have to swipe down to make the top part of toolbar visible
+            Utils.swipeDownInPathBar(driver);
 
-        //paste the file to another folder
-        Utils.findElementByName(driver, folderName2).click();
-        driver.findElementById("com.amaze.filemanager:id/paste").click();
+            //paste the file to another folder
+            Utils.findElementByName(driver, folderName2).click();
+            driver.findElementById("com.amaze.filemanager:id/paste").click();
 
-        //wait for the slow copy action to perform
-        WebDriverWait driverWait = new WebDriverWait(driver, 10);
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[@text='"+fileName+"']")
-        ));
+            //wait for the slow copy action to perform
+            WebDriverWait driverWait = new WebDriverWait(driver, 10);
+            driverWait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//*[@text='" + fileName + "']")
+            ));
 
-        //assert the file is is visible
-        if(Utils.findElementsByName(driver, fileName).isEmpty()){
-            fail("File should be pasted in, is not visible on the screen");
+            //assert the file is is visible
+            if (Utils.findElementsByName(driver, fileName).isEmpty()) {
+                fail("File should be pasted in, is not visible on the screen");
+            }
+        } catch (Exception e) {
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
         }
+
     }
 }

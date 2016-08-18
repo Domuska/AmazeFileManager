@@ -15,24 +15,28 @@ public class QuickAccessFileTests extends BaseTestClass{
 
     @Test
     public void testOpenFileCheckRecents(){
+        try {
+            Utils.createFileWithName(driver, fileName);
 
-        Utils.createFileWithName(driver, fileName);
+            //open the test file a couple of times
+            openTestFile();
+            openTestFile();
+            openTestFile();
+            openTestFile();
 
-        //open the test file a couple of times
-        openTestFile();
-        openTestFile();
-        openTestFile();
-        openTestFile();
+            //navigate to quick access
+            Utils.openDrawer(driver);
+            Utils.searchInVisibleListWithName(driver, quickAccessText).click();
 
-        //navigate to quick access
-        Utils.openDrawer(driver);
-        Utils.searchInVisibleListWithName(driver, quickAccessText).click();
-
-        //assert the test file is visible
-        if(Utils.findElementsByName(driver, fileName).isEmpty()){
-            fail("The element named " + fileName  + " should be visible");
+            //assert the test file is visible
+            if (Utils.findElementsByName(driver, fileName).isEmpty()) {
+                fail("The element named " + fileName + " should be visible");
+            }
         }
-
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
+        }
     }
 
     // possibly a bit brittle way to do it, we are presuming here that a popup comes up

@@ -28,54 +28,64 @@ public class NavigationTests extends BaseAppiumTest{
 
     @Test
     public void testSwipingBetweenTwoFolders(){
+        try {
+            //make sure we're on the left screen at start
+            Utils.swipeToLeftScreen(driver);
 
-        //make sure we're on the left screen at start
-        Utils.swipeToLeftScreen(driver);
+            //navigate one view into the images folder
+            Utils.openDrawer(driver);
+            Utils.searchInVisibleListWithName(driver, moviesFolderName).click();
 
-        //navigate one view into the images folder
-        Utils.openDrawer(driver);
-        Utils.searchInVisibleListWithName(driver, moviesFolderName).click();
+            //swipe to the other screen
+            Utils.swipeToRightScreen(driver);
+            Utils.openDrawer(driver);
 
-        //swipe to the other screen
-        Utils.swipeToRightScreen(driver);
-        Utils.openDrawer(driver);
+            //open recent files
+            Utils.searchInVisibleListWithName(driver, recentFilesFolderName).click();
 
-        //open recent files
-        Utils.searchInVisibleListWithName(driver, recentFilesFolderName).click();
+            //assert swiping between the screens works properly
+            Utils.swipeToLeftScreen(driver);
+            String filePathText =
+                    driver.findElementById("com.amaze.filemanager:id/fullpath").getText();
+            assertTrue("File path does not contain the correct folder: " + moviesFolderName,
+                    filePathText.contains(moviesFolderName));
 
-        //assert swiping between the screens works properly
-        Utils.swipeToLeftScreen(driver);
-        String filePathText =
-                driver.findElementById("com.amaze.filemanager:id/fullpath").getText();
-        assertTrue("File path does not contain the correct folder: " + moviesFolderName,
-                filePathText.contains(moviesFolderName));
-
-        Utils.swipeToRightScreen(driver);
-        filePathText =
-                driver.findElementById("com.amaze.filemanager:id/fullpath").getText();
-        assertTrue("File path does not contain the correct folder: " + recentFilesFolderName,
-                filePathText.contains(recentFilesFolderName));
-
+            Utils.swipeToRightScreen(driver);
+            filePathText =
+                    driver.findElementById("com.amaze.filemanager:id/fullpath").getText();
+            assertTrue("File path does not contain the correct folder: " + recentFilesFolderName,
+                    filePathText.contains(recentFilesFolderName));
+        }
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
+        }
     }
 
     @Test
     public void testGridView(){
-        Utils.swipeToRightScreen(driver);
+        try {
+            Utils.swipeToRightScreen(driver);
 
-        //assert .../Testing is visible
-        Utils.searchInVisibleListWithName(driver, generalTestFolderName);
+            //assert .../Testing is visible
+            Utils.searchInVisibleListWithName(driver, generalTestFolderName);
 
-        //switch to grid layout
-        swipeUpInMainView();
-        Utils.openOverflowMenu(driver);
-        Utils.findElementByName(driver, overflowGridText).click();
-        Utils.searchInVisibleListWithName(driver, generalTestFolderName);
+            //switch to grid layout
+            swipeUpInMainView();
+            Utils.openOverflowMenu(driver);
+            Utils.findElementByName(driver, overflowGridText).click();
+            Utils.searchInVisibleListWithName(driver, generalTestFolderName);
 
-        //switch back to list layout
-        swipeUpInMainView();
-        Utils.openOverflowMenu(driver);
-        Utils.findElementByName(driver, overflowLIstText).click();
-        Utils.searchInVisibleListWithName(driver, generalTestFolderName);
+            //switch back to list layout
+            swipeUpInMainView();
+            Utils.openOverflowMenu(driver);
+            Utils.findElementByName(driver, overflowLIstText).click();
+            Utils.searchInVisibleListWithName(driver, generalTestFolderName);
+        }
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
+        }
     }
 
     private void swipeUpInMainView(){

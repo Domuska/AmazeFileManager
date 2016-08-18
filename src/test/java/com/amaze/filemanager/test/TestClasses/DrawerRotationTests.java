@@ -16,23 +16,29 @@ public class DrawerRotationTests extends BaseAppiumTest{
     @Test
     public void testDrawerOpenRotateScreen(){
 
-        Utils.openDrawer(driver);
+        try{
+            Utils.openDrawer(driver);
 
-        //assert couple elements are visible
-        assertViewsAreVisible();
+            //assert couple elements are visible
+            assertViewsAreVisible();
 
-        //rotate screen
-        driver.rotate(ScreenOrientation.LANDSCAPE);
+            //rotate screen
+            driver.rotate(ScreenOrientation.LANDSCAPE);
 
-        //assert the elements are still visible
-        assertViewsAreVisible();
+            //assert the elements are still visible
+            assertViewsAreVisible();
 
-        //rotate again
-        driver.rotate(ScreenOrientation.PORTRAIT);
+            //rotate again
+            driver.rotate(ScreenOrientation.PORTRAIT);
 
-        //assert the views are still visible
-        assertViewsAreVisible();
+            //assert the views are still visible
+            assertViewsAreVisible();
 
+        }
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
+        }
     }
 
     private void assertViewsAreVisible() {

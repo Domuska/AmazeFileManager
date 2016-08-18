@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import io.appium.java_client.TouchAction;
 
 import static junit.framework.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class BookMarkTests extends BaseAppiumTest{
 
@@ -25,26 +27,30 @@ public class BookMarkTests extends BaseAppiumTest{
 
     @Test
     public void testBookMarking(){
+        try {
+            Utils.addFileToBookMarks(driver, generalTestFoldername);
 
-        Utils.addFileToBookMarks(driver, generalTestFoldername);
+            //assert the bookmark is visible
+            Utils.openDrawer(driver);
+            Utils.searchInVisibleListWithName(driver, generalTestFoldername);
 
-        //assert the bookmark is visible
-        Utils.openDrawer(driver);
-        Utils.searchInVisibleListWithName(driver, generalTestFoldername);
+            //remove the bookmark
+            WebElement bookmark =
+                    Utils.searchInVisibleListWithName(driver, generalTestFoldername);
+            TouchAction longPress = new TouchAction(driver);
+            longPress.longPress(bookmark, 2000).release().perform();
+            driver.findElementById("com.amaze.filemanager:id/buttonDefaultNegative").click();
 
-        //remove the bookmark
-        WebElement bookmark =
-                Utils.searchInVisibleListWithName(driver, generalTestFoldername);
-        TouchAction longPress = new TouchAction(driver);
-        longPress.longPress(bookmark, 2000).release().perform();
-        driver.findElementById("com.amaze.filemanager:id/buttonDefaultNegative").click();
-
-        //assert it is no longer visible in the nav drawer, we can assert like this since after deleting
-        //the bookmark the navigation drawer stays at the same position
-        WebElement drawer = driver.findElementById("com.amaze.filemanager:id/left_drawer");
-        if(!drawer.findElements(By.xpath("//*[@text='"+generalTestFoldername+"']")).isEmpty()){
-            fail("The bookmark with name " + generalTestFoldername + " should not be visible any more");
+            //assert it is no longer visible in the nav drawer, we can assert like this since after deleting
+            //the bookmark the navigation drawer stays at the same position
+            WebElement drawer = driver.findElementById("com.amaze.filemanager:id/left_drawer");
+            if (!drawer.findElements(By.xpath("//*[@text='" + generalTestFoldername + "']")).isEmpty()) {
+                fail("The bookmark with name " + generalTestFoldername + " should not be visible any more");
+            }
         }
-
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
+        }
     }
 }

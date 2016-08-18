@@ -17,18 +17,23 @@ public class MainFragmentRotationTests extends BaseTestClass{
 
     @Test
     public void testRotateMainFragment(){
+        try {
+            //add test files
+            Utils.createFileWithName(driver, fileName);
+            Utils.createFolderWithName(driver, folderName);
 
-        //add test files
-        Utils.createFileWithName(driver, fileName);
-        Utils.createFolderWithName(driver, folderName);
+            //rotate screen and assert views visible
+            driver.rotate(ScreenOrientation.LANDSCAPE);
+            assertViewsVisible();
 
-        //rotate screen and assert views visible
-        driver.rotate(ScreenOrientation.LANDSCAPE);
-        assertViewsVisible();
-
-        //rotate screen again and assert views visible
-        driver.rotate(ScreenOrientation.PORTRAIT);
-        assertViewsVisible();
+            //rotate screen again and assert views visible
+            driver.rotate(ScreenOrientation.PORTRAIT);
+            assertViewsVisible();
+        }
+        catch(Exception e){
+            takeScreenshot("failure_" + System.currentTimeMillis());
+            throw e;
+        }
     }
 
     private void assertViewsVisible(){
