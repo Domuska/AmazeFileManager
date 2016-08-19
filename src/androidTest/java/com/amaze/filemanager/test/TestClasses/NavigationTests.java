@@ -56,12 +56,8 @@ public class NavigationTests extends BaseRobotiumTest{
         filePath = (TextView)solo.getView(R.id.fullpath);
         assertTrue("File path does not include " + recentFilesText,
                 filePath.getText().toString().contains(recentFilesText));
-
     }
 
-    //for some reason this test fails since Robotium does not scroll all the way down with the
-    //grid layout mode active, issue submitted, see Github
-    //also, this recyclerview is defined in fragments/Main
     public void testGridView(){
         Utils.swipeToRightScreen(solo);
 
@@ -80,7 +76,6 @@ public class NavigationTests extends BaseRobotiumTest{
     }
 
     private void assertGeneralTestingFolderVisible() {
-//        solo.scrollRecyclerViewToBottom(0);
         boolean testFolderFound = solo.searchText(generalTestFolderName);
         assertTrue("Folder " + generalTestFolderName + " should be visible", testFolderFound);
     }
