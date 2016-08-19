@@ -13,6 +13,7 @@ import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -30,6 +31,7 @@ public class QuickAccessFileTests extends BaseTestClass{
     }
 
     @Test
+    @Ignore
     public void testOpenFileCheckRecents() throws Exception{
         Utils.createFileWithName(device, fileName);
 
