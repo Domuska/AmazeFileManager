@@ -62,4 +62,6 @@ public class BaseUIAutomatorTest {
         InstrumentationRegistry.getInstrumentation().getUiAutomation()
                 .executeShellCommand("rm -r /storage/emulated/0/Testing/" + amazeTestingFolder);
     }
+
+
 }

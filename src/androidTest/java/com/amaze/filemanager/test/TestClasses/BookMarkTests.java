@@ -1,5 +1,6 @@
 package com.amaze.filemanager.test.TestClasses;
 
+
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiScrollable;

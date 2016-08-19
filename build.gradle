@@ -39,6 +39,8 @@ android {
 
         //for GUI tests
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //add a listener to every instrumentation test run
+        testInstrumentationRunnerArguments listener: "com.amaze.filemanager.test.Utilities.MyListener"
     }
 
     signingConfigs {
