@@ -3,6 +3,7 @@ package com.amaze.filemanager.test.TestClasses;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -14,6 +15,7 @@ public class QuickAccessFileTests extends BaseTestClass{
     private String quickAccessText = "Quick Access";
 
     @Test
+    @Ignore
     public void testOpenFileCheckRecents(){
         try {
             Utils.createFileWithName(driver, fileName);
