@@ -22,7 +22,7 @@ public class QuickAccessTests extends BaseTestClass{
     //and we will go outside of this app's scope, which is not possible with Robotium. If it was
     //possible to mock or stub the launched intent somehow it could be doable, but did not find
     //a way to do it
-    public void testOpenFileCheckRecents(){
+    public void estOpenFileCheckRecents(){
 
         fail("Test cannot be implemented, opening a file and navigating back not possible in Robotium");
         Utils.createFileWithName(solo, fileName);
