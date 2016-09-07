@@ -66,7 +66,9 @@ public class FileAndFolderManipulationTests extends BaseTestClass {
         Utils.createFileWithName(solo, fileName);
 
         //copy the file
-        solo.waitForDialogToClose();
+        //wait for the dialog to close, waitfordialogtoclose doesnt work
+        solo.waitForText(folderName1);
+        //solo.waitForDialogToClose();
         List<ImageButton> views = solo.getCurrentViews(ImageButton.class);
         for(ImageButton button : views){
             if(button.getId() == R.id.properties)
