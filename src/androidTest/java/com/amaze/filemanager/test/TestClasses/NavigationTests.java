@@ -37,6 +37,7 @@ public class NavigationTests extends BaseRobotiumTest{
         //navigate this viewPager into the videos
         Utils.openDrawer(solo);
         solo.clickOnText(videosText);
+        solo.waitForText(videosText);
 
         //swipe to the right viewPager
         Utils.swipeToRightScreen(solo);
@@ -44,6 +45,7 @@ public class NavigationTests extends BaseRobotiumTest{
         //open recent files
         Utils.openDrawer(solo);
         solo.clickOnText(recentFilesText);
+        solo.waitForText(recentFilesText);
 
         //assert the viewPager filepaths include the folder that was navigated into
         Utils.swipeToLeftScreen(solo);

@@ -84,7 +84,7 @@ public class Utils {
         Double point = size.x/1.5;
         float endX = point.floatValue();
         float endY = startY;
-        solo.drag(startX, endX, startY, endY, 3);
+        solo.drag(startX, endX, startY, endY, 5);
     }
 
     public static void swipeToRightScreen(Solo solo){
@@ -98,7 +98,7 @@ public class Utils {
         float endX = size.x/3;
         float endY = startY;
 
-        solo.drag(startX, endX, startY, endY, 3);
+        solo.drag(startX, endX, startY, endY, 5);
 
     }
 
