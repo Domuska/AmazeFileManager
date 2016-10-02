@@ -12,7 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
@@ -34,12 +36,19 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         Utils.createFileWithName(device, fileName);
 
         //assert file is visible
-        assertTrue("New file with name " + fileName + " not found",
-                device.findObject(new UiSelector().text(fileName)).exists());
+        //assertTrue("New file with name " + fileName + " not found",
+        //        device.findObject(new UiSelector().text(fileName)).exists());
+        assertNotNull("New file with name " + fileName + " not found",
+                device.wait(Until.findObject(By.text(fileName)), GENERAL_TIMEOUT));
 
         //delete the file
-        device.findObject(By.text(fileName)).longClick();
-        device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
+        //device.wait(Until.findObject(By.text(fileName)), GENERAL_TIMEOUT)
+        //        .longClick();
+        Utils.myLongClick(device, fileName);
+        device.wait(Until.findObject(By.res("com.amaze.filemanager:id/delete")), GENERAL_TIMEOUT)
+                .click();
+        //device.findObject(By.text(fileName)).longClick();
+        //device.findObject(By.res("com.amaze.filemanager:id/delete")).click();
 
         device.findObject(new UiSelector().resourceId("com.amaze.filemanager:id/buttonDefaultPositive"))
                 .clickAndWaitForNewWindow();
@@ -54,11 +63,12 @@ public class FileAndFolderManipulationTests extends BaseTestClass{
         Utils.createFolderWithName(device, folderName1);
 
         //assert folder is visible
-        assertTrue("Folder should be visible",
-                device.findObject(new UiSelector().text(folderName1)).exists());
+        assertNotNull("Folder should be visible",
+                device.wait(Until.findObject(By.text(folderName1)), GENERAL_TIMEOUT));
 
         //delete the folder
-        device.findObject(new UiSelector().text(folderName1)).longClick();
+        //device.findObject(new UiSelector().text(folderName1)).longClick();
+        Utils.myLongClick(device, folderName1);
 
         device.wait(Until.findObject(
                 By.res("com.amaze.filemanager:id/delete")), GENERAL_TIMEOUT).click();

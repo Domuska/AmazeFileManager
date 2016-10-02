@@ -1,5 +1,6 @@
 package com.amaze.filemanager.test.TestClasses;
 
+import android.graphics.Rect;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
@@ -37,8 +38,8 @@ public class EditBookmarkTests extends BaseUIAutomatorTest{
         navDrawer = new UiScrollable(
                 new UiSelector().resourceId("com.amaze.filemanager:id/menu_drawer"));
         navDrawer.scrollTextIntoView(newTestFolderName);
-        device.findObject(By.text(newTestFolderName)).longClick();
-
+        //device.findObject(By.text(newTestFolderName)).longClick();
+        Utils.myLongClick(device, newTestFolderName);
         device.wait(Until.findObject(By.res("com.amaze.filemanager:id/buttonDefaultNegative")),
                 GENERAL_TIMEOUT).click();
     }
@@ -69,4 +70,5 @@ public class EditBookmarkTests extends BaseUIAutomatorTest{
         assertTrue("Bookmark with name " + newTestFolderName + " should be visible",
                 device.findObject(new UiSelector().text(newTestFolderName)).exists());
     }
+
 }

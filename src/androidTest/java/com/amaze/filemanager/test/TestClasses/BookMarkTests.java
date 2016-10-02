@@ -36,7 +36,8 @@ public class BookMarkTests extends BaseUIAutomatorTest{
                 navDrawer.scrollTextIntoView(generalTestFolderName));
 
         //remove the bookmark
-        device.findObject(By.text(generalTestFolderName)).longClick();
+        //device.findObject(By.text(generalTestFolderName)).longClick();
+        Utils.myLongClick(device, generalTestFolderName);
         device.wait(Until.findObject(
                 By.res("com.amaze.filemanager:id/buttonDefaultNegative")),
                 GENERAL_TIMEOUT)

@@ -10,6 +10,7 @@ import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
+import com.amaze.filemanager.test.TestClasses.BaseTestClass;
 import com.amaze.filemanager.test.TestClasses.BaseUIAutomatorTest;
 
 import static junit.framework.Assert.assertEquals;
@@ -132,5 +133,15 @@ public class Utils {
         device.wait(Until.findObject(By.text("Add to Bookmark")),
                 BaseUIAutomatorTest.GENERAL_TIMEOUT)
         .click();
+    }
+
+    //dirty workaround for getting consistent long clicking, it can
+    //fail unexpectedly at a times. Instead use swipe action.
+    public static void myLongClick(UiDevice device, String text){
+        UiObject2 object = device.wait(Until.findObject(By.text(text)), BaseTestClass.GENERAL_TIMEOUT);
+        Rect coordinates = object.getVisibleBounds();
+        device.swipe(coordinates.centerX(), coordinates.centerY(),
+                coordinates.centerX(), coordinates.centerY(),
+                100);
     }
 }
