@@ -12,7 +12,11 @@ class MainFragmentRotationTests(UITestCase):
         launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
         
         Utils.navigateToTestFolder()
-        Utils.createFolderWithName(amazeTestingFolder)
+        #Utils.createFolderWithName(amazeTestingFolder)
+        tap.instanceOf('android.widget.ImageView', index=2)     
+        tap.resourceId("com.amaze.filemanager:id/menu_item")
+        input.text(amazeTestingFolder)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         tap.text(amazeTestingFolder)
         
     def tearDown(self):
@@ -27,8 +31,17 @@ class MainFragmentRotationTests(UITestCase):
     def testRotateMainFragment(self):
         log('Step1: Insert test step description')
         
-        self.createFolderWithName(folderName)
-        self.createFileWithName(fileName)
+        #self.createFolderWithName(folderName)
+        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.resourceId("com.amaze.filemanager:id/menu_item")
+        input.text(folderName)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
+        
+        #self.createFileWithName(fileName)
+        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.resourceId("com.amaze.filemanager:id/menu_item1")
+        input.text(fileName)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         
         #rotate screen
         orientation.left()        

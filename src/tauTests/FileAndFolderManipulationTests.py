@@ -20,7 +20,11 @@ class FileAndFolderManipulationTests(UITestCase):
         launch.activity('com.amaze.filemanager', '.activities.MainActivity', verify=False)
         
         Utils.navigateToTestFolder()
-        Utils.createFolderWithName(amazeTestingFolder)
+        #Utils.createFolderWithName(amazeTestingFolder)
+        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.resourceId("com.amaze.filemanager:id/menu_item")
+        input.text(amazeTestingFolder)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         tap.text(amazeTestingFolder)
         
     def tearDown(self):
@@ -35,10 +39,13 @@ class FileAndFolderManipulationTests(UITestCase):
     @testCaseInfo('<Add a new folder>', deviceCount=1)
     def testCreateNewFolderAndDeleteIt(self):
       
-        #create the file
+        #create the folder
         #Utils.createFolderWithName(folderName1)
         #for some reason the way it is done in utils does not work!
-        self.createFolderWithName(folderName1)
+        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.resourceId("com.amaze.filemanager:id/menu_item")
+        input.text(folderName1)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         
         #assert it is visible
         verify.text(folderName1)
@@ -54,8 +61,12 @@ class FileAndFolderManipulationTests(UITestCase):
     @testCaseInfo('<Add a new file>', deviceCount=1)
     def testCreateNewFileAndDeleteIt(self):
         
+        #create folder, doesnt work if helper method is used
         #Utils.createFileWithName(fileName)
-        self.createFileWithName(fileName)
+        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.resourceId("com.amaze.filemanager:id/menu_item1")
+        input.text(fileName)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         
         #assert file is visible
         #assert exists.text(fileName), \
@@ -75,12 +86,26 @@ class FileAndFolderManipulationTests(UITestCase):
         
     @testCaseInfo('<Copy a file to another folder>', deviceCount=1)
     def testCopyFileToAnotherFolder(self):
-        self.createFolderWithName(folderName1)
-        self.createFolderWithName(folderName2)
+        #create folders, doesnt work if helper methods are used
+        #self.createFolderWithName(folderName1)
+        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.resourceId("com.amaze.filemanager:id/menu_item")
+        input.text(folderName1)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
+        
+        #self.createFolderWithName(folderName2)
+        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.resourceId("com.amaze.filemanager:id/menu_item")
+        input.text(folderName2)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         
         #add file to the folder
         tap.text(folderName1)
-        self.createFileWithName(fileName)
+        #self.createFileWithName(fileName)
+        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.resourceId("com.amaze.filemanager:id/menu_item1")
+        input.text(fileName)
+        tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         
         #copy the file
         tap.resourceId("com.amaze.filemanager:id/properties")
@@ -100,13 +125,13 @@ class FileAndFolderManipulationTests(UITestCase):
         
     
     def createFolderWithName(self, folderName):
-        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.instanceOf('android.widget.ImageView')
         tap.resourceId("com.amaze.filemanager:id/menu_item")
         input.text(folderName)
         tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
         
     def createFileWithName(self, name):
-        tap.instanceOf('android.widget.ImageView', index=2)
+        tap.instanceOf('android.widget.ImageView')
         tap.resourceId("com.amaze.filemanager:id/menu_item1")
         input.text(name)
         tap.resourceId("com.amaze.filemanager:id/buttonDefaultPositive")
