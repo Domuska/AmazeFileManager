@@ -43,6 +43,8 @@ class BookMarkTests(UITestCase):
         
         #add file to bookmarks
         Utils.addFileToBookMarks(generalTestFolderName)
+        #a workaround for the fact that Tau will find the text even from behind nav drawer
+        find.text("Alarms")
         
         #assert the bookmark is visible
         Utils.openDrawer()
@@ -55,8 +57,7 @@ class BookMarkTests(UITestCase):
         tap.resourceId("com.amaze.filemanager:id/buttonDefaultNegative")
         
         #assert the bookmark is gone
-        #this assertion sadly does not work since the text is visible behind the nav drawer and
-        #Tau will pick it up
+        #view has been scrolled away from the "testing" folder so this actually works
         verify.no.text(generalTestFolderName, area="com.amaze.filemanager:id/menu_drawer")
         
         
