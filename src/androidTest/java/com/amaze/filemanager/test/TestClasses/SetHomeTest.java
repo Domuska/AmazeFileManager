@@ -11,7 +11,6 @@ import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
 import com.amaze.filemanager.R;
-
 import com.amaze.filemanager.database.TabHandler;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;

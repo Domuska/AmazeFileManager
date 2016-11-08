@@ -13,8 +13,6 @@ import android.support.test.uiautomator.Until;
 import com.amaze.filemanager.test.TestClasses.BaseTestClass;
 import com.amaze.filemanager.test.TestClasses.BaseUIAutomatorTest;
 
-import static junit.framework.Assert.assertEquals;
-
 public class Utils {
 
     private static String generalTestingFolderName = TestDataSource.generalTestFolderName;
