@@ -5,7 +5,6 @@ import android.widget.TextView;
 import com.amaze.filemanager.R;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
-import com.robotium.solo.Solo;
 
 public class NavigationTests extends BaseRobotiumTest{
 

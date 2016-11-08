@@ -3,11 +3,10 @@ package com.amaze.filemanager.test.TestClasses;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
 
+import com.amaze.filemanager.R;
 import com.amaze.filemanager.database.TabHandler;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
-
-import com.amaze.filemanager.R;
 
 public class SetAsHomeTest extends BaseRobotiumTest{
 

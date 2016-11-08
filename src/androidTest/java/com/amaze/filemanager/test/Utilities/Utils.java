@@ -1,28 +1,18 @@
 package com.amaze.filemanager.test.Utilities;
 
-import android.app.Activity;
 import android.graphics.Point;
-import android.graphics.PointF;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amaze.filemanager.R;
 import com.robotium.solo.Solo;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
-
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class Utils {
 

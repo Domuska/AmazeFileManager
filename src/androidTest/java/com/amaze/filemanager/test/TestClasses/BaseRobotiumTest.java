@@ -4,14 +4,10 @@ import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.amaze.filemanager.R;
-
 import com.amaze.filemanager.activities.MainActivity;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 import com.robotium.solo.Solo;
-
-import org.junit.Test;
 
 
 public class BaseRobotiumTest extends ActivityInstrumentationTestCase2{
