@@ -1,14 +1,10 @@
 package com.amaze.filemanager.test.TestClasses;
 
-import android.support.test.rule.ActivityTestRule;
-
-import com.amaze.filemanager.activities.MainActivity;
 import com.amaze.filemanager.R;
 import com.amaze.filemanager.test.Utilities.Utils;
 import com.amaze.filemanager.ui.drawer.EntryItem;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onData;

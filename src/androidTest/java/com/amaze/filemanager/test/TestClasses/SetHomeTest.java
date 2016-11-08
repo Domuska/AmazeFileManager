@@ -1,17 +1,14 @@
 package com.amaze.filemanager.test.TestClasses;
 
 import android.preference.PreferenceManager;
-import android.support.test.espresso.intent.rule.IntentsTestRule;
 
 import com.amaze.filemanager.R;
-import com.amaze.filemanager.activities.MainActivity;
 import com.amaze.filemanager.database.TabHandler;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import static android.support.test.espresso.Espresso.onData;
