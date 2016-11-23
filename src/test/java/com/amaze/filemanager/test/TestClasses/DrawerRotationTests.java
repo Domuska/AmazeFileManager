@@ -3,7 +3,6 @@ package com.amaze.filemanager.test.TestClasses;
 import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
 
 import static junit.framework.Assert.fail;

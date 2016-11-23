@@ -3,19 +3,14 @@ package com.amaze.filemanager.test.TestClasses;
 import com.amaze.filemanager.test.Utilities.TestDataSource;
 import com.amaze.filemanager.test.Utilities.Utils;
 
-
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.pagefactory.AndroidFindBys;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
 public class FileAndFolderManipulationTests extends BaseTestClass {

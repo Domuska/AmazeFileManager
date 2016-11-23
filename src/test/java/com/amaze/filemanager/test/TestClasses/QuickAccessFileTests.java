@@ -5,7 +5,6 @@ import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 import static junit.framework.Assert.fail;
 

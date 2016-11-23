@@ -11,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import io.appium.java_client.TouchAction;
 
 import static junit.framework.Assert.fail;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 
 public class BookMarkTests extends BaseAppiumTest{
 

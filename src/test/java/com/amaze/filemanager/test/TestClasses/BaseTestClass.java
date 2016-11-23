@@ -5,12 +5,6 @@ import com.amaze.filemanager.test.Utilities.Utils;
 
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import io.appium.java_client.TouchAction;
 
 public class BaseTestClass extends BaseAppiumTest{
 
